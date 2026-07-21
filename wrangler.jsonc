@@ -1,8 +1,17 @@
 {
   "name": "zajickuv-med",
   "compatibility_date": "2026-07-21",
+  "main": "worker/worker.ts",
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "zajickuv-med-admin",
+      "database_id": "7bed0fbd-063f-4202-be5b-1d4d7af43c40"
+    }
+  ]
 }
