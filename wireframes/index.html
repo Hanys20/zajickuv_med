@@ -1,0 +1,1178 @@
+<!doctype html>
+<title>Zajíčkův med — wireframe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --ink: #2b2a28;
+    --ink-dim: #6b675f;
+    --paper: #faf9f7;
+    --paper-raised: #ffffff;
+    --frame-bg: #f1efea;
+    --block: #e7e4dd;
+    --block-strong: #dad6cc;
+    --border: #c9c4b8;
+    --border-dashed: #b3ad9e;
+    --accent: #8a7245;
+    --accent-ink: #ffffff;
+    --accent-soft: #efe6d3;
+    --good: #3f6b45;
+    --good-bg: #e4efe3;
+    --bad: #96392c;
+    --bad-bg: #f4e4df;
+    --shell-bg: #eceae5;
+    --shell-border: #dbd7cd;
+    --shell-ink: #2b2a28;
+    --radius-s: 4px;
+    --radius-m: 10px;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ece9e2;
+      --ink-dim: #a9a499;
+      --paper: #171614;
+      --paper-raised: #201f1c;
+      --frame-bg: #1d1b18;
+      --block: #2a2823;
+      --block-strong: #35322b;
+      --border: #3b382f;
+      --border-dashed: #4a473c;
+      --accent: #cdb27c;
+      --accent-ink: #1a1712;
+      --accent-soft: #332d1e;
+      --good: #86c28c;
+      --good-bg: #1f2c20;
+      --bad: #dd9384;
+      --bad-bg: #2e1f1b;
+      --shell-bg: #121110;
+      --shell-border: #2a2823;
+      --shell-ink: #ece9e2;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ece9e2;
+    --ink-dim: #a9a499;
+    --paper: #171614;
+    --paper-raised: #201f1c;
+    --frame-bg: #1d1b18;
+    --block: #2a2823;
+    --block-strong: #35322b;
+    --border: #3b382f;
+    --border-dashed: #4a473c;
+    --accent: #cdb27c;
+    --accent-ink: #1a1712;
+    --accent-soft: #332d1e;
+    --good: #86c28c;
+    --good-bg: #1f2c20;
+    --bad: #dd9384;
+    --bad-bg: #2e1f1b;
+    --shell-bg: #121110;
+    --shell-border: #2a2823;
+    --shell-ink: #ece9e2;
+  }
+  :root[data-theme="light"] {
+    --ink: #2b2a28;
+    --ink-dim: #6b675f;
+    --paper: #faf9f7;
+    --paper-raised: #ffffff;
+    --frame-bg: #f1efea;
+    --block: #e7e4dd;
+    --block-strong: #dad6cc;
+    --border: #c9c4b8;
+    --border-dashed: #b3ad9e;
+    --accent: #8a7245;
+    --accent-ink: #ffffff;
+    --accent-soft: #efe6d3;
+    --good: #3f6b45;
+    --good-bg: #e4efe3;
+    --bad: #96392c;
+    --bad-bg: #f4e4df;
+    --shell-bg: #eceae5;
+    --shell-border: #dbd7cd;
+    --shell-ink: #2b2a28;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-ui);
+    background: var(--shell-bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  /* ---------- meta toolbar (the wireframe tool itself) ---------- */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--shell-bg);
+    border-bottom: 1px solid var(--shell-border);
+    color: var(--shell-ink);
+  }
+  .toolbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .toolbar-brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-right: auto;
+  }
+  .toolbar-brand strong {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .toolbar-brand span {
+    font-size: 11px;
+    color: var(--ink-dim);
+  }
+  .tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-dim);
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .tab[aria-current="page"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .tab:not([aria-current="page"]):hover {
+    border-color: var(--border);
+    color: var(--ink);
+  }
+  .viewport-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .viewport-toggle button {
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 12px;
+    letter-spacing: 0.02em;
+  }
+  .viewport-toggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .legend-note {
+    font-size: 11px;
+    color: var(--ink-dim);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px 10px;
+  }
+  .legend-note code {
+    font-family: var(--font-mono);
+    background: var(--block);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ---------- device / canvas ---------- */
+  .canvas {
+    padding: 28px 16px 80px;
+    display: flex;
+    justify-content: center;
+  }
+  .device-frame {
+    width: 100%;
+    max-width: 1180px;
+    background: var(--frame-bg);
+    transition: max-width 0.2s ease;
+  }
+  .device-frame.is-mobile {
+    max-width: 400px;
+    border-radius: 28px;
+    border: 8px solid var(--paper-raised);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+  }
+  .page { display: none; }
+  .page.is-active { display: block; }
+
+  /* ---------- annotation chips ---------- */
+  .ann {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    border-radius: 3px;
+    padding: 2px 6px;
+    background: var(--accent-soft);
+    white-space: nowrap;
+  }
+
+  /* ---------- site chrome inside the wireframe ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--paper-raised);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px;
+  }
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .site-logo .dot { font-size: 18px; }
+  .site-nav {
+    display: flex;
+    gap: 22px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-dim);
+  }
+  .site-nav a { text-decoration: none; }
+  .site-nav a:hover { color: var(--ink); }
+  .nav-desktop { display: flex; }
+  .nav-mobile-toggle {
+    display: none;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    border-radius: var(--radius-s);
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .nav-mobile-panel {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 20px 14px;
+    background: var(--paper-raised);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-mobile-panel a {
+    padding: 10px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--block);
+  }
+  .device-frame.is-mobile .nav-desktop { display: none; }
+  .device-frame.is-mobile .nav-mobile-toggle { display: flex; }
+  .device-frame.is-mobile .nav-mobile-panel.is-open { display: flex; }
+
+  .site-header .ann { position: relative; top: -1px; }
+
+  main { display: block; }
+  section.block { padding: 40px 20px; border-bottom: 1px solid var(--border); }
+  .device-frame.is-mobile section.block { padding: 28px 16px; }
+  section.block:last-of-type { border-bottom: none; }
+  .block-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    font-weight: 700;
+  }
+  h2.block-title { font-size: 24px; margin-top: 4px; }
+  .device-frame.is-mobile h2.block-title { font-size: 20px; }
+  p.block-lede { color: var(--ink-dim); font-size: 14.5px; max-width: 60ch; margin-top: 10px; }
+
+  /* image placeholder */
+  .imgph {
+    background: repeating-linear-gradient(135deg, var(--block), var(--block) 8px, var(--block-strong) 8px, var(--block-strong) 16px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-dim);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    min-height: 140px;
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid var(--ink);
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .btn-block { width: 100%; justify-content: center; }
+  .cta-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 18px; }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; }
+  .device-frame.is-mobile .hero { grid-template-columns: 1fr; }
+  .hero .imgph { min-height: 260px; }
+  .hero-copy .eyebrow { margin-bottom: 10px; }
+  .hero h1 { font-size: 34px; line-height: 1.12; }
+  .device-frame.is-mobile .hero h1 { font-size: 26px; }
+  .hero .sub { font-size: 16px; color: var(--ink); margin-top: 10px; font-weight: 600; }
+  .hero .body { font-size: 14.5px; color: var(--ink-dim); margin-top: 10px; max-width: 46ch; }
+
+  /* cards grid */
+  .grid { display: grid; gap: 16px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .device-frame.is-mobile .grid-4,
+  .device-frame.is-mobile .grid-3,
+  .device-frame.is-mobile .grid-2 { grid-template-columns: 1fr; }
+
+  .card {
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    padding: 16px;
+  }
+  .card h3 { font-size: 15px; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--ink-dim); line-height: 1.45; }
+  .icon-ph {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--block); border: 1px dashed var(--border-dashed);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; margin-bottom: 10px;
+  }
+  .stat-line {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    background: var(--accent-soft);
+    color: var(--ink);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius-m);
+    padding: 14px;
+  }
+
+  /* product carousel (honey flip-cards) */
+  .carousel {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 4px;
+    scroll-snap-type: x mandatory;
+    margin: 0 -4px;
+  }
+  .device-frame:not(.is-mobile) .carousel { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+
+  .honey-card {
+    scroll-snap-align: start;
+    min-width: 208px;
+    flex: 0 0 auto;
+    perspective: 1200px;
+  }
+  .device-frame:not(.is-mobile) .honey-card { min-width: 0; }
+  .honey-card-inner {
+    position: relative;
+    height: 226px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0.15, 0.2, 1), box-shadow 0.2s ease;
+    border-radius: var(--radius-m);
+  }
+  .honey-card.is-flipped .honey-card-inner { transform: rotateY(180deg); }
+  .honey-card:hover .honey-card-inner { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14); }
+  .honey-card:focus-visible { outline: none; }
+  .honey-card:focus-visible .honey-card-inner { box-shadow: 0 0 0 2px var(--accent); }
+  .honey-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    background: var(--paper-raised);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  .honey-face .imgph { flex: 1; min-height: 0; border-radius: 0; border-width: 0 0 1px 0; }
+  .honey-face-body { padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .honey-face-body h3 { font-size: 13px; line-height: 1.25; }
+  .flip-hint { position: absolute; top: 8px; right: 8px; font-size: 13px; opacity: 0.5; }
+  .honey-back {
+    transform: rotateY(180deg);
+    background: var(--accent-soft);
+    padding: 16px;
+    justify-content: center;
+    gap: 8px;
+    text-align: left;
+  }
+  .honey-back h3 { font-size: 13.5px; }
+  .honey-back p { font-size: 12px; color: var(--ink-dim); line-height: 1.5; }
+  .badge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; border-radius: 999px; padding: 3px 9px; text-transform: uppercase; }
+  .badge.available { background: var(--good-bg); color: var(--good); }
+  .badge.sold-out { background: var(--bad-bg); color: var(--bad); }
+
+  /* ceník je součástí Domů, hned pod kartami medů */
+  .cenik-panel { margin-top: 24px; }
+
+  /* pricing table */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-m); background: var(--paper-raised); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 420px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--block); }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-dim); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+  tr:last-child td { border-bottom: none; }
+  .table-note { font-size: 12px; color: var(--ink-dim); margin-top: 10px; }
+
+  /* news / reviews */
+  .news-card {
+    background: var(--accent-soft);
+    border: 1px dashed var(--accent);
+    border-radius: var(--radius-m);
+    padding: 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .review-card { background: var(--paper-raised); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 16px; }
+  .review-card .stars { color: var(--accent); font-size: 13px; margin-bottom: 6px; letter-spacing: 2px; }
+  .review-card .who { font-size: 12px; color: var(--ink-dim); margin-top: 8px; font-weight: 600; }
+
+  /* faq accordion */
+  .acc-item { border: 1px solid var(--border); border-radius: var(--radius-m); background: var(--paper-raised); overflow: hidden; margin-bottom: 10px; }
+  .acc-q {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    color: var(--ink);
+  }
+  .acc-q .chevron { transition: transform 0.15s ease; color: var(--ink-dim); }
+  .acc-item.is-open .acc-q .chevron { transform: rotate(180deg); }
+  .acc-a { max-height: 0; overflow: hidden; transition: max-height 0.2s ease; }
+  .acc-item.is-open .acc-a { max-height: 600px; }
+  .acc-a-inner { padding: 0 16px 16px; font-size: 13.5px; color: var(--ink-dim); line-height: 1.55; white-space: pre-line; }
+
+  /* contact */
+  .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
+  .device-frame.is-mobile .contact-grid { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .field label { font-size: 12.5px; font-weight: 700; }
+  .field .ann { align-self: flex-start; margin-top: 2px; }
+  .field input, .field select, .field textarea {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-s);
+    padding: 10px 12px;
+    font-size: 14px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-family: inherit;
+  }
+  .info-block { background: var(--paper-raised); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .info-row { font-size: 13.5px; }
+  .info-row strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-dim); margin-bottom: 2px; }
+  .social-row { display: flex; gap: 10px; margin-top: 4px; }
+  .social-ph { width: 34px; height: 34px; border-radius: 50%; background: var(--block); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .map-ph { min-height: 180px; margin-top: 4px; }
+
+  /* footer */
+  footer.site-footer { background: var(--frame-bg); padding: 32px 20px 90px; border-top: 1px solid var(--border); }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; font-size: 13px; }
+  .device-frame.is-mobile .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-dim); margin-bottom: 10px; }
+  .footer-grid a, .footer-grid p { display: block; color: var(--ink); text-decoration: none; margin-bottom: 6px; font-size: 13px; }
+  .footer-bottom { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--ink-dim); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+  /* back to top */
+  .back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 50;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    font-size: 18px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+  .back-to-top.is-visible { display: flex; }
+
+  .timeline { display: flex; gap: 0; }
+  .device-frame.is-mobile .timeline { flex-direction: column; }
+  .t-item { flex: 1; position: relative; padding: 0 14px 14px 0; }
+  .t-item:not(:last-child) { border-right: 1px dashed var(--border-dashed); }
+  .device-frame.is-mobile .t-item:not(:last-child) { border-right: none; border-bottom: 1px dashed var(--border-dashed); padding: 0 0 16px 0; margin-bottom: 16px; }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-bottom: 10px; }
+  .t-item .when { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+  .t-item .what { font-size: 13.5px; font-weight: 700; margin-top: 4px; }
+
+  .story-block { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 26px; }
+  .story-block:last-child { margin-bottom: 0; }
+  .story-block h3 { font-size: 16px; }
+  .story-block p { font-size: 13.5px; color: var(--ink-dim); line-height: 1.6; max-width: 68ch; white-space: pre-line; }
+
+  .sales-point { background: var(--paper-raised); border: 1px solid var(--border); border-radius: var(--radius-m); padding: 14px 16px; margin-bottom: 10px; }
+  .sales-point strong { font-size: 13.5px; }
+  .sales-point p { font-size: 12.5px; color: var(--ink-dim); margin-top: 4px; }
+</style>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="toolbar-brand">
+      <strong>Zajíčkův med — wireframe</strong>
+      <span>Nízkofi strukturální náhled · reálný obsah · vizuál (barvy/fonty) přijde s finálním designem</span>
+    </div>
+    <nav class="tabs" id="pageTabs">
+      <button class="tab" data-page="domu">Domů</button>
+      <button class="tab" data-page="o-farme">O farmě</button>
+      <button class="tab" data-page="faq">FAQ</button>
+      <button class="tab" data-page="kontakt">Kontakt</button>
+    </nav>
+    <div class="viewport-toggle" id="viewportToggle">
+      <button data-viewport="mobile">📱 Mobil</button>
+      <button data-viewport="desktop">🖥 Desktop</button>
+    </div>
+  </div>
+  <p class="legend-note">
+    Značky jako <code>STICKY</code>, <code>CTA</code>, <code>ADMIN</code>, <code>LAZY LOAD</code> označují chování/požadavek ze zadání, ne finální vzhled. Dostupnost medů v kartách a ve formuláři je ilustrační ukázka rozhraní — reálný stav si bude nastavovat klient v administraci. Karty jednotlivých medů se otočí kliknutím (nebo klávesou Enter) a ukážou popis. Produkty a ceník jsou teď součástí Domů, ceník je rovnou vidět pod kartami — žádná samostatná záložka ani skrývání.
+  </p>
+</div>
+
+<div class="canvas">
+  <div class="device-frame is-mobile" id="deviceFrame">
+
+    <!-- ============ DOMŮ ============ -->
+    <section class="page is-active" data-page="domu">
+      <header class="site-header">
+        <div class="site-logo"><span class="dot">🐝</span> Zajíčkův med</div>
+        <nav class="site-nav nav-desktop">
+          <a href="#">Domů</a>
+          <a href="#produkty-anchor">Produkty &amp; ceník</a>
+          <a href="#" data-goto="o-farme">O farmě</a>
+          <a href="#" data-goto="faq">FAQ</a>
+          <a href="#kontakt-anchor">Kontakt</a>
+        </nav>
+        <span class="ann">Sticky</span>
+        <button class="nav-mobile-toggle" data-nav-toggle>☰</button>
+      </header>
+      <div class="nav-mobile-panel" data-nav-panel>
+        <a href="#">Domů</a>
+        <a href="#produkty-anchor">Produkty &amp; ceník</a>
+        <a href="#" data-goto="o-farme">O farmě</a>
+        <a href="#" data-goto="faq">FAQ</a>
+        <a href="#kontakt-anchor">Kontakt</a>
+      </div>
+
+      <main>
+        <section class="block hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Rodinná včelí farma · Opava-Podvihov</span>
+            <h1>Med s rodinným příběhem</h1>
+            <p class="sub">Od včel, o které pečujeme s respektem k jejich přirozenosti</p>
+            <p class="body">Poctivý český med z našich stanovišť v okolí Libavé a na úpatí Nízkého Jeseníku. Od vlastního vosku až po sklenici medu máme celý proces ve svých rukou.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#produkty-anchor">Naše medy <span class="ann" style="margin-left:4px;">CTA</span></a>
+              <a class="btn btn-secondary" href="#kontakt-anchor">Kontaktovat</a>
+            </div>
+          </div>
+          <div class="imgph">FOTO — hero<br>Pavel Zajíček u úlů (bez lazy loadingu, načte se hned)</div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Náš příběh</span>
+              <h2 class="block-title">Včelaření, které se v naší rodině předává po generace</h2>
+            </div>
+          </div>
+          <p class="block-lede">Kořeny našeho rodinného včelaření sahají až do 19. století na Volyň. Rodinná tradice byla po válce na čas přerušena, ale otec se k ní vrátil — a dnes v jeho práci pokračujeme s dětmi po boku. Pečujeme o přibližně 40 včelstev v nadmořské výšce 200–550 m u Libavé a na úpatí Nízkého Jeseníku.</p>
+          <div class="cta-row">
+            <a class="btn btn-secondary" href="#" data-goto="o-farme">Přečíst celý náš příběh → <span class="ann">CTA</span></a>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Proč zrovna my</span>
+              <h2 class="block-title">Proč si vybrat med právě od nás?</h2>
+            </div>
+          </div>
+          <div class="grid grid-4">
+            <div class="card"><div class="icon-ph">🐝</div><h3>Rodinná tradice</h3><p>Včelaření se v naší rodině předává po generace, navazujeme na zkušenosti předků.</p></div>
+            <div class="card"><div class="icon-ph">🕯️</div><h3>Vlastní koloběh vosku</h3><p>Používáme vosk z vlastních včelstev, mezistěny si vyrábíme sami.</p></div>
+            <div class="card"><div class="icon-ph">🪵</div><h3>Dřevěné úly</h3><p>Přírodní materiály místo plastových rámků a mezistěn.</p></div>
+            <div class="card"><div class="icon-ph">🌿</div><h3>Šetrná péče o včely</h3><p>Co nejpřirozenější cesta, omezujeme látky cizí včelám a přírodě.</p></div>
+          </div>
+          <p class="stat-line">Přes 20 let osobních zkušeností</p>
+        </section>
+
+        <section class="block" id="produkty-anchor">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Co u nás vzniká</span>
+              <h2 class="block-title">Vyberte si med podle své chuti</h2>
+              <p class="block-lede">Každý med je trochu jiný — jeho barvu, vůni i chuť ovlivňuje krajina, počasí a rostliny, které v době snůšky právě kvetou. Klikni na kartu a otoč ji — uvidíš popis.</p>
+            </div>
+            <span class="ann">Lazy load karet</span>
+          </div>
+          <div class="carousel" id="homeProductCarousel"></div>
+
+          <div class="cenik-panel">
+              <div class="block-head" style="margin-bottom:10px;">
+                <div><h3 style="font-size:15px;">Ceník</h3></div>
+                <span class="ann">Admin · editovatelné</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Položka</th><th>Balení</th><th class="num">Cena</th></tr></thead>
+                  <tbody>
+                    <tr><td>Med (všechny druhy)</td><td>950 g</td><td class="num">190 Kč</td></tr>
+                    <tr><td>Med (všechny druhy)</td><td>450 g</td><td class="num">110 Kč</td></tr>
+                    <tr><td>Propolisová tinktura</td><td>50 ml</td><td class="num">180 Kč</td></tr>
+                    <tr><td>Propolis škrábaný</td><td>20 g</td><td class="num">110 Kč</td></tr>
+                    <tr><td>Dárkový karton</td><td>2× 450 g</td><td class="num">250 Kč</td></tr>
+                    <tr><td>Dárkový karton</td><td>1× 950 g</td><td class="num">220 Kč</td></tr>
+                    <tr><td>Dárkový karton</td><td>2× 950 g</td><td class="num">410 Kč</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="table-note">Ceník platný od 15. 7. 2025. Uvedené ceny medu zahrnují vratnou zálohu na sklenici 5 Kč.</p>
+              <div class="news-card" style="align-items:center;margin-top:16px;">
+                <div class="imgph" style="min-height:60px;width:60px;flex:0 0 60px;">🍯</div>
+                <div>
+                  <strong style="font-size:14px;">Také z našeho medu — medovina</strong>
+                  <p style="font-size:13px;color:var(--ink-dim);margin-top:6px;">Zlatá a Královská (s vybraným kořením), zraje minimálně 10 měsíců. Bez ceny a bez možnosti objednání — nelze přímo prodávat, na webu jen zmínka.</p>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Co se děje na farmě</span>
+              <h2 class="block-title">Aktuality</h2>
+            </div>
+            <span class="ann">Admin · mění se ~2×/rok</span>
+          </div>
+          <div class="news-card">
+            <div class="imgph" style="min-height:60px;width:60px;flex:0 0 60px;">📢</div>
+            <div>
+              <strong style="font-size:14px;">Sezóna 2026 zahájena</strong>
+              <p style="font-size:13px;color:var(--ink-dim);margin-top:6px;">Ukázkový text aktuality — např. které druhy medu jsou aktuálně dostupné. Klient tento text edituje v administraci.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Co říkají zákazníci</span>
+              <h2 class="block-title">Recenze</h2>
+            </div>
+            <span class="ann">Zatím ruční, později Google recenze</span>
+          </div>
+          <div class="grid grid-3">
+            <div class="review-card"><div class="stars">★★★★★</div><p>„Ukázková recenze — text doplní klient / migrace z Google recenzí po zřízení provozovny.“</p><div class="who">— Jméno zákazníka</div></div>
+            <div class="review-card"><div class="stars">★★★★★</div><p>„Ukázková recenze — placeholder textu pro layout.“</p><div class="who">— Jméno zákazníka</div></div>
+            <div class="review-card"><div class="stars">★★★★★</div><p>„Ukázková recenze — placeholder textu pro layout.“</p><div class="who">— Jméno zákazníka</div></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Nejčastější dotazy</span>
+              <h2 class="block-title">FAQ</h2>
+            </div>
+          </div>
+          <div id="homeFaqTeaser"></div>
+          <div class="cta-row">
+            <a class="btn btn-secondary" href="#" data-goto="faq">Zobrazit všechny otázky →</a>
+          </div>
+        </section>
+
+        <section class="block" id="kontakt-anchor">
+          <div class="block-head">
+            <div>
+              <span class="eyebrow">Objednávka / dotaz</span>
+              <h2 class="block-title">Napište nám</h2>
+            </div>
+          </div>
+          <div class="contact-grid" id="homeContactGrid"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="homeFooter"></footer>
+    </section>
+
+    <!-- ============ O FARMĚ ============ -->
+    <section class="page" data-page="o-farme">
+      <header class="site-header">
+        <div class="site-logo"><span class="dot">🐝</span> Zajíčkův med</div>
+        <nav class="site-nav nav-desktop">
+          <a href="#" data-goto="domu">Domů</a>
+          <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+          <a href="#" aria-current="page">O farmě</a>
+          <a href="#" data-goto="faq">FAQ</a>
+          <a href="#" data-goto="kontakt">Kontakt</a>
+        </nav>
+        <span class="ann">Sticky</span>
+        <button class="nav-mobile-toggle" data-nav-toggle>☰</button>
+      </header>
+      <div class="nav-mobile-panel" data-nav-panel>
+        <a href="#" data-goto="domu">Domů</a>
+        <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+        <a href="#">O farmě</a>
+        <a href="#" data-goto="faq">FAQ</a>
+        <a href="#" data-goto="kontakt">Kontakt</a>
+      </div>
+
+      <main>
+        <section class="block hero" style="grid-template-columns:1fr;">
+          <div class="hero-copy">
+            <span class="eyebrow">O farmě</span>
+            <h1 style="font-size:28px;">Rodinná farma s kořeny až v 19. století</h1>
+            <p class="body">Naše včelaření není jen způsobem získávání medu — je to rodinná tradice předávaná z generace na generaci.</p>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head"><div><span class="eyebrow">Naše hodnoty</span><h2 class="block-title">Co je pro nás důležité</h2></div></div>
+          <div class="grid grid-4" id="valuesGrid"></div>
+        </section>
+
+        <section class="block">
+          <div class="block-head"><div><span class="eyebrow">Historie</span><h2 class="block-title">Naše cesta ve zkratce</h2></div></div>
+          <div class="timeline">
+            <div class="t-item"><div class="t-dot"></div><div class="when">19. století · Volyň</div><div class="what">Začátky rodinného včelaření</div></div>
+            <div class="t-item"><div class="t-dot"></div><div class="when">Po 2. sv. válce</div><div class="what">Návrat rodiny do Československa</div></div>
+            <div class="t-item"><div class="t-dot"></div><div class="when">30. narozeniny</div><div class="what">První vlastní včelstvo</div></div>
+            <div class="t-item"><div class="t-dot"></div><div class="when">Současnost</div><div class="what">Rodinná farma, ~40 včelstev</div></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head"><div><span class="eyebrow">Celý příběh</span><h2 class="block-title">Jak to celé začalo</h2></div><span class="ann">Lazy load fotek</span></div>
+          <div class="grid grid-2" style="align-items:start;">
+            <div>
+              <div class="story-block">
+                <h3>Příběh rodiny</h3>
+                <p>Počátky včelaření jsou spojeny s Volyní, dnešní Ukrajinou, kde žil strýc otce. Po druhé světové válce se rodina vracela do Československa, včely ale nebylo možné převézt — tradice byla na čas přerušena, než se k ní jako chlapec vrátil otec.</p>
+              </div>
+              <div class="story-block">
+                <h3>Návrat ke včelám</h3>
+                <p>Aktivně včelařit jsem začal kolem svých 30. narozenin — první vlastní včelstvo jako dar od manželky a švagrové. Ve stejném roce jsem převzal i včelstva po otci a pokračuji v rodinné tradici dodnes.</p>
+              </div>
+              <div class="story-block">
+                <h3>Kde naše včely žijí</h3>
+                <p>Společně s manželkou pečujeme o ~40 včelstev ve výšce 200–550 m — poblíž vojenského prostoru Libavá a na úpatí Nízkého Jeseníku. Rozmanitost krajiny dává medům rozdílnou barvu, vůni i chuť.</p>
+              </div>
+            </div>
+            <div class="imgph" style="min-height:100%;">FOTO — stanoviště úlů / rodina u včel</div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="block-head"><div><span class="eyebrow">Metody</span><h2 class="block-title">Jak včelaříme</h2></div></div>
+          <div class="story-block"><h3>Dřevěné úly a přírodní materiály</h3><p>Rámková míra 390×240 mm a nízké nástavce Langstroth 448×159 mm. Dřevěné úly z masivu nebo izolované — bez plastových rámků a mezistěn.</p></div>
+          <div class="story-block"><h3>Vlastní koloběh vosku</h3><p>Výhradně vosk z vlastních včelstev. Čistíme a dezinfikujeme při vysoké teplotě, bez kyseliny sírové či fosforečné. Mezistěny vyrábíme sami.</p></div>
+          <div class="story-block"><h3>Med z panenských plástů</h3><p>Plásty, které nikdy nepřišly do styku se včelím plodem — sluníčkově žluté, voní po medu a vosku.</p></div>
+          <div class="story-block"><h3>Šetrná péče o zdraví včel</h3><p>Sledujeme výskyt Varroa destructor, používáme organické kyseliny a mechanické zásahy (varroapasti) místo syntetických akaricidů. Šlechtíme přirozeně odolnější včelstva.</p></div>
+          <div class="story-block"><h3>Tradice, kterou předáváme dál</h3><p>Ke včelám bereme i naše děti — chceme jim předat úctu ke včelám i vnímání přírody, stejně jako to bylo předáno nám.</p></div>
+        </section>
+
+        <section class="block">
+          <div class="cta-row" style="justify-content:center;">
+            <a class="btn btn-primary" href="#" data-anchor="produkty-anchor">Chci ochutnat náš med <span class="ann" style="margin-left:4px;">CTA</span></a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="ofarmeFooter"></footer>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="page" data-page="faq">
+      <header class="site-header">
+        <div class="site-logo"><span class="dot">🐝</span> Zajíčkův med</div>
+        <nav class="site-nav nav-desktop">
+          <a href="#" data-goto="domu">Domů</a>
+          <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+          <a href="#" data-goto="o-farme">O farmě</a>
+          <a href="#" aria-current="page">FAQ</a>
+          <a href="#" data-goto="kontakt">Kontakt</a>
+        </nav>
+        <span class="ann">Sticky</span>
+        <button class="nav-mobile-toggle" data-nav-toggle>☰</button>
+      </header>
+      <div class="nav-mobile-panel" data-nav-panel>
+        <a href="#" data-goto="domu">Domů</a>
+        <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+        <a href="#" data-goto="o-farme">O farmě</a>
+        <a href="#">FAQ</a>
+        <a href="#" data-goto="kontakt">Kontakt</a>
+      </div>
+
+      <main>
+        <section class="block">
+          <span class="eyebrow">Nejčastější dotazy</span>
+          <h1 style="font-size:26px;margin-top:6px;">FAQ</h1>
+          <div id="fullFaqList" style="margin-top:18px;"></div>
+          <div class="cta-row">
+            <span style="font-size:13.5px;color:var(--ink-dim);">Nenašli jste odpověď?</span>
+            <a class="btn btn-secondary" href="#" data-goto="kontakt">Napište nám</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="faqFooter"></footer>
+    </section>
+
+    <!-- ============ KONTAKT ============ -->
+    <section class="page" data-page="kontakt">
+      <header class="site-header">
+        <div class="site-logo"><span class="dot">🐝</span> Zajíčkův med</div>
+        <nav class="site-nav nav-desktop">
+          <a href="#" data-goto="domu">Domů</a>
+          <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+          <a href="#" data-goto="o-farme">O farmě</a>
+          <a href="#" data-goto="faq">FAQ</a>
+          <a href="#" aria-current="page">Kontakt</a>
+        </nav>
+        <span class="ann">Sticky</span>
+        <button class="nav-mobile-toggle" data-nav-toggle>☰</button>
+      </header>
+      <div class="nav-mobile-panel" data-nav-panel>
+        <a href="#" data-goto="domu">Domů</a>
+        <a href="#" data-anchor="produkty-anchor">Produkty &amp; ceník</a>
+        <a href="#" data-goto="o-farme">O farmě</a>
+        <a href="#" data-goto="faq">FAQ</a>
+        <a href="#">Kontakt</a>
+      </div>
+
+      <main>
+        <section class="block">
+          <span class="eyebrow">Objednávka / dotaz</span>
+          <h1 style="font-size:26px;margin-top:6px;">Kontakt</h1>
+          <div class="contact-grid" id="kontaktPageGrid" style="margin-top:18px;"></div>
+        </section>
+
+        <section class="block">
+          <div class="block-head"><div><h2 class="block-title">Kde jinde med seženete</h2></div></div>
+          <div class="sales-point">
+            <strong>Kozí farma Magdaléna — Renata Vajdová</strong>
+            <p>Hlavní 203, 747 91 Štítina · vždy na objednávku</p>
+          </div>
+          <div class="sales-point">
+            <strong>Rozvoz po dohodě</strong>
+            <p>Opava a okolí, Studénka</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="kontaktFooter"></footer>
+    </section>
+
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Zpět nahoru">↑</button>
+
+<script>
+  // Jen druhy medu — mají vlastní karty. Propolis, dárková balení a medovina
+  // se neopakují jako karty, jsou vypsané přímo v rozbalovacím ceníku.
+  const HONEYS = [
+    { id: 'jarni', name: 'Med květový jarní', desc: 'Jemný med z prvních jarních květů — ovocné stromy, pampelišky, javory.', avail: 'available' },
+    { id: 'jarni-pastovany', name: 'Med květový jarní pastovaný', desc: 'Krémový, snadno roztíratelný, díky šetrnému míchání nestéká.', avail: 'available' },
+    { id: 'lipovy', name: 'Med květový lipový', desc: 'Výrazně aromatický, intenzivně sladký, jasně žlutá barva.', avail: 'available' },
+    { id: 'pohankovy', name: 'Med květový pohankový', desc: 'Tmavý, osobitý, vínově červená barva a plná chuť.', avail: 'sold-out' },
+    { id: 'smiseny', name: 'Med smíšený', desc: 'To nejlepší z květů i lesa — plnější, přesto příjemně sladký.', avail: 'available' },
+    { id: 'medovicovy', name: 'Med medovicový (lesní)', desc: 'Tmavý, hustý, méně sladký, výrazná plná chuť.', avail: 'available' },
+  ];
+
+  const FAQS = [
+    { q: 'Proč med krystalizuje?', a: 'Krystalizace je přirozenou vlastností medu, ne známkou horší kvality. Závisí na poměru glukózy a fruktózy — víc glukózy znamená rychlejší krystalizaci.' },
+    { q: 'Znamená zkrystalizovaný med, že je zkažený?', a: 'Ne. Je to přirozený proces. Med lze pomalu ztekutit ve vodní lázni do 45 °C, bez zbytečného přehřívání.' },
+    { q: 'Proč měříte obsah vody v medu?', a: 'Je to ukazatel zralosti a kvality. Měříme refraktometrem, snažíme se nepřesáhnout 18 % — jinak hrozí kvašení.' },
+    { q: 'Je některý druh medu sladší než jiný?', a: 'Ano. Květové medy bývají sladší a jemnější, medovicové méně sladké, výraznější, až karamelové.' },
+    { q: 'Jaký je rozdíl mezi květovým a medovicovým medem?', a: 'Květový vzniká z nektaru květů — světlejší, sladší, rychleji krystalizuje. Medovicový vzniká z medovice na listech a jehličí — tmavší, výraznější, víc minerálů.' },
+    { q: 'Jak probíhá nákup medu?', a: 'Kontaktujte nás s výběrem druhu a množství, připravíme objednávku a domluvíme vyzvednutí. Aktuální dostupnost je vždy na webu.' },
+    { q: 'Mohu vám vrátit prázdnou sklenici?', a: 'Ano, nepoškozené sklenice znovu použijeme. Účtujeme vratnou zálohu 5 Kč, v ceníku je už zahrnutá.' },
+    { q: 'Jak dlouho med vydrží?', a: 'Minimální trvanlivost uvádíme 2 roky, při správném skladování vydrží i déle.' },
+    { q: 'Jak med správně skladovat?', a: 'V uzavřené sklenici, na suchém a tmavém místě do 18 °C, mimo přímé slunce a výrazné výkyvy teplot.' },
+    { q: 'Odkud váš med pochází?', a: 'Část včelstev je u vojenského prostoru Libavá, další na úpatí Nízkého Jeseníku.' },
+  ];
+
+  const NAV_ITEMS = [
+    { label: 'Domů', page: 'domu' },
+    { label: 'Produkty & ceník', anchor: 'produkty-anchor' },
+    { label: 'O farmě', page: 'o-farme' },
+    { label: 'FAQ', page: 'faq' },
+    { label: 'Kontakt', page: 'kontakt' },
+  ];
+
+  function badge(avail) {
+    return avail === 'sold-out'
+      ? '<span class="badge sold-out">Vyprodáno</span>'
+      : '<span class="badge available">Skladem</span>';
+  }
+
+  function honeyCard(p) {
+    return `<div class="honey-card" tabindex="0" role="button" aria-pressed="false" data-flip>
+      <div class="honey-card-inner">
+        <div class="honey-face">
+          <div class="imgph">FOTO — ${p.name}</div>
+          <div class="honey-face-body">
+            <h3>${p.name}</h3>
+            ${badge(p.avail)}
+          </div>
+          <span class="flip-hint">🔄</span>
+        </div>
+        <div class="honey-face honey-back">
+          <h3>${p.name}</h3>
+          ${badge(p.avail)}
+          <p>${p.desc}</p>
+          <span class="flip-hint">↩</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('homeProductCarousel').innerHTML =
+    HONEYS.map(honeyCard).join('');
+
+  function accItem(f, idx, open) {
+    return `<div class="acc-item${open ? ' is-open' : ''}">
+      <button class="acc-q" data-acc-toggle>${f.q}<span class="chevron">⌄</span></button>
+      <div class="acc-a"><div class="acc-a-inner">${f.a}</div></div>
+    </div>`;
+  }
+
+  document.getElementById('homeFaqTeaser').innerHTML =
+    FAQS.slice(0, 3).map((f, i) => accItem(f, i, i === 0)).join('');
+  document.getElementById('fullFaqList').innerHTML =
+    FAQS.map((f, i) => accItem(f, i, i === 0)).join('');
+
+  function valueCard(icon, title, text) {
+    return `<div class="card"><div class="icon-ph">${icon}</div><h3>${title}</h3><p>${text}</p></div>`;
+  }
+  document.getElementById('valuesGrid').innerHTML = [
+    valueCard('🤝', 'Respekt ke včelám', 'Rozumíme přirozenému vývoji včelstva, do jeho života zasahujeme s rozvahou.'),
+    valueCard('📍', 'Známý původ', 'Víme, kde včely žijí, odkud je vosk a jak med vzniká.'),
+    valueCard('🪵', 'Přírodní materiály', 'Dřevo a vlastní vosk — žádné plastové rámky ani mezistěny.'),
+    valueCard('🕯️', 'Vlastní zpracování vosku', 'Vosk si sami čistíme a vyrábíme z něj nové mezistěny.'),
+    valueCard('👋', 'Osobní přístup', 'Malá rodinná farma — rádi poradíme s výběrem medu.'),
+  ].join('');
+
+  const OTHER_ORDER_OPTIONS = {
+    'Propolis': [
+      { name: 'Propolisová tinktura', avail: 'available' },
+      { name: 'Propolis škrábaný', avail: 'available' },
+    ],
+    'Dárkové balení': [
+      { name: 'Dárkový karton 2× 450 g', avail: 'available' },
+      { name: 'Dárkový karton 1× 950 g', avail: 'available' },
+      { name: 'Dárkový karton 2× 950 g', avail: 'available' },
+    ],
+  };
+
+  function optionsFor(list) {
+    return list
+      .map(p => `<option ${p.avail === 'sold-out' ? 'disabled' : ''}>${p.name}${p.avail === 'sold-out' ? ' — vyprodáno' : ''}</option>`)
+      .join('');
+  }
+
+  function contactGrid() {
+    const groups = [
+      `<optgroup label="Med">${optionsFor(HONEYS)}</optgroup>`,
+      ...Object.entries(OTHER_ORDER_OPTIONS).map(([label, list]) => `<optgroup label="${label}">${optionsFor(list)}</optgroup>`),
+    ].join('');
+    return `
+    <form>
+      <div class="field"><label>Jméno</label><input type="text" placeholder="Vaše jméno" /></div>
+      <div class="field"><label>E-mail</label><input type="text" placeholder="jan@example.com" /></div>
+      <div class="field"><label>Telefon</label><input type="text" placeholder="+420 000 000 000" /></div>
+      <div class="field">
+        <label>Výběr produktu</label>
+        <span class="ann">Admin · dostupnost</span>
+        <select>${groups}</select>
+      </div>
+      <div class="field"><label>Zpráva</label><textarea rows="4" placeholder="Kolik a jakého medu máte zájem…"></textarea></div>
+      <button type="button" class="btn btn-primary btn-block">Odeslat poptávku <span class="ann" style="margin-left:6px;">CTA</span></button>
+    </form>
+    <div class="info-block">
+      <div class="info-row"><strong>Adresa</strong>Raduňská 5/20, 747 06 Opava-Podvihov</div>
+      <div class="info-row"><strong>Telefon / WhatsApp</strong>+420 603 162 501</div>
+      <div class="info-row"><strong>E-mail</strong>info@zajickuv-med.cz</div>
+      <div class="social-row">
+        <div class="social-ph">f</div>
+        <div class="social-ph">ig</div>
+        <div class="social-ph">wa</div>
+      </div>
+      <div class="imgph map-ph">MAPA — Opava-Podvihov<br>(do budoucna: odkaz na Google recenze provozovny)</div>
+    </div>`;
+  }
+  document.getElementById('homeContactGrid').innerHTML = contactGrid();
+  document.getElementById('kontaktPageGrid').innerHTML = contactGrid();
+
+  function footerHTML() {
+    const links = NAV_ITEMS.map(n => n.anchor
+      ? `<a href="#" data-anchor="${n.anchor}">${n.label}</a>`
+      : `<a href="#" data-goto="${n.page}">${n.label}</a>`
+    ).join('');
+    return `<div class="footer-grid">
+      <div>
+        <h4>Kontakt</h4>
+        <p>Pavel Zajíček</p>
+        <p>Raduňská 5/20, 747 06 Opava-Podvihov</p>
+        <p>+420 603 162 501</p>
+        <p>info@zajickuv-med.cz</p>
+      </div>
+      <div><h4>Rychlé odkazy</h4>${links}</div>
+      <div>
+        <h4>Sociální sítě</h4>
+        <div class="social-row"><div class="social-ph">f</div><div class="social-ph">ig</div><div class="social-ph">wa</div></div>
+      </div>
+      <div>
+        <h4>Kde nás najdete</h4>
+        <p>Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© Zajíčkův med</span><span>Ostrava · Opava · Podvihov · Moravskoslezský kraj · Studénka</span></div>`;
+  }
+  ['homeFooter', 'ofarmeFooter', 'faqFooter', 'kontaktFooter'].forEach(id => {
+    document.getElementById(id).innerHTML = footerHTML();
+  });
+
+  // page + tab switching
+  const pages = document.querySelectorAll('.page');
+  const tabs = document.querySelectorAll('.tab');
+  function showPage(name) {
+    pages.forEach(p => p.classList.toggle('is-active', p.dataset.page === name));
+    tabs.forEach(t => t.setAttribute('aria-current', t.dataset.page === name ? 'page' : 'false'));
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => showPage(t.dataset.page)));
+  function goToAnchor(anchorId) {
+    showPage('domu');
+    requestAnimationFrame(() => {
+      document.getElementById(anchorId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+  document.addEventListener('click', e => {
+    const anchorLink = e.target.closest('[data-anchor]');
+    if (anchorLink) { e.preventDefault(); goToAnchor(anchorLink.dataset.anchor); return; }
+    const goto = e.target.closest('[data-goto]');
+    if (goto) { e.preventDefault(); showPage(goto.dataset.goto); }
+  });
+  showPage('domu');
+
+  // viewport toggle
+  const frame = document.getElementById('deviceFrame');
+  const vpButtons = document.querySelectorAll('#viewportToggle button');
+  function setViewport(mode) {
+    frame.classList.toggle('is-mobile', mode === 'mobile');
+    vpButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.viewport === mode ? 'true' : 'false'));
+  }
+  vpButtons.forEach(b => b.addEventListener('click', () => setViewport(b.dataset.viewport)));
+  setViewport('mobile');
+
+  // mobile nav toggle (per page)
+  document.addEventListener('click', e => {
+    const toggle = e.target.closest('[data-nav-toggle]');
+    if (toggle) {
+      const panel = toggle.closest('.page').querySelector('[data-nav-panel]');
+      panel.classList.toggle('is-open');
+    }
+  });
+
+  // accordion
+  document.addEventListener('click', e => {
+    const q = e.target.closest('[data-acc-toggle]');
+    if (q) q.closest('.acc-item').classList.toggle('is-open');
+  });
+
+  // honey card flip (click or Enter/Space)
+  function toggleFlip(card) {
+    const flipped = card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  }
+  document.addEventListener('click', e => {
+    const card = e.target.closest('[data-flip]');
+    if (card) toggleFlip(card);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('[data-flip]');
+    if (card) { e.preventDefault(); toggleFlip(card); }
+  });
+
+  // back to top
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backBtn.classList.toggle('is-visible', window.scrollY > 500);
+  });
+  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>

@@ -1,0 +1,28 @@
+{
+  "effectiveFrom": "2025-07-15",
+  "note": "Cena medu je stejná napříč všemi druhy medu, liší se pouze podle velikosti balení. Uvedené ceny zahrnují vratnou zálohu na sklenici (5 Kč).",
+  "honey": [
+    { "size": "950g", "price": 190, "unit": "Kč/sklenici" },
+    { "size": "450g", "price": 110, "unit": "Kč/sklenici" }
+  ],
+  "propolis": [
+    { "name": "Propolisová tinktura", "size": "50 ml", "price": 180, "unit": "Kč" },
+    { "name": "Propolis škrábaný", "size": "20 g", "price": 110, "unit": "Kč" }
+  ],
+  "giftSets": [
+    { "name": "Karton 2× 450g", "price": 250, "unit": "Kč" },
+    { "name": "Karton 1× 950g", "price": 220, "unit": "Kč" },
+    { "name": "Karton 2× 950g", "price": 410, "unit": "Kč" }
+  ],
+  "mead": {
+    "name": "Medovina",
+    "variants": ["Zlatá", "Královská (s vybraným kořením)"],
+    "note": "Vyrábí se z vlastního medu přírodním kvašením medu a vody, zraje nejméně 10 měsíců. Bez cenovky a možnosti objednání – nelze přímo prodávat, na webu jen zmínka (bez ceny a bez tlačítka objednat)."
+  },
+  "jarDeposit": {
+    "amount": 5,
+    "currency": "CZK",
+    "note": "Vratná záloha na sklenici, je součástí uvedené ceny v ceníku (ne příplatek navíc)."
+  },
+  "namingNote": "Klient navrhuje sekci nepojmenovávat 'Naše produkty', ale např. 'Co u nás vzniká' nebo 'Z naší včelí farmy' – kvůli zmínce o medovině, kterou nelze přímo prodávat."
+}

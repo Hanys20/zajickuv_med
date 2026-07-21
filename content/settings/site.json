@@ -1,0 +1,59 @@
+{
+  "company": {
+    "name": "Zajíčkův med",
+    "owner": "Pavel Zajíček",
+    "ico": null,
+    "icoNote": "IČO se nepoužívá – jedná se o prodej přebytků ze dvora, ne o podnikání s IČO.",
+    "yearsOnMarket": "20+",
+    "beehivesCount": "přibližně 40 včelstev",
+    "region": "Moravskoslezský kraj"
+  },
+  "contact": {
+    "person": "Pavel Zajíček",
+    "address": {
+      "street": "Raduňská 5/20",
+      "city": "Opava-Podvihov",
+      "zip": "747 06"
+    },
+    "phone": "+420 603 162 501",
+    "email": "info@zajickuv-med.cz"
+  },
+  "socials": {
+    "facebook": null,
+    "instagram": null,
+    "whatsapp": "+420 603 162 501",
+    "note": "Facebook a Instagram se teprve zakládají (stav k 2026-07-20). Doplnit odkazy, jakmile budou profily hotové."
+  },
+  "salesPoints": [
+    {
+      "name": "Kozí farma Magdaléna",
+      "contactPerson": "Renata Vajdová",
+      "address": "Hlavní 203, 747 91 Štítina",
+      "note": "Vždy na objednávku."
+    }
+  ],
+  "delivery": {
+    "note": "Po dohodě je možné med dovézt na určené místo v Opavě a okolí a také ve Studénce."
+  },
+  "seoLocations": ["Ostrava", "Opava", "Podvihov", "Moravskoslezský kraj", "Studénka"],
+  "analytics": {
+    "cookieConsentRequired": true,
+    "note": "Klient chce návštěvnost/cookies (analytics) – potřeba cookie lišta/consent."
+  },
+  "reviews": {
+    "status": "zatím žádná provozovna ani Google recenze",
+    "plan": "Zatím vložit ručně vybrané recenze. Až bude zřízena provozovna na Google Maps (Opava-Podvihov), propojit sekci recenzí s Google recenzemi."
+  },
+  "domainRegistrar": {
+    "contactPerson": "Radim Steuer – GDstudio",
+    "phone": ["+420 720 775 722", "+420 777 107 235"],
+    "email": "steuer@gdstudio.cz",
+    "note": "Aktuální správce domény zajickuv-med.cz. Potřeba zjistit přihlašovací údaje / zajistit přesun DNS na Cloudflare Pages."
+  },
+  "pricingEffectiveFrom": "2025-07-15",
+  "jarDeposit": {
+    "amount": 5,
+    "currency": "CZK",
+    "note": "Vratná záloha na sklenici, je součástí uvedené ceny v ceníku (ne příplatek navíc). Vrácené nepoškozené sklenice se čistí a znovu používají."
+  }
+}
