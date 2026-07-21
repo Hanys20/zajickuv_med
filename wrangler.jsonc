@@ -1,0 +1,8 @@
+{
+  "name": "zajickuv-med",
+  "compatibility_date": "2026-07-21",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
