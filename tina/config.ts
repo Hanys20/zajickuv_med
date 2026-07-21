@@ -24,6 +24,9 @@ export default defineConfig({
 
   schema: {
     collections: [
+      // Pozn.: pole nepřítomná ve schématu se u markdown souborů (frontmatter)
+      // při uložení zachovají beze změny - proto tu jsou jen availability + body
+      // (body musí zůstat, jinak by se při uložení smazal text popisu).
       {
         name: 'product',
         label: 'Dostupnost medů',
@@ -35,19 +38,6 @@ export default defineConfig({
           allowedActions: { create: false, delete: false },
         },
         fields: [
-          { type: 'string', name: 'name', label: 'Název', isTitle: true, required: true, ui: { readonly: true } },
-          { type: 'string', name: 'slug', label: 'Slug', required: true, ui: { readonly: true } },
-          {
-            type: 'string',
-            name: 'category',
-            label: 'Kategorie',
-            options: [
-              { value: 'med', label: 'Med' },
-              { value: 'propolis', label: 'Propolis' },
-            ],
-            required: true,
-            ui: { readonly: true },
-          },
           {
             type: 'string',
             name: 'availability',
@@ -58,22 +48,17 @@ export default defineConfig({
             ],
             required: true,
           },
-          { type: 'string', name: 'sizes', label: 'Dostupné velikosti balení', list: true, ui: { readonly: true } },
-          {
-            type: 'string',
-            name: 'shortDescription',
-            label: 'Krátký popis (karta produktu)',
-            ui: { component: 'textarea', readonly: true },
-          },
           {
             type: 'rich-text',
             name: 'body',
-            label: 'Plný popis',
+            label: 'Plný popis (needitovat)',
             isBody: true,
-            ui: { readonly: true },
           },
         ],
       },
+      // Pozn.: JSON kolekce (ceník) se při uložení přepíší celé podle schématu -
+      // pole, která tu nejsou, by se nenávratně smazala. Proto musí být
+      // deklarovaná úplně všechna, i ta needitovatelná (jen jsou jasně popsaná).
       {
         name: 'pricing',
         label: 'Ceník',
@@ -85,13 +70,8 @@ export default defineConfig({
         },
         match: { include: 'cenik' },
         fields: [
-          { type: 'string', name: 'effectiveFrom', label: 'Ceník platný od (YYYY-MM-DD)', ui: { readonly: true } },
-          {
-            type: 'string',
-            name: 'note',
-            label: 'Poznámka k ceníku',
-            ui: { component: 'textarea', readonly: true },
-          },
+          { type: 'string', name: 'effectiveFrom', label: 'Ceník platný od (needit)' },
+          { type: 'string', name: 'note', label: 'Poznámka k ceníku (needit)', ui: { component: 'textarea' } },
           {
             type: 'object',
             name: 'honey',
@@ -101,9 +81,9 @@ export default defineConfig({
               itemProps: (item) => ({ label: item?.size }),
             },
             fields: [
-              { type: 'string', name: 'size', label: 'Velikost', ui: { readonly: true } },
-              { type: 'number', name: 'price', label: 'Cena' },
-              { type: 'string', name: 'unit', label: 'Jednotka', ui: { readonly: true } },
+              { type: 'string', name: 'size', label: 'Velikost (needit)' },
+              { type: 'number', name: 'price', label: '💰 Cena – upravujte pouze toto' },
+              { type: 'string', name: 'unit', label: 'Jednotka (needit)' },
             ],
           },
           {
@@ -115,10 +95,10 @@ export default defineConfig({
               itemProps: (item) => ({ label: item?.name }),
             },
             fields: [
-              { type: 'string', name: 'name', label: 'Název', ui: { readonly: true } },
-              { type: 'string', name: 'size', label: 'Velikost', ui: { readonly: true } },
-              { type: 'number', name: 'price', label: 'Cena' },
-              { type: 'string', name: 'unit', label: 'Jednotka', ui: { readonly: true } },
+              { type: 'string', name: 'name', label: 'Název (needit)' },
+              { type: 'string', name: 'size', label: 'Velikost (needit)' },
+              { type: 'number', name: 'price', label: '💰 Cena – upravujte pouze toto' },
+              { type: 'string', name: 'unit', label: 'Jednotka (needit)' },
             ],
           },
           {
@@ -130,19 +110,19 @@ export default defineConfig({
               itemProps: (item) => ({ label: item?.name }),
             },
             fields: [
-              { type: 'string', name: 'name', label: 'Název', ui: { readonly: true } },
-              { type: 'number', name: 'price', label: 'Cena' },
-              { type: 'string', name: 'unit', label: 'Jednotka', ui: { readonly: true } },
+              { type: 'string', name: 'name', label: 'Název (needit)' },
+              { type: 'number', name: 'price', label: '💰 Cena – upravujte pouze toto' },
+              { type: 'string', name: 'unit', label: 'Jednotka (needit)' },
             ],
           },
           {
             type: 'object',
             name: 'mead',
-            label: 'Medovina (needitovatelné, jen zmínka)',
+            label: 'Medovina (needitovatelné, jen zmínka bez ceny)',
             fields: [
-              { type: 'string', name: 'name', label: 'Název', ui: { readonly: true } },
-              { type: 'string', name: 'variants', label: 'Varianty', list: true, ui: { readonly: true } },
-              { type: 'string', name: 'note', label: 'Poznámka', ui: { component: 'textarea', readonly: true } },
+              { type: 'string', name: 'name', label: 'Název (needit)' },
+              { type: 'string', name: 'variants', label: 'Varianty (needit)', list: true },
+              { type: 'string', name: 'note', label: 'Poznámka (needit)', ui: { component: 'textarea' } },
             ],
           },
           {
@@ -150,16 +130,16 @@ export default defineConfig({
             name: 'jarDeposit',
             label: 'Záloha na sklenici',
             fields: [
-              { type: 'number', name: 'amount', label: 'Výše zálohy' },
-              { type: 'string', name: 'currency', label: 'Měna', ui: { readonly: true } },
-              { type: 'string', name: 'note', label: 'Poznámka', ui: { component: 'textarea', readonly: true } },
+              { type: 'number', name: 'amount', label: '💰 Výše zálohy – upravujte pouze toto' },
+              { type: 'string', name: 'currency', label: 'Měna (needit)' },
+              { type: 'string', name: 'note', label: 'Poznámka (needit)', ui: { component: 'textarea' } },
             ],
           },
           {
             type: 'string',
             name: 'namingNote',
-            label: 'Poznámka k názvu sekce',
-            ui: { component: 'textarea', readonly: true },
+            label: 'Poznámka k názvu sekce (needit)',
+            ui: { component: 'textarea' },
           },
         ],
       },
