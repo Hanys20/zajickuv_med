@@ -39,7 +39,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Vaše jméno"
-          className="rounded-s border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>
       <div className="flex flex-col gap-1.5">
@@ -53,7 +53,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="jan@example.com"
-          className="rounded-s border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>
       <div className="flex flex-col gap-1.5">
@@ -66,7 +66,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="+420 000 000 000"
-          className="rounded-s border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>
       <div className="flex flex-col gap-1.5">
@@ -78,7 +78,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           required
           value={productChoice}
           onChange={(e) => setProductChoice(e.target.value)}
-          className="rounded-s border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         >
           <option value="" disabled>
             Vyberte produkt…
@@ -118,7 +118,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Kolik a jakého medu máte zájem…"
-          className="rounded-s border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>
       <button type="submit" className="btn btn-primary btn-block">

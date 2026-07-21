@@ -3,38 +3,42 @@ import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-honey-100/70 via-honey-50/40 to-paper px-4 py-8 sm:px-6 sm:py-10 md:py-16">
-      <div className="relative mx-auto grid max-w-content items-center gap-7 md:grid-cols-[1.1fr_1fr]">
-        <div>
-          <span className="eyebrow">Rodinná včelí farma · Opava-Podvihov</span>
-          <h1 className="mt-2.5 text-[26px] font-extrabold leading-tight md:text-[38px]">
+    <section className="relative isolate overflow-hidden border-b border-border">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/images/photos/hero-beekeeper-apiary.jpg"
+          alt="Včelař v ochranném obleku pracuje u úlů se zakuřovačem na lesním stanovišti"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_30%]"
+        />
+        <div className="absolute inset-0 bg-ink/60 sm:hidden" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent sm:hidden" />
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-ink/92 via-ink/60 to-ink/10 sm:block" />
+      </div>
+
+      <div className="relative mx-auto max-w-header px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-10">
+        <div className="max-w-[560px]">
+          <span className="eyebrow-invert">Rodinná včelí farma · Opava-Podvihov</span>
+          <h1 className="mt-2.5 text-[30px] font-extrabold leading-tight text-white md:text-[46px]">
             Med s rodinným příběhem
           </h1>
-          <p className="mt-2.5 text-base font-semibold">
+          <p className="mt-3 text-base font-semibold text-honey-100">
             Od včel, o které pečujeme s respektem k jejich přirozenosti
           </p>
-          <p className="mt-2.5 max-w-[46ch] text-[14.5px] text-ink-dim">
+          <p className="mt-3 max-w-[46ch] text-[14.5px] text-honey-50/85">
             Poctivý český med z našich stanovišť v okolí Libavé a na úpatí Nízkého Jeseníku. Od
             vlastního vosku až po sklenici medu máme celý proces ve svých rukou.
           </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+          <div className="mt-6 flex flex-wrap items-center gap-2.5">
             <Link href="/#produkty" className="btn btn-primary">
               Co u nás vzniká
             </Link>
-            <Link href="/#kontakt" className="btn btn-secondary">
+            <Link href="/#kontakt" className="btn btn-invert">
               Kontaktovat
             </Link>
           </div>
-        </div>
-        <div className="relative min-h-[220px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm md:min-h-[320px]">
-          <Image
-            src="/images/photos/hero-beekeeper-apiary.jpg"
-            alt="Včelař v ochranném obleku pracuje u úlů se zakuřovačem na lesním stanovišti"
-            fill
-            priority
-            sizes="(min-width: 768px) 45vw, 100vw"
-            className="object-cover"
-          />
         </div>
       </div>
     </section>

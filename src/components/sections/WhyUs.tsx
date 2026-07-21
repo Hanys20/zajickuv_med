@@ -51,7 +51,7 @@ export default function WhyUs() {
           ))}
         </div>
 
-        <div className="section-dark mt-5 rounded-l px-4 py-8 text-center">
+        <div className="section-dark mt-5 rounded-xl px-4 py-8 text-center">
           <p className="text-5xl font-extrabold text-honey-300 sm:text-6xl">
             <CountUp target={20} suffix="+" />
           </p>

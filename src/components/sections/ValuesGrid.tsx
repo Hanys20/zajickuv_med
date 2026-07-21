@@ -38,7 +38,7 @@ const VALUES = [
 
 export default function ValuesGrid() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {VALUES.map((v, i) => (
         <div key={v.title} className="card flex flex-col items-center bg-paper-raised text-center">
           <div

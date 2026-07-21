@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-paper-raised">
-      <div className="mx-auto flex max-w-content items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-header items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-10">
         <Link href="/" className="flex items-center gap-2 font-bold" onClick={() => setOpen(false)}>
           <Image src="/images/icons/bee.svg" alt="" width={22} height={22} className="shrink-0" />
           <span>Zajíčkův med</span>
@@ -83,7 +83,7 @@ export default function Header() {
           aria-label="Otevřít menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 items-center justify-center rounded-s border border-border bg-paper text-lg md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-sm border border-border bg-paper text-lg md:hidden"
         >
           {open ? '✕' : '☰'}
         </button>

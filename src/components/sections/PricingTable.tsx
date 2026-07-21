@@ -18,7 +18,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
 
   return (
     <div className="mt-6">
-      <div className="overflow-hidden rounded-l shadow-warm">
+      <div className="overflow-hidden rounded-xl shadow-warm">
         <div className="section-dark flex flex-wrap items-baseline justify-between gap-2 px-4 py-3.5 sm:px-5">
           <h3 className="text-lg font-extrabold text-white">Ceník</h3>
           <span className="text-[11.5px] font-semibold text-honey-200">
@@ -80,8 +80,8 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
         </p>
       </div>
 
-      <div className="mt-4 flex items-center gap-3.5 rounded-m border border-dashed border-honey-400 bg-honey-50 p-4">
-        <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-m border border-border bg-paper-raised">
+      <div className="mt-4 flex items-center gap-3.5 rounded-md border border-dashed border-honey-400 bg-honey-50 p-4">
+        <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-md border border-border bg-paper-raised">
           <Image src="/images/icons/mead.svg" alt="" width={26} height={26} />
         </div>
         <div>

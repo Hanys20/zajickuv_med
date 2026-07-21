@@ -13,7 +13,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
         return (
           <div
             key={item.question}
-            className={`mb-2.5 overflow-hidden rounded-m border bg-paper-raised transition-colors ${
+            className={`mb-2.5 overflow-hidden rounded-md border bg-paper-raised transition-colors ${
               open ? 'border-honey-300' : 'border-border'
             }`}
           >
@@ -24,7 +24,19 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               aria-expanded={open}
             >
               {item.question}
-              <span className={`shrink-0 text-honey-600 transition-transform ${open ? 'rotate-180' : ''}`}>⌄</span>
+              <svg
+                className={`shrink-0 text-honey-600 transition-transform ${open ? 'rotate-180' : ''}`}
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
             </button>
             <div className={open ? 'max-h-[600px]' : 'max-h-0'} style={{ overflow: 'hidden', transition: 'max-height 0.2s ease' }}>
               <p className="whitespace-pre-line px-4 pb-4 text-[13.5px] leading-relaxed text-ink-dim">

@@ -28,6 +28,9 @@ const config: Config = {
           800: '#59211b',
           900: '#391413',
         },
+        // Tlumená tmavá hnědá pro .section-dark - záměrně jiná (méně sytá) než
+        // honey-800/900, aby tmavé sekce nepůsobily křiklavě vedle zbytku palety.
+        coffee: '#332821',
         good: '#3f6b45',
         'good-bg': '#e4efe3',
         bad: '#96392c',
@@ -42,10 +45,14 @@ const config: Config = {
           600: '#5b7139',
         },
       },
+      // Pozn.: NIKDY nepoužívat jednopísmenné klíče jako "s"/"l" - kolidují s
+      // Tailwind vestavěnými směrovými utilitami (rounded-s = start/left strana,
+      // rounded-l = levá strana), což dřív způsobovalo nesouměrně zaoblené rohy
+      // (rounded-l/rounded-s se aplikovalo jen na levou stranu místo na všechny rohy).
       borderRadius: {
-        s: '4px',
-        m: '10px',
-        l: '24px',
+        sm: '8px',
+        md: '16px',
+        xl: '32px',
       },
       fontFamily: {
         sans: [
@@ -60,6 +67,7 @@ const config: Config = {
       },
       maxWidth: {
         content: '1180px',
+        header: '1440px',
       },
       boxShadow: {
         warm: '0 12px 30px -12px rgba(217, 113, 16, 0.32)',

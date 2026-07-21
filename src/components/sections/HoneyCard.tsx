@@ -12,7 +12,7 @@ export default function HoneyCard({
   photo?: string;
 }) {
   return (
-    <div className="w-[260px] shrink-0 snap-start overflow-hidden rounded-m border border-border bg-paper-raised">
+    <div className="w-[260px] shrink-0 snap-start overflow-hidden rounded-md border border-border bg-paper-raised">
       <div className="relative aspect-square w-full border-b border-border">
         {photo ? (
           <Image

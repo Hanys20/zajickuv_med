@@ -22,7 +22,7 @@ export default function StoryTeaser() {
             </Link>
           </div>
         </div>
-        <div className="relative min-h-[220px] overflow-hidden rounded-l border border-honey-900/40 shadow-warm md:min-h-[300px]">
+        <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:min-h-[300px]">
           <Image
             src="/images/photos/story-rodinna-tradice.jpg"
             alt="Včelař za soumraku kontroluje rámek s plástem"

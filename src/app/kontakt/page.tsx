@@ -24,7 +24,7 @@ export default function KontaktPage() {
           <h2 className="mb-5 text-xl font-extrabold md:text-2xl">Kde jinde med seženete</h2>
 
           {salesPoints.resellers.map((r) => (
-            <div key={r.name} className="mb-2.5 rounded-m border border-border bg-paper-raised p-4">
+            <div key={r.name} className="mb-2.5 rounded-md border border-border bg-paper-raised p-4">
               <strong className="text-[13.5px]">
                 {r.name} — {r.contactPerson}
               </strong>
@@ -34,7 +34,7 @@ export default function KontaktPage() {
             </div>
           ))}
 
-          <div className="rounded-m border border-border bg-paper-raised p-4">
+          <div className="rounded-md border border-border bg-paper-raised p-4">
             <strong className="text-[13.5px]">Rozvoz po dohodě</strong>
             <p className="mt-1 text-[12.5px] text-ink-dim">{salesPoints.delivery.areas.join(', ')}</p>
           </div>

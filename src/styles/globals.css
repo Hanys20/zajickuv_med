@@ -62,7 +62,7 @@
   }
 
   .imgph {
-    @apply flex min-h-[140px] items-center justify-center rounded-m border border-border p-3 text-center text-xs font-semibold text-ink-dim;
+    @apply flex min-h-[140px] items-center justify-center rounded-md border border-border p-3 text-center text-xs font-semibold text-ink-dim;
     background-image: repeating-linear-gradient(
       135deg,
       theme('colors.block') 0,
@@ -73,7 +73,7 @@
   }
 
   .card {
-    @apply rounded-m border border-border bg-paper-raised p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-honey-300 hover:shadow-warm;
+    @apply rounded-md border border-border bg-paper-raised p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-honey-300 hover:shadow-warm;
   }
 
   .badge {
@@ -93,9 +93,22 @@
   .section-frame {
     @apply bg-frame;
   }
-  /* High-contrast dark section — experiment: white/honey text on warm mahogany brown. */
+  /* Tmavá sekce — tlumená teplá hnědá (ne sytá honey-800), ať nepůsobí křiklavě
+     vedle zbytku medové palety. */
   .section-dark {
-    @apply bg-honey-800 text-honey-50;
+    @apply bg-coffee text-honey-50;
+  }
+}
+
+@layer components {
+  /* Skryje nativní scrollbar u horizontálně scrollovatelných karuselů - navigace
+     jde přes šipky/tečky, viditelný posuvník dole by byl duplicitní a rušil by. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 

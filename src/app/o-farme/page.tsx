@@ -65,7 +65,7 @@ export default function OFarmePage() {
                 medům rozdílnou barvu, vůni i chuť.
               </StoryBlock>
             </div>
-            <div className="relative min-h-[260px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm lg:min-h-full">
+            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:min-h-full">
               <Image
                 src="/images/photos/o-farme-apiary-family.jpg"
                 alt="Řada úlů na našem včelím stanovišti"
@@ -83,44 +83,47 @@ export default function OFarmePage() {
           <span className="eyebrow">Metody</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak včelaříme</h2>
 
-          <div className="relative mb-6 h-[180px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm sm:h-[220px]">
-            <Image
-              src="/images/photos/jak-vcelarime-honeycomb.jpg"
-              alt="Detail plástu s medem a včelou na prstu včelaře"
-              fill
-              sizes="(min-width: 768px) 1180px, 100vw"
-              className="object-cover"
-            />
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1 lg:min-h-full">
+              <Image
+                src="/images/photos/jak-vcelarime-honeycomb.jpg"
+                alt="Detail plástu s medem a včelou na prstu včelaře"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="lg:order-2">
+              <StoryBlock title="Dřevěné úly a přírodní materiály">
+                Rámková míra 390×240 mm a nízké nástavce Langstroth 448×159 mm. Dřevěné úly z
+                masivu nebo izolované — bez plastových rámků a mezistěn.
+              </StoryBlock>
+              <StoryBlock title="Vlastní koloběh vosku">
+                Výhradně vosk z vlastních včelstev. Čistíme a dezinfikujeme při vysoké teplotě,
+                bez kyseliny sírové či fosforečné. Mezistěny vyrábíme sami.
+              </StoryBlock>
+              <StoryBlock title="Med z panenských plástů">
+                Plásty, které nikdy nepřišly do styku se včelím plodem — sluníčkově žluté, voní po
+                medu a vosku.
+              </StoryBlock>
+              <StoryBlock title="Šetrná péče o zdraví včel">
+                Sledujeme výskyt Varroa destructor, používáme organické kyseliny a mechanické
+                zásahy (varroapasti) místo syntetických akaricidů. Šlechtíme přirozeně odolnější
+                včelstva.
+              </StoryBlock>
+              <StoryBlock title="Tradice, kterou předáváme dál">
+                Ke včelám bereme i naše děti — chceme jim předat úctu ke včelám i vnímání
+                přírody, stejně jako to bylo předáno nám.
+              </StoryBlock>
+
+              <div className="mt-2">
+                <Link href="/#produkty" className="btn btn-primary">
+                  Chci ochutnat váš med
+                </Link>
+              </div>
+            </div>
           </div>
-
-          <StoryBlock title="Dřevěné úly a přírodní materiály">
-            Rámková míra 390×240 mm a nízké nástavce Langstroth 448×159 mm. Dřevěné úly z masivu
-            nebo izolované — bez plastových rámků a mezistěn.
-          </StoryBlock>
-          <StoryBlock title="Vlastní koloběh vosku">
-            Výhradně vosk z vlastních včelstev. Čistíme a dezinfikujeme při vysoké teplotě, bez
-            kyseliny sírové či fosforečné. Mezistěny vyrábíme sami.
-          </StoryBlock>
-          <StoryBlock title="Med z panenských plástů">
-            Plásty, které nikdy nepřišly do styku se včelím plodem — sluníčkově žluté, voní po
-            medu a vosku.
-          </StoryBlock>
-          <StoryBlock title="Šetrná péče o zdraví včel">
-            Sledujeme výskyt Varroa destructor, používáme organické kyseliny a mechanické zásahy
-            (varroapasti) místo syntetických akaricidů. Šlechtíme přirozeně odolnější včelstva.
-          </StoryBlock>
-          <StoryBlock title="Tradice, kterou předáváme dál">
-            Ke včelám bereme i naše děti — chceme jim předat úctu ke včelám i vnímání přírody,
-            stejně jako to bylo předáno nám.
-          </StoryBlock>
-        </div>
-      </section>
-
-      <section className="px-4 py-8 sm:px-6 md:py-12">
-        <div className="mx-auto flex max-w-content justify-center">
-          <Link href="/#produkty" className="btn btn-primary">
-            Chci ochutnat náš med
-          </Link>
         </div>
       </section>
     </>

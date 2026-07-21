@@ -9,7 +9,7 @@ const SOCIALS = [
 
 export default function ContactInfo() {
   return (
-    <div className="flex h-full flex-col gap-4 rounded-l border border-honey-100 bg-paper-raised p-5 shadow-warm sm:p-6">
+    <div className="flex h-full flex-col gap-4 rounded-xl border border-honey-100 bg-paper-raised p-5 shadow-warm sm:p-6">
       <div className="text-[13.5px]">
         <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
           Adresa
@@ -54,7 +54,7 @@ export default function ContactInfo() {
         )}
       </div>
 
-      <div className="min-h-[220px] flex-1 overflow-hidden rounded-m border border-honey-100">
+      <div className="min-h-[220px] flex-1 overflow-hidden rounded-md border border-honey-100">
         <iframe
           src={`https://www.google.com/maps?q=${encodeURIComponent(
             `${site.contact.address.street}, ${site.contact.address.zip} ${site.contact.address.city}`
