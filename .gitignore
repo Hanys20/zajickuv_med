@@ -5,6 +5,7 @@ out/
 .env.local
 .env*.local
 tina/__generated__/
+public/admin/
 .vercel/
 .wrangler/
 .DS_Store

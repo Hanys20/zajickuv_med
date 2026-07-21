@@ -1,42 +1,44 @@
-[
-  {
-    "question": "Proč med krystalizuje?",
-    "answer": "Krystalizace je přirozenou vlastností medu a není známkou jeho zhoršené kvality. Rychlost krystalizace závisí především na poměru přirozeně obsažené glukózy a fruktózy. Medy s vyšším podílem glukózy krystalizují rychleji, zatímco vyšší podíl fruktózy udržuje med déle tekutý."
-  },
-  {
-    "question": "Znamená zkrystalizovaný med, že je zkažený?",
-    "answer": "Ne. Krystalizace je zcela přirozený proces, který probíhá dříve či později téměř u každého medu. Některé medy začnou krystalizovat už krátce po vytočení, jiné zůstávají tekuté podstatně déle.\n\nPokud chcete med opět ztekutit, můžete jej pomalu zahřívat ve vodní lázni. Doporučujeme zvolit šetrnou teplotu do 45 stupňů a med zbytečně nepřehřívat."
-  },
-  {
-    "question": "Proč měříte obsah vody v medu?",
-    "answer": "Obsah vody je jedním z důležitých ukazatelů zralosti a kvality medu. Kontrolujeme jej pomocí refraktometru a snažíme se, aby u našich medů nepřesahoval 18 %. Příliš vysoký obsah vody totiž zvyšuje riziko, že med začne časem kvasit."
-  },
-  {
-    "question": "Je některý druh medu sladší než jiný?",
-    "answer": "Ano, jednotlivé medy se mohou sladkostí lišit. Záleží na jejich rostlinném původu, poměru jednotlivých cukrů i dalších přirozeně obsažených látkách.\n\nKvětové medy bývají často chuťově sladší a jemnější. Medovicové medy naopak většinou působí méně sladce a mají výraznější, plnější až lehce kořenitou nebo karamelovou chuť. Vždy ale záleží na konkrétní snůšce."
-  },
-  {
-    "question": "Jaký je rozdíl mezi květovým a medovicovým medem?",
-    "answer": "Květový med vzniká převážně z nektaru květů. Zpravidla bývá světlejší, sladší a většina jeho druhů také rychleji krystalizuje.\n\nMedovicový neboli lesní med vzniká z medovice, kterou včely sbírají na listech a jehličí stromů. Medovice souvisí s činností drobného hmyzu živícího se rostlinnými šťávami, například mšic. Medovicový med bývá tmavší, chuťově výraznější a zpravidla obsahuje více minerálních látek než med květový."
-  },
-  {
-    "question": "Jak probíhá nákup medu?",
-    "answer": "Stačí nás předem kontaktovat a napsat nám, o které druhy medu a jaké množství máte zájem. Objednávku pro vás připravíme a následně se domluvíme, kdy si ji můžete vyzvednout.\n\nAktuální dostupnost jednotlivých medů najdete zde na webu, jelikož se může v průběhu roku měnit podle sklizně."
-  },
-  {
-    "question": "Mohu vám vrátit prázdnou sklenici?",
-    "answer": "Ano. V rámci našeho šetrnějšího přístupu rádi znovu využijeme nepoškozené sklenice od našeho medu. Po vrácení je důkladně vyčistíme a připravíme k dalšímu použití.\n\nNa sklenice účtujeme vratnou zálohu 5 Kč. V ceníku najdete cenu včetně zálohy."
-  },
-  {
-    "question": "Jak dlouho med vydrží?",
-    "answer": "Na obalu uvádíme datum minimální trvanlivosti dva roky. Při správném skladování však může med zůstat použitelný i výrazně déle.\n\nPo uplynutí data minimální trvanlivosti nemusí být med automaticky zkažený. Časem se ale mohou postupně měnit jeho chuť, vůně a některé přirozené kvalitativní vlastnosti."
-  },
-  {
-    "question": "Jak med správně skladovat?",
-    "answer": "Med skladujte v dobře uzavřené sklenici na suchém a tmavém místě, ideálně při teplotě do 18 °C. Běžná teplota v domácnosti mu nevadí, neměl by však být dlouhodobě vystaven velkému teplu, slunečnímu záření ani výrazným změnám teplot.\n\nSklenici vždy dobře uzavírejte. Med snadno přijímá vzdušnou vlhkost i okolní pachy, což může ovlivnit jeho kvalitu."
-  },
-  {
-    "question": "Odkud váš med pochází?",
-    "answer": "Část včelstev je umístěna v bezprostřední blízkosti vojenského prostoru Libavá, tedy v ekologicky čisté oblasti. Další včelstva jsou umístěna na úpatí Nízkého Jeseníku."
-  }
-]
+{
+  "items": [
+    {
+      "question": "Proč med krystalizuje?",
+      "answer": "Krystalizace je přirozenou vlastností medu a není známkou jeho zhoršené kvality. Rychlost krystalizace závisí především na poměru přirozeně obsažené glukózy a fruktózy. Medy s vyšším podílem glukózy krystalizují rychleji, zatímco vyšší podíl fruktózy udržuje med déle tekutý."
+    },
+    {
+      "question": "Znamená zkrystalizovaný med, že je zkažený?",
+      "answer": "Ne. Krystalizace je zcela přirozený proces, který probíhá dříve či později téměř u každého medu. Některé medy začnou krystalizovat už krátce po vytočení, jiné zůstávají tekuté podstatně déle.\n\nPokud chcete med opět ztekutit, můžete jej pomalu zahřívat ve vodní lázni. Doporučujeme zvolit šetrnou teplotu do 45 stupňů a med zbytečně nepřehřívat."
+    },
+    {
+      "question": "Proč měříte obsah vody v medu?",
+      "answer": "Obsah vody je jedním z důležitých ukazatelů zralosti a kvality medu. Kontrolujeme jej pomocí refraktometru a snažíme se, aby u našich medů nepřesahoval 18 %. Příliš vysoký obsah vody totiž zvyšuje riziko, že med začne časem kvasit."
+    },
+    {
+      "question": "Je některý druh medu sladší než jiný?",
+      "answer": "Ano, jednotlivé medy se mohou sladkostí lišit. Záleží na jejich rostlinném původu, poměru jednotlivých cukrů i dalších přirozeně obsažených látkách.\n\nKvětové medy bývají často chuťově sladší a jemnější. Medovicové medy naopak většinou působí méně sladce a mají výraznější, plnější až lehce kořenitou nebo karamelovou chuť. Vždy ale záleží na konkrétní snůšce."
+    },
+    {
+      "question": "Jaký je rozdíl mezi květovým a medovicovým medem?",
+      "answer": "Květový med vzniká převážně z nektaru květů. Zpravidla bývá světlejší, sladší a většina jeho druhů také rychleji krystalizuje.\n\nMedovicový neboli lesní med vzniká z medovice, kterou včely sbírají na listech a jehličí stromů. Medovice souvisí s činností drobného hmyzu živícího se rostlinnými šťávami, například mšic. Medovicový med bývá tmavší, chuťově výraznější a zpravidla obsahuje více minerálních látek než med květový."
+    },
+    {
+      "question": "Jak probíhá nákup medu?",
+      "answer": "Stačí nás předem kontaktovat a napsat nám, o které druhy medu a jaké množství máte zájem. Objednávku pro vás připravíme a následně se domluvíme, kdy si ji můžete vyzvednout.\n\nAktuální dostupnost jednotlivých medů najdete zde na webu, jelikož se může v průběhu roku měnit podle sklizně."
+    },
+    {
+      "question": "Mohu vám vrátit prázdnou sklenici?",
+      "answer": "Ano. V rámci našeho šetrnějšího přístupu rádi znovu využijeme nepoškozené sklenice od našeho medu. Po vrácení je důkladně vyčistíme a připravíme k dalšímu použití.\n\nNa sklenice účtujeme vratnou zálohu 5 Kč. V ceníku najdete cenu včetně zálohy."
+    },
+    {
+      "question": "Jak dlouho med vydrží?",
+      "answer": "Na obalu uvádíme datum minimální trvanlivosti dva roky. Při správném skladování však může med zůstat použitelný i výrazně déle.\n\nPo uplynutí data minimální trvanlivosti nemusí být med automaticky zkažený. Časem se ale mohou postupně měnit jeho chuť, vůně a některé přirozené kvalitativní vlastnosti."
+    },
+    {
+      "question": "Jak med správně skladovat?",
+      "answer": "Med skladujte v dobře uzavřené sklenici na suchém a tmavém místě, ideálně při teplotě do 18 °C. Běžná teplota v domácnosti mu nevadí, neměl by však být dlouhodobě vystaven velkému teplu, slunečnímu záření ani výrazným změnám teplot.\n\nSklenici vždy dobře uzavírejte. Med snadno přijímá vzdušnou vlhkost i okolní pachy, což může ovlivnit jeho kvalitu."
+    },
+    {
+      "question": "Odkud váš med pochází?",
+      "answer": "Část včelstev je umístěna v bezprostřední blízkosti vojenského prostoru Libavá, tedy v ekologicky čisté oblasti. Další včelstva jsou umístěna na úpatí Nízkého Jeseníku."
+    }
+  ]
+}

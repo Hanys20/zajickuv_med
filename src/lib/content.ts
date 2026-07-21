@@ -10,5 +10,5 @@ export type SalesPoints = typeof salesPointsJson;
 
 export const site: SiteSettings = siteJson;
 export const cenik: Cenik = cenikJson;
-export const faq: FaqItem[] = faqJson;
+export const faq: FaqItem[] = faqJson.items;
 export const salesPoints: SalesPoints = salesPointsJson;
