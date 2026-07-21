@@ -1,13 +1,24 @@
 import { defineConfig } from 'tinacms';
 
-// Název souboru je vždy podle data (ne podle titulku), aby dvě aktuality
-// se stejným názvem nekolidovaly a diakritika v titulku nedělala problém.
-function formatDateSlug(dateValue?: string): string {
-  const d = dateValue ? new Date(dateValue) : new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  return `${yyyy}-${mm}-${dd}`;
+const CZECH_DIACRITICS: Record<string, string> = {
+  á: 'a', č: 'c', ď: 'd', é: 'e', ě: 'e', í: 'i', ň: 'n', ó: 'o', ř: 'r',
+  š: 's', ť: 't', ú: 'u', ů: 'u', ý: 'y', ž: 'z',
+  Á: 'a', Č: 'c', Ď: 'd', É: 'e', Ě: 'e', Í: 'i', Ň: 'n', Ó: 'o', Ř: 'r',
+  Š: 's', Ť: 't', Ú: 'u', Ů: 'u', Ý: 'y', Ž: 'z',
+};
+
+// Výchozí generování názvu souboru neumí českou diakritiku a znaky
+// s háčky/čárkami prostě zahodí (např. "Zkušební" -> "Zkuebn"). Tahle
+// funkce diakritiku nejdřív převede na ASCII a teprve pak slugifikuje.
+function slugifyCzech(value: string): string {
+  const ascii = value
+    .split('')
+    .map((ch) => CZECH_DIACRITICS[ch] ?? ch)
+    .join('');
+  return ascii
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 const branch =
@@ -155,11 +166,8 @@ export default defineConfig({
         format: 'md',
         ui: {
           filename: {
-            slugify: (values) => `prispevek_${formatDateSlug(values?.date)}`,
+            slugify: (values) => slugifyCzech(values?.title || 'aktualita'),
           },
-          defaultItem: () => ({
-            date: new Date().toISOString(),
-          }),
         },
         fields: [
           { type: 'string', name: 'title', label: 'Název', isTitle: true, required: true },
