@@ -68,7 +68,7 @@ export default function OFarmePage() {
             <div className="relative min-h-[260px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm lg:min-h-full">
               <Image
                 src="/images/photos/o-farme-apiary-family.jpg"
-                alt="Včelaři kontrolují rámek u úlů na stanovišti"
+                alt="Řada úlů na našem včelím stanovišti"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
                 className="object-cover"
@@ -86,7 +86,7 @@ export default function OFarmePage() {
           <div className="relative mb-6 h-[180px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm sm:h-[220px]">
             <Image
               src="/images/photos/jak-vcelarime-honeycomb.jpg"
-              alt="Detail panenského plástu s medem"
+              alt="Detail plástu s medem a včelou na prstu včelaře"
               fill
               sizes="(min-width: 768px) 1180px, 100vw"
               className="object-cover"

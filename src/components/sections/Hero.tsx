@@ -29,7 +29,7 @@ export default function Hero() {
         <div className="relative min-h-[220px] overflow-hidden rounded-l border border-honey-200/70 shadow-warm md:min-h-[320px]">
           <Image
             src="/images/photos/hero-beekeeper-apiary.jpg"
-            alt="Včelař v žlutém obleku pracuje u úlů se zakouřovačem"
+            alt="Včelař v ochranném obleku pracuje u úlů se zakuřovačem na lesním stanovišti"
             fill
             priority
             sizes="(min-width: 768px) 45vw, 100vw"
