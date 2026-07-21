@@ -143,6 +143,11 @@ export default defineConfig({
         label: 'Aktuality',
         path: 'content/news',
         format: 'md',
+        ui: {
+          defaultItem: () => ({
+            date: new Date().toISOString(),
+          }),
+        },
         fields: [
           { type: 'string', name: 'title', label: 'Název', isTitle: true, required: true },
           { type: 'datetime', name: 'date', label: 'Datum', required: true },
