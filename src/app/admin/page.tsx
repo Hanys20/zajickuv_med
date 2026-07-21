@@ -56,7 +56,7 @@ function LoginForm({ onLoggedIn }: { onLoggedIn: () => void }) {
   );
 }
 
-export default function SpravaPage() {
+export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [tab, setTab] = useState<Tab>('news');
 

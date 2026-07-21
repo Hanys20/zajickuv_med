@@ -19,29 +19,39 @@ Paměťový soubor pro práci na projektu. Čti před zahájením jakékoli prá
 - **Telefon / WhatsApp:** +420 603 162 501
 - **Adresa:** Raduňská 5/20, 747 06 Opava-Podvihov
 - **Sociální sítě:** Facebook a Instagram se teprve zakládají (stav 2026-07-20) – zatím bez odkazů, doplnit později. Ikony FB/IG/WhatsApp musí být na webu připravené.
-- **Správce domény (současný):** Radim Steuer, GDstudio – +420 720 775 722 / +420 777 107 235, steuer@gdstudio.cz. Potřeba získat přístupy a přesměrovat na Cloudflare Pages.
+- **Správce domény (současný):** Radim Steuer, GDstudio – +420 720 775 722 / +420 777 107 235, steuer@gdstudio.cz. Potřeba získat přístupy a přesměrovat DNS na nasazený Cloudflare Worker (viz Tech stack).
 - Strukturovaně viz `content/settings/site.json`.
 
 Podrobné Q&A a otevřené úkoly směrem ke klientovi: [client-materials/qa-klient.md](./client-materials/qa-klient.md).
 
-## Tech stack (rozhodnuto 2026-07-20)
+## Tech stack (rozhodnuto 2026-07-20, admin systém přepracován 2026-07-21)
 
 - **Framework:** Next.js, `output: 'export'` (statický export).
-- **CMS:** TinaCMS + Tina Cloud, přihlášení e-mailem/heslem (ne GitHub OAuth). Admin dostupný na `/admin`. Obsah se ukládá zpět do repozitáře na GitHubu přes Tina Cloud.
-- **Hosting:** Cloudflare Pages.
-- **Repozitář:** GitHub (zatím lokálně bez `git init` – založit při prvním scaffoldingu).
-- **Styling:** zatím nerozhodnuto v detailu – výchozí předpoklad Tailwind CSS (běžná volba pro Next.js, snadné téma pro žluto-medovou paletu), potvrdit až se bude dělat skutečný scaffolding.
-- Klient v adminu edituje: ceník, aktuality, dostupnost jednotlivých druhů medu (skladem/vyprodáno).
+- **Admin systém:** vlastní řešení na míru (ne TinaCMS – viz "Proč ne TinaCMS" níže). Cloudflare D1 databáze (`zajickuv-med-admin`) + Cloudflare Worker (`worker/worker.ts`), který zároveň servíruje statický web (`env.ASSETS`) i vlastní API (`/api/...`). Admin UI na `/admin` (`src/app/admin/page.tsx`) – přihlášení uživatelské jméno/heslo (žádný e-mail, žádné OAuth) a 3 záložky: Aktuality, Dostupnost medů, Ceník.
+  - **Přihlášení:** PBKDF2-SHA256 hash hesla (100 000 iterací, sůl) v tabulce `admin_user`; po přihlášení session token v httpOnly cookie `session` (30 dní), session záznamy v tabulce `sessions` – logout je v D1 skutečně maže (ne jen cookie v prohlížeči).
+  - **Editovatelné jen:** aktuality (web vždy zobrazí nejnovější podle data), dostupnost jednotlivých druhů medu (skladem/vyprodáno), ceny v ceníku (jen částky – velikosti/názvy needitovatelné). Nic jiného klient přes admin needituje.
+  - **Zabezpečení je záměrně odlehčené** – klientovo rozhodnutí, na webu nejsou citlivá data: žádné 2FA, rate limiting ani reset hesla e-mailem. Hash hesla + httpOnly cookie je bráno jako nutné minimum (aby šel web triviálně "zdefacovat"), ne jako "extra" bezpečnost navíc.
+  - Ostatní obsah (texty stránek, popisy produktů, FAQ, prodejní místa, nastavení) zůstává v `content/` a edituje se přímo v repozitáři – viz sekce Obsah níže.
+- **Databáze:** Cloudflare D1 (`zajickuv-med-admin`, `database_id` v `wrangler.jsonc`). Schéma v `worker/schema.sql`, výchozí data pro lokální vývoj v `worker/seed.sql` (`npx wrangler d1 execute zajickuv-med-admin --local --file=worker/schema.sql` a stejně pro seed.sql).
+- **Hosting:** Cloudflare Workers (statické assety z `out/` + Worker skript), nasazeno přes `npx wrangler deploy` (vyžaduje `wrangler login`). Aktuálně běží na testovací `*.workers.dev` doméně účtu vývojáře – napojení na `zajickuv-med.cz` čeká na přístupy od GDstudio (viz Kontakty výše).
+- **Repozitář:** GitHub (`Hanys20/zajickuv_med`), `main` branch.
+- **Styling:** Tailwind CSS, prozatímní medová paleta.
 
-### Stav scaffoldingu (aktualizováno 2026-07-20)
+### Proč ne TinaCMS
 
-Next.js aplikace je naběhlá a odpovídá wireframu (`wireframes/index.html`) — `output: 'export'`, App Router, TypeScript, Tailwind CSS s prozatímní medovou paletou. Obsah (produkty, ceník, FAQ, prodejní místa, nastavení) se čte přímo ze souborů v `content/` (produkty přes `gray-matter`, ostatní jako JSON import), takže content zůstává jediným zdrojem pravdy. Ikony pro karty/kontakty jsou zkopírované z `client-materials/Ikony` do `public/images/icons` (ASCII názvy). Fotky jsou zatím schematické placeholdery (`.imgph` bloky) – nahradit až dorazí reálné podklady od klienta. Logo je zatím jen textové + ikona včely, čeká na finální grafiku.
+Tina byla původně naplánovaný a reálně zprovozněný CMS (napojený na Tina Cloud, se zúženým schématem – jen aktuality, ceny, dostupnost). Po vyzkoušení klient preferoval jednodušší vlastní řešení: bez závislosti na externí platformě a jejím účtu/limitům, s plnou kontrolou nad jednoduchostí admin rozhraní pro netechnického uživatele. 2026-07-21 jsme na klientovo přání Tinu z projektu úplně odstranili (`tina/` složka, `tinacms`/`@tinacms/cli` závislosti, `public/admin` bundle) a nahradili vlastním systémem popsaným výše. Adminovi se od té doby říká `/admin` (dřív tam byla Tina, teď vlastní systém).
+
+### Stav scaffoldingu (aktualizováno 2026-07-21)
+
+Next.js aplikace odpovídá wireframu (`wireframes/index.html`) — `output: 'export'`, App Router, TypeScript, Tailwind CSS s prozatímní medovou paletou. Ikony pro karty/kontakty jsou zkopírované z `client-materials/Ikony` do `public/images/icons` (ASCII názvy). Fotky jsou zatím schematické placeholdery (`.imgph` bloky) – nahradit až dorazí reálné podklady od klienta. Logo je zatím jen textové + ikona včely, čeká na finální grafiku.
+
+Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, otestovaný lokálně (`npx wrangler dev`) i naostro nasazený a ověřený. Homepage sekce Aktuality, Dostupnost medů a Ceník si po načtení tiše donačtou živá data z D1 přes `/api/public/*`, s fallbackem na build-time obsah z `content/` pro případ výpadku API.
 
 Zbývá:
-1. Inicializovat Tina (`npx @tinacms/cli init`) a napojit na Tina Cloud, nadefinovat schema kolekcí podle `content/` (products, pricing, faq, news, pages, settings, sales-points) – teď je obsah hardcodovaný v komponentách/JSON, ne editovatelný klientem.
-2. `git init`, první commit, založit GitHub repo, napojit Cloudflare Pages.
-3. Kontaktní formulář zatím jen otevře e-mailového klienta (mailto:) s předvyplněnou zprávou – bez backendu. Až budeme mít Cloudflare Pages, zvážit Pages Function / Formspree apod. pro reálné odeslání.
-4. Nahradit placeholder fotky a barevnou paletu, jakmile klient dodá design/fotky.
+1. Získat přístupy k doméně `zajickuv-med.cz` od GDstudio (Radim Steuer) a přesměrovat DNS na nasazený Cloudflare Worker.
+2. Kontaktní formulář zatím jen otevře e-mailového klienta (mailto:) s předvyplněnou zprávou – bez backendu. Zvážit rozšíření Worker API o skutečné odeslání.
+3. Nahradit placeholder fotky a barevnou paletu, jakmile klient dodá design/fotky.
+4. Nastavit trvalé přihlašovací údaje do `/admin` pro Pavla (aktuální jsou vygenerované testovací, heslo v plaintextu není nikde v repozitáři).
 
 ## Cílová skupina a UX priority
 
@@ -61,17 +71,18 @@ Menu: cca 5 položek (Domů, O farmě, Produkty/Ceník, FAQ, Kontakt).
 
 ## Obsah – zdroje pravdy
 
+Aktuality, dostupnost medů a ceny jsou od 2026-07-21 v Cloudflare D1 a edituje je klient přes `/admin` (viz Tech stack). Zbytek obsahu zůstává v `content/` a edituje se přímo v repozitáři – žádný z těchto souborů přes admin needituje klient.
+
 - `content/pages/` – texty stránek Domů, O farmě, Kontakt (Markdown, frontmatter + tělo).
-- `content/products/` – jednotlivé druhy medu a propolisové produkty (název, kategorie, dostupnost, velikosti, krátký + plný popis).
-- `content/pricing/cenik.json` – ceník platný od 15. 7. 2025 (med je cenově stejný napříč druhy, liší se jen velikostí balení; zvlášť propolis, dárková balení, zmínka o medovině bez ceny).
+- `content/products/` – jednotlivé druhy medu a propolisové produkty (název, kategorie, velikosti, krátký + plný popis). Pole `availability` v těchto souborech je jen build-time fallback – skutečnou dostupnost medů edituje klient v `/admin` (D1 tabulka `honey_availability`).
+- `content/pricing/cenik.json` – needitovatelná pole ceníku (velikosti, názvy, medovina, poznámky) + build-time fallback cen. Skutečné ceny edituje klient v `/admin` (D1 tabulka `pricing`).
 - `content/faq/faq.json` – otázky a odpovědi.
 - `content/sales-points/sales-points.json` – prodejní místa a rozvoz.
 - `content/settings/site.json` – kontakty, sociální sítě, SEO lokality, nastavení cookies/analytics, stav recenzí, kontakt na správce domény.
-- `content/news/` – aktuality (zatím prázdné, doplní klient/agentura, mění se cca 2×/rok).
+- `content/news/` – needitovatelný build-time fallback aktualit. Skutečné aktuality edituje klient v `/admin` (D1 tabulka `news`) – web vždy zobrazí nejnovější podle data.
 - `content/reviews/` – recenze (zatím prázdné – žádná provozovna, žádné Google recenze; naplánováno napojení na Google recenze, až vznikne provozovna na mapách).
 - `client-materials/` – syrové podklady od klienta, TODO seznam otevřených bodů, prostor pro design inspiraci a fotky až dorazí.
-
-Tyto content soubory jsou zamýšlené jako budoucí Tina kolekce (1:1 mapování na CMS schema).
+- `worker/schema.sql`, `worker/seed.sql` – schéma a výchozí data D1 databáze pro lokální vývoj. Produkční databázi spravuje klient přes `/admin`, ne přímo SQL.
 
 ## Design direction (design/mockupy klient dodá později, tohle jsou zadané mantinely)
 
@@ -102,6 +113,7 @@ Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient
 
 ## Doporučený další postup
 
-1. **Wireframe celého webu** (low-fi, mobile-first i desktop) – další krok v této session, nezávislý na finálním designu.
-2. Až dorazí design inspirace od klienta → aplikovat barevnou paletu a styl na wireframe / přejít do reálného UI.
-3. Scaffolding Next.js + Tina (viz sekce Tech stack výše) až bude jasná struktura z wireframu.
+1. Získat přístupy k doméně a DNS od GDstudio, napojit `zajickuv-med.cz` na nasazený Cloudflare Worker (viz Tech stack a Stav scaffoldingu výše).
+2. Až dorazí design inspirace / reálné fotky od klienta → nahradit placeholdery a doladit barevnou paletu.
+3. Vyřešit skutečné odeslání kontaktního formuláře (zatím jen `mailto:`, bez backendu).
+4. Nastavit klientovi trvalé přihlašovací údaje do `/admin` (aktuální jsou testovací/vygenerované).
