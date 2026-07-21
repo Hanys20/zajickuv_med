@@ -15,12 +15,7 @@ export default defineConfig({
     outputFolder: 'admin',
     publicFolder: 'public',
   },
-  media: {
-    tina: {
-      mediaRoot: 'images',
-      publicFolder: 'public',
-    },
-  },
+  // Bez media manageru - klient nemá nahrávat/upravovat fotky přes admin.
 
   schema: {
     collections: [
