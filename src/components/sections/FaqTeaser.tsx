@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { faq } from '@/lib/content';
 import FaqAccordion from './FaqAccordion';
 
@@ -13,8 +14,15 @@ export default function FaqTeaser() {
   );
 
   return (
-    <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
-      <div className="mx-auto max-w-content">
+    <section className="section-tint relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <Image
+        src="/images/watercolor/bees-cluster.png"
+        alt=""
+        width={800}
+        height={501}
+        className="pointer-events-none absolute -bottom-6 -left-8 hidden w-36 select-none sm:block md:w-44 lg:w-52"
+      />
+      <div className="relative mx-auto max-w-content">
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <span className="eyebrow">Nejčastější dotazy</span>

@@ -15,6 +15,13 @@ export default function OFarmePage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-honey-50/70 to-paper px-4 py-8 sm:px-6 md:py-12">
+        <Image
+          src="/images/watercolor/hives-four.png"
+          alt=""
+          width={800}
+          height={408}
+          className="pointer-events-none absolute -bottom-10 -right-10 hidden w-64 select-none sm:block md:w-80 lg:w-96"
+        />
         <div className="relative mx-auto max-w-content">
           <span className="eyebrow">O farmě</span>
           <h1 className="mt-2 text-2xl font-extrabold leading-tight md:text-[32px]">
@@ -27,16 +34,30 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
-        <div className="mx-auto max-w-content">
+      <section className="section-tint relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
+        <Image
+          src="/images/watercolor/beekeeper.png"
+          alt=""
+          width={625}
+          height={800}
+          className="pointer-events-none absolute -right-6 -top-10 hidden w-32 select-none sm:block md:w-40 lg:w-48"
+        />
+        <div className="relative mx-auto max-w-content">
           <span className="eyebrow">Naše hodnoty</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Co je pro nás důležité</h2>
           <ValuesGrid />
         </div>
       </section>
 
-      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
-        <div className="mx-auto max-w-content">
+      <section className="relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
+        <Image
+          src="/images/watercolor/honeycomb.png"
+          alt=""
+          width={800}
+          height={736}
+          className="pointer-events-none absolute -bottom-8 -left-8 hidden w-28 select-none sm:block md:w-36"
+        />
+        <div className="relative mx-auto max-w-content">
           <span className="eyebrow">Historie</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
           <Timeline />

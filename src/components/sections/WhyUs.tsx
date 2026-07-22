@@ -31,6 +31,13 @@ const CARDS = [
 export default function WhyUs() {
   return (
     <section className="section-tint relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <Image
+        src="/images/watercolor/bee-flower.png"
+        alt=""
+        width={340}
+        height={349}
+        className="pointer-events-none absolute -right-6 -top-8 hidden w-32 select-none sm:block md:w-40 lg:w-48"
+      />
       <div className="relative mx-auto max-w-content">
         <span className="eyebrow">Proč zrovna my</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">
