@@ -25,17 +25,22 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
             platný od {new Date(cenik.effectiveFrom).toLocaleDateString('cs-CZ')}
           </span>
         </div>
-        <div className="overflow-x-auto bg-paper-raised">
-          <table className="w-full min-w-[420px] border-collapse text-[13.5px]">
+        <div className="bg-paper-raised">
+          <table className="w-full table-fixed border-collapse text-[12.5px] sm:text-[13.5px]">
+            <colgroup>
+              <col className="w-[42%]" />
+              <col className="w-[30%]" />
+              <col className="w-[28%]" />
+            </colgroup>
             <thead>
               <tr className="bg-honey-50">
-                <th className="border-b border-honey-200 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5">
+                <th className="border-b border-honey-200 px-2.5 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:text-[11px]">
                   Položka
                 </th>
-                <th className="border-b border-honey-200 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5">
+                <th className="border-b border-honey-200 bg-honey-100/70 px-2.5 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:text-[11px]">
                   Balení
                 </th>
-                <th className="border-b border-honey-200 px-4 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5">
+                <th className="border-b border-honey-200 px-2.5 py-2.5 text-right text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:text-[11px]">
                   Cena
                 </th>
               </tr>
@@ -43,35 +48,44 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
             <tbody>
               {cenik.honey.map((row) => (
                 <tr key={row.size} className="hover:bg-honey-50/60">
-                  <td className="border-b border-block px-4 py-2.5 sm:px-5">Med (všechny druhy)</td>
-                  <td className="border-b border-block px-4 py-2.5 sm:px-5">{row.size}</td>
-                  <td className="border-b border-block px-4 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5">
+                  <td className="border-b border-block px-2.5 py-2.5 sm:px-5">Med (všechny druhy)</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2.5 py-2.5 sm:px-5">{row.size}</td>
+                  <td className="border-b border-block px-2.5 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5">
                     {row.price} {row.unit.split('/')[0].trim()}
                   </td>
                 </tr>
               ))}
               {cenik.propolis.map((row) => (
                 <tr key={row.name} className="hover:bg-honey-50/60">
-                  <td className="border-b border-block px-4 py-2.5 sm:px-5">{row.name}</td>
-                  <td className="border-b border-block px-4 py-2.5 sm:px-5">{row.size}</td>
-                  <td className="border-b border-block px-4 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5">
+                  <td className="border-b border-block px-2.5 py-2.5 sm:px-5">{row.name}</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2.5 py-2.5 sm:px-5">{row.size}</td>
+                  <td className="border-b border-block px-2.5 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5">
                     {row.price} {row.unit}
                   </td>
                 </tr>
               ))}
-              {cenik.giftSets.map((row, i) => (
-                <tr key={row.name} className="hover:bg-honey-50/60">
-                  <td className="px-4 py-2.5 sm:px-5">Dárkový karton</td>
-                  <td className="px-4 py-2.5 sm:px-5">{row.name.replace('Karton ', '')}</td>
-                  <td
-                    className={`px-4 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5 ${
-                      i === cenik.giftSets.length - 1 ? '' : 'border-b border-block'
-                    }`}
-                  >
-                    {row.price} {row.unit}
-                  </td>
-                </tr>
-              ))}
+              {cenik.giftSets.map((row, i) => {
+                const isLast = i === cenik.giftSets.length - 1;
+                return (
+                  <tr key={row.name} className="hover:bg-honey-50/60">
+                    <td className={`px-2.5 py-2.5 sm:px-5 ${isLast ? '' : 'border-b border-block'}`}>
+                      Dárkový karton
+                    </td>
+                    <td
+                      className={`bg-honey-50/70 px-2.5 py-2.5 sm:px-5 ${isLast ? '' : 'border-b border-block'}`}
+                    >
+                      {row.name.replace('Karton ', '')}
+                    </td>
+                    <td
+                      className={`px-2.5 py-2.5 text-right font-bold tabular-nums text-honey-700 sm:px-5 ${
+                        isLast ? '' : 'border-b border-block'
+                      }`}
+                    >
+                      {row.price} {row.unit}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
