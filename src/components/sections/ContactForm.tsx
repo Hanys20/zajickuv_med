@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/products';
 import { cenik, site } from '@/lib/content';
 
@@ -10,6 +10,14 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
   const [phone, setPhone] = useState('');
   const [productChoice, setProductChoice] = useState('');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('med');
+    if (!slug) return;
+    const match = honeys.find((h) => h.slug === slug);
+    if (match) setProductChoice(match.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,7 +125,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Kolik a jakého medu máte zájem…"
+          placeholder="Napište nám, o jaký med a v jakém množství máte zájem"
           className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>

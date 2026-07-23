@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="zajickuv-med-logo" data-name="Zajíčkův med – animované logo"
+  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103.6 152.34"
+  role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">Animované logo Zajíčkův med</title>
+  <desc id="logo-desc">Prázdná sklenice se naplní medem, objeví se nos, vyrostou fousky a nakonec uši.</desc>
+
+  <defs>
+    <style>
+      :root {
+        --ink: #1d1d1b;
+        --honey: #f3a738;
+      }
+
+      .ink { fill: var(--ink); }
+      .honey { fill: var(--honey); }
+
+      /* Rychlejší a plynulejší plnění medem bez přesahu a návratu. */
+      #honey-fill {
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+        animation: honey-fill .62s cubic-bezier(.33, 1, .68, 1) .14s both;
+      }
+
+      /* Dočasně zacelí boční obrys prázdné sklenice; zmizí po objevení nosu. */
+      #jar-temporary-sides {
+        animation: temporary-sides .09s ease .83s both;
+      }
+
+      #nose {
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+        animation: nose-pop .16s cubic-bezier(.22, 1, .36, 1) .67s both;
+      }
+
+      #whiskers-left {
+        transform-box: fill-box;
+        transform-origin: 100% 50%;
+        animation: whiskers-grow .22s cubic-bezier(.22, 1, .36, 1) .79s both;
+      }
+
+      #whiskers-right {
+        transform-box: fill-box;
+        transform-origin: 0% 50%;
+        animation: whiskers-grow .22s cubic-bezier(.22, 1, .36, 1) .83s both;
+      }
+
+      #ear-left,
+      #ear-right {
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+      }
+
+      #ear-left {
+        animation: ear-grow .3s cubic-bezier(.22, 1, .36, 1) 1.01s both;
+      }
+
+      #ear-right {
+        animation: ear-grow .3s cubic-bezier(.22, 1, .36, 1) 1.07s both;
+      }
+
+      @keyframes honey-fill {
+        0%   { transform: scaleY(0); opacity: 1; }
+        100% { transform: scaleY(1); opacity: 1; }
+      }
+
+      @keyframes temporary-sides {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+      }
+
+      @keyframes nose-pop {
+        0%   { transform: scale(.72); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      @keyframes whiskers-grow {
+        0%   { transform: scaleX(0); opacity: 0; }
+        100% { transform: scaleX(1); opacity: 1; }
+      }
+
+      @keyframes ear-grow {
+        0%   { transform: translateY(2px) scaleY(0); opacity: 0; }
+        100% { transform: translateY(0) scaleY(1); opacity: 1; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #honey-fill, #nose, #whiskers-left, #whiskers-right, #ear-left, #ear-right {
+          animation: none;
+        }
+        #jar-temporary-sides { display: none; }
+      }
+    </style>
+  </defs>
+
+  <!-- Uši -->
+  <g id="ears">
+    <path id="ear-left" class="ink" d="M32.83,70.72c-6.77-8.68-11.3-19.04-13.38-29.84-1.75-8.8-1.83-17.88-.74-26.76.13-.74.11-1.64.55-2.34,1.07-2,4.05-2.23,5.45-.49.21.23.87.87,1.09,1.11,3.35,3.47,6.41,7.26,9.11,11.25,9.29,13.66,13.98,30.46,12.77,46.94,0,.14-.13.25-.28.24-.14,0-.24-.13-.24-.26.18-10.88-1.86-21.74-6.06-31.68-3.66-8.71-8.88-16.74-15.33-23.64-.43-.45-1.67-1.75-2.11-2.17-.14-.12-.55-.57-.68-.66-.58-.56-1.65-.35-2.02.35-.2.27-.26,1.26-.33,1.62-1.18,8.69-1.03,17.56.44,26.21,1.81,10.65,5.97,20.89,12.18,29.82.09.12.06.29-.06.37-.12.08-.28.06-.37-.05h0Z"/>
+    <path id="ear-right" class="ink" d="M67.61,70.4c11.62-16.6,15.65-37.86,12.29-57.66-.51-.88-1.74-.86-2.34-.04,0,0-.36.36-.36.36-.44.43-1.67,1.7-2.11,2.17-6.45,6.9-11.67,14.93-15.33,23.64-4.2,9.95-6.24,20.81-6.06,31.68,0,.14-.11.26-.26.27-.14,0-.25-.11-.26-.24-1.21-16.49,3.48-33.28,12.77-46.94,2.71-3.99,5.76-7.78,9.11-11.25.21-.19.88-.91,1.09-1.11.74-.86,2.02-1.38,3.16-1.14,1.41.21,2.62,1.55,2.72,2.95,0,0,.13,1.03.13,1.03.43,3.42.67,6.86.7,10.31.31,16.49-4.6,33.25-14.82,46.3-.09.12-.26.14-.38.05-.11-.09-.14-.25-.05-.37h0Z"/>
+  </g>
+
+  <!-- Med; sklenice je na začátku prázdná a výplň roste ode dna. -->
+  <rect id="honey-fill" class="honey" x="25.72" y="77.91" width="49.42" height="59.62" rx="5.93" ry="5.93"/>
+
+  <!-- Fousky -->
+  <g id="whiskers-left">
+    <path class="ink" d="M41.2,113.43c-7.56-3.75-16.29-5.66-24.62-3.71-1.19.24-2.36.59-3.53.96,8.95-4.47,20.04-2.77,28.15,2.75h0Z"/>
+    <path class="ink" d="M40.75,114.97c-8.07-2.48-16.98-2.96-24.9.31-1.14.43-2.23.96-3.33,1.51,8.11-5.86,19.33-5.97,28.23-1.82h0Z"/>
+  </g>
+
+  <g id="whiskers-right">
+    <path class="ink" d="M60.12,113.43c7.56-3.75,16.29-5.66,24.62-3.71,1.19.24,2.36.59,3.53.96-8.95-4.47-20.04-2.77-28.15,2.75h0Z"/>
+    <path class="ink" d="M60.57,114.97c8.07-2.48,16.98-2.96,24.9.31,1.14.43,2.23.96,3.33,1.51-8.11-5.86-19.33-5.97-28.23-1.82h0Z"/>
+  </g>
+
+  <!-- Obrys sklenice je viditelný po celou dobu. -->
+  <g id="jar-outline" class="ink">
+    <path d="M24.24,107.28s.02,0,.04,0v-23.36c0-4.07,3.31-7.38,7.38-7.38h37.57c4.07,0,7.38,3.31,7.38,7.38v23.38c.16,0,.32-.02.49-.02.34,0,.68.02,1.01.03v-23.39c0-4.89-3.98-8.88-8.88-8.88H31.65c-4.89,0-8.88,3.98-8.88,8.88v23.4c.48-.02.97-.04,1.46-.04Z"/>
+    <path d="M78.09,109.81c-.07,0-.15,0-.22,0-.42,0-.85.03-1.28.04v1.58c.5.05,1.01.1,1.5.18v-1.8Z"/>
+    <path d="M24.27,109.83c-.28,0-.56-.03-.83-.03-.22,0-.45.01-.67.02v1.87c.5-.09,1-.16,1.5-.22v-1.65Z"/>
+    <path d="M76.59,113.99v17.7c0,4.07-3.31,7.38-7.38,7.38H31.65c-4.07,0-7.38-3.31-7.38-7.38v-17.65c-.5.06-1,.12-1.5.2v17.44c0,4.89,3.98,8.88,8.88,8.88h37.57c4.89,0,8.88-3.98,8.88-8.88v-17.52c-.5-.07-1-.13-1.5-.18Z"/>
+  </g>
+
+  <!-- Dočasné spojení přerušeného obrysu pro úvodní prázdnou sklenici. -->
+  <g id="jar-temporary-sides" class="ink" aria-hidden="true">
+    <rect x="22.77" y="106.9" width="1.5" height="7.4"/>
+    <rect x="76.59" y="106.9" width="1.5" height="7.4"/>
+  </g>
+
+  <!-- Nos -->
+  <path id="nose" class="ink" d="M51.71,118.15l4.89-7.8c1.4-2.23-1.89-4.41-3.74-2.48l-2.42,2.53-2.42-2.53c-1.85-1.93-5.14.25-3.74,2.48,1.63,2.6,3.26,5.2,4.89,7.8.57.91,1.99.91,2.56,0Z"/>
+
+  <!-- Víčko -->
+  <path id="lid" class="ink" d="M69.75,72.06H31.12c-.38,0-.68.34-.68.75v2.98c0,.41.31.75.68.75h38.63c.38,0,.68-.34.68-.75v-2.98c0-.41-.31-.75-.68-.75Z"/>
+</svg>

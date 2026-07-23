@@ -86,58 +86,80 @@ export default function Header() {
 
         <button
           type="button"
-          aria-label="Otevřít menu"
+          aria-label={open ? 'Zavřít menu' : 'Otevřít menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 items-center justify-center rounded-sm border border-border bg-paper text-lg md:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center md:hidden"
         >
-          {open ? '✕' : '☰'}
+          <span className="relative block h-[18px] w-7">
+            <span
+              className={`absolute left-0 block h-[2.5px] w-7 rounded-full bg-ink transition-all duration-300 ${
+                open ? 'top-2 rotate-45' : 'top-0 rotate-0'
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-2 block h-[2.5px] w-7 rounded-full bg-ink transition-all duration-300 ${
+                open ? 'scale-x-0 opacity-0' : 'scale-x-100 opacity-100'
+              }`}
+            />
+            <span
+              className={`absolute left-0 block h-[2.5px] w-7 rounded-full bg-ink transition-all duration-300 ${
+                open ? 'top-2 -rotate-45' : 'top-4 rotate-0'
+              }`}
+            />
+          </span>
         </button>
       </div>
 
-      {open && (
-        <div className="flex flex-col gap-1 border-t border-border bg-paper-raised px-4 pb-4 pt-1 md:hidden">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className={
-                item.cta
-                  ? 'my-1.5 rounded-full bg-honey-500 px-4 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-white'
-                  : 'border-b border-block py-2.5 text-sm font-semibold uppercase tracking-wide'
-              }
-            >
-              {item.label}
-            </Link>
-          ))}
+      <div
+        className={`grid transition-all duration-300 ease-in-out md:hidden ${
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className="flex flex-col gap-1 border-t border-border bg-paper-raised px-4 pb-4 pt-1">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={
+                  item.cta
+                    ? 'my-1.5 rounded-full bg-honey-500 px-4 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-white'
+                    : 'border-b border-block py-2.5 text-sm font-semibold uppercase tracking-wide'
+                }
+              >
+                {item.label}
+              </Link>
+            ))}
 
-          <div className="mt-2 flex justify-center gap-3">
-            {SOCIALS.map((s) =>
-              s.href ? (
-                <a
-                  key={s.key}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-honey-50"
-                >
-                  <Image src={s.icon} alt="" width={15} height={15} />
-                </a>
-              ) : (
-                <span
-                  key={s.key}
-                  title={`${s.label} — připravujeme`}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-honey-50/60 opacity-50"
-                >
-                  <Image src={s.icon} alt="" width={15} height={15} />
-                </span>
-              )
-            )}
+            <div className="mt-2 flex justify-center gap-3">
+              {SOCIALS.map((s) =>
+                s.href ? (
+                  <a
+                    key={s.key}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-honey-50"
+                  >
+                    <Image src={s.icon} alt="" width={15} height={15} />
+                  </a>
+                ) : (
+                  <span
+                    key={s.key}
+                    title={`${s.label} — připravujeme`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-honey-50/60 opacity-50"
+                  >
+                    <Image src={s.icon} alt="" width={15} height={15} />
+                  </span>
+                )
+              )}
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

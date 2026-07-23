@@ -40,14 +40,17 @@ export default function ValuesGrid() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {VALUES.map((v, i) => (
-        <div key={v.title} className="card flex flex-col items-center bg-paper-raised text-center">
+        <div
+          key={v.title}
+          className="flex flex-col items-center rounded-md border border-honey-50/15 bg-honey-50/10 p-4 text-center"
+        >
           <div
             className={`mb-3.5 flex h-16 w-16 items-center justify-center rounded-full border ${TONES[i]}`}
           >
             <Image src={v.icon} alt="" width={30} height={30} />
           </div>
-          <h3 className="mb-2 text-lg font-extrabold">{v.title}</h3>
-          <p className="text-[13.5px] leading-relaxed text-ink-dim">{v.text}</p>
+          <h3 className="mb-2 text-lg font-extrabold text-white">{v.title}</h3>
+          <p className="text-[13.5px] leading-relaxed text-honey-50/70">{v.text}</p>
         </div>
       ))}
     </div>

@@ -57,11 +57,11 @@ export default function Footer() {
           <p className="mb-3 text-honey-50/75">
             Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.
           </p>
-          <Link href="/kontakt" className="btn btn-invert !px-4 !py-2 !text-[12.5px]">
+          <Link href="/kontakt" className="btn btn-invert !hidden !px-4 !py-2 !text-[12.5px] md:!inline-flex">
             Chci ochutnat med
           </Link>
 
-          <div className="mt-4 flex gap-2.5">
+          <div className="mt-4 hidden gap-2.5 md:flex">
             {SOCIALS.map((s) =>
               s.href ? (
                 <a
@@ -87,6 +87,32 @@ export default function Footer() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className="mx-auto mt-6 flex max-w-content justify-center gap-4 md:hidden">
+        {SOCIALS.map((s) =>
+          s.href ? (
+            <a
+              key={s.key}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-honey-50 transition-colors hover:bg-honey-300"
+            >
+              <Image src={s.icon} alt="" width={17} height={17} />
+            </a>
+          ) : (
+            <span
+              key={s.key}
+              aria-label={`${s.label} — připravujeme`}
+              title={`${s.label} — připravujeme`}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-honey-50/40"
+            >
+              <Image src={s.icon} alt="" width={17} height={17} className="opacity-60" />
+            </span>
+          )
+        )}
       </div>
 
       <div className="mx-auto mt-6 flex max-w-content flex-wrap justify-between gap-2 border-t border-honey-900/50 pt-4 text-[11.5px] text-honey-50/60">

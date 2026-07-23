@@ -1,6 +1,7 @@
 import { getHoneys, getPropolis } from '@/lib/products';
 import ContactForm from './ContactForm';
 import ContactInfo from './ContactInfo';
+import Reveal from '@/components/ui/Reveal';
 
 type Props = {
   eyebrow?: string;
@@ -38,11 +39,11 @@ export default function ContactSection({
       id={id}
       className="section-frame scroll-mt-20 border-b border-border px-4 py-8 sm:px-6 md:py-12"
     >
-      <div className="mx-auto max-w-content">
+      <Reveal className="mx-auto max-w-content">
         <span className="eyebrow">{eyebrow}</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">{title}</h2>
         {grid}
-      </div>
+      </Reveal>
     </section>
   );
 }

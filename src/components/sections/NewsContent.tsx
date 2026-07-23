@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import type { NewsPost } from '@/lib/news';
+import Reveal from '@/components/ui/Reveal';
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('cs-CZ', {
@@ -28,8 +29,8 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
 
   return (
     <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
-      <div className="mx-auto max-w-content">
-        <span className="eyebrow">Co se děje na farmě</span>
+      <Reveal className="mx-auto max-w-content">
+        <span className="eyebrow">Co se děje na farmě</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Aktuality</h2>
 
         <div className="relative mt-5">
@@ -53,7 +54,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
             </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

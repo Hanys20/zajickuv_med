@@ -11,14 +11,16 @@ export default function BackToTop() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (!visible) return null;
-
   return (
     <button
       type="button"
       aria-label="Zpět nahoru"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-honey-600 text-lg text-white shadow-warm transition-colors hover:bg-honey-700"
+      className={`fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-honey-600 text-lg text-white shadow-warm transition-all duration-300 hover:bg-honey-700 ${
+        visible ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-3 scale-75 opacity-0'
+      }`}
     >
       ↑
     </button>

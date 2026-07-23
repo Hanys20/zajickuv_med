@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Product } from '@/lib/products';
 import Badge from '@/components/ui/Badge';
 
@@ -39,6 +40,22 @@ export default function HoneyCard({
       <div className="p-3.5">
         <h3 className="text-[13.5px] font-bold leading-snug">{product.name}</h3>
         <p className="mt-1.5 text-xs leading-relaxed text-ink-dim">{product.shortDescription}</p>
+
+        {product.availability === 'sold-out' ? (
+          <span
+            aria-disabled="true"
+            className="btn btn-block mt-3 cursor-not-allowed !border-block !bg-block !py-2 !text-[12px] !text-ink-dim/60"
+          >
+            Ochutnat med
+          </span>
+        ) : (
+          <Link
+            href={`/kontakt?med=${product.slug}#kontakt`}
+            className="btn btn-primary btn-block mt-3 !py-2 !text-[12px]"
+          >
+            Ochutnat med
+          </Link>
+        )}
       </div>
     </div>
   );

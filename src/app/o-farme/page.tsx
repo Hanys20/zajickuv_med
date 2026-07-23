@@ -36,7 +36,7 @@ export default function OFarmePage() {
               </div>
             </div>
 
-            <div className="relative mx-auto h-[220px] w-full max-w-[420px] sm:h-[280px] md:h-[340px] md:max-w-none lg:h-[400px]">
+            <div className="relative mx-auto h-[260px] w-full max-w-[460px] sm:h-[320px] md:h-[400px] md:max-w-none lg:h-[460px]">
               <Image
                 src="/images/watercolor/family-tradition.png"
                 alt="Rodinná tradice včelaření, malovaná ilustrace akvarelem"
@@ -50,10 +50,10 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <section className="section-dark border-b border-honey-900/50 px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <span className="eyebrow">Naše hodnoty</span>
-          <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Co je pro nás důležité</h2>
+          <span className="eyebrow-invert">Naše hodnoty</span>
+          <h2 className="mb-5 mt-1 text-xl font-extrabold text-white md:text-2xl">Co je pro nás důležité</h2>
           <ValuesGrid />
         </div>
       </section>
@@ -116,7 +116,7 @@ export default function OFarmePage() {
       <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1">
+            <div className="relative order-2 min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1">
               <Image
                 src="/images/photos/jak-vcelarime-honeycomb.jpg"
                 alt="Detail plástu s medem a včelou na prstu včelaře"
@@ -126,7 +126,7 @@ export default function OFarmePage() {
               />
             </div>
 
-            <div className="lg:order-2">
+            <div className="order-1 lg:order-2">
               <span className="eyebrow">Metody</span>
               <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak včelaříme</h2>
               <StoryBlock title="Dřevěné úly a přírodní materiály">

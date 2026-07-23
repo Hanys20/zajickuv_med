@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/layout/BackToTop';
 import CookieConsent from '@/components/CookieConsent';
+import IntroAnimation from '@/components/IntroAnimation';
 import '@/styles/globals.css';
 
 const workSans = Work_Sans({
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="cs" className={`${workSans.variable} ${ptSerif.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <IntroAnimation />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
