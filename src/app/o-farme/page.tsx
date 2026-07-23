@@ -60,10 +60,8 @@ export default function OFarmePage() {
 
       <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <span className="eyebrow">Historie</span>
-          <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <div className="relative mx-auto h-[200px] w-full max-w-[300px] sm:h-[240px] lg:h-[300px] lg:max-w-none">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+            <div className="relative mx-auto h-[220px] w-full max-w-[300px] sm:h-[280px] lg:h-auto lg:min-h-[320px] lg:max-w-none">
               <Image
                 src="/images/watercolor/old-smoker.png"
                 alt="Starý dýmák, malovaná ilustrace akvarelem"
@@ -71,7 +69,11 @@ export default function OFarmePage() {
                 className="object-contain object-center"
               />
             </div>
-            <Timeline />
+            <div>
+              <span className="eyebrow">Historie</span>
+              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
+              <Timeline />
+            </div>
           </div>
         </div>
       </section>
@@ -113,11 +115,8 @@ export default function OFarmePage() {
 
       <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <span className="eyebrow">Metody</span>
-          <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak včelaříme</h2>
-
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1 lg:min-h-full">
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1">
               <Image
                 src="/images/photos/jak-vcelarime-honeycomb.jpg"
                 alt="Detail plástu s medem a včelou na prstu včelaře"
@@ -128,6 +127,8 @@ export default function OFarmePage() {
             </div>
 
             <div className="lg:order-2">
+              <span className="eyebrow">Metody</span>
+              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak včelaříme</h2>
               <StoryBlock title="Dřevěné úly a přírodní materiály">
                 Rámková míra 390×240 mm a nízké nástavce Langstroth 448×159 mm. Dřevěné úly z
                 masivu nebo izolované — bez plastových rámků a mezistěn.
