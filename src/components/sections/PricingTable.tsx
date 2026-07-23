@@ -102,7 +102,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
           </p>
         </div>
         <Link href="/kontakt" className="btn btn-primary shrink-0">
-          Mám zájem o med
+          Mám zájem
         </Link>
       </div>
     </div>
