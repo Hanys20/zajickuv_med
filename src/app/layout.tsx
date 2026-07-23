@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { Work_Sans } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Work_Sans, PT_Serif } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/layout/BackToTop';
@@ -16,8 +15,9 @@ const workSans = Work_Sans({
 
 // Klientův brandový font - jen na nadpisy a tlačítka, ne na běžný text
 // (viz CLAUDE.md/zadání: "žádné přemrštěné fonty" pro čitelnost běžného textu).
-const bandy = localFont({
-  src: '../fonts/bandy-demo-light.otf',
+const ptSerif = PT_Serif({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '700'],
   variable: '--font-heading',
   display: 'swap',
 });
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="cs" className={`${workSans.variable} ${bandy.variable}`}>
+    <html lang="cs" className={`${workSans.variable} ${ptSerif.variable}`}>
       <body className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>
