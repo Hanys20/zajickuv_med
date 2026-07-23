@@ -33,41 +33,33 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
               <col className="w-[31%]" />
             </colgroup>
             <thead>
-              <tr>
-                <th className="border-b border-honey-200 bg-honey-50 px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:py-2.5 sm:text-[11px]">
+              <tr className="bg-honey-50">
+                <th className="border-b border-honey-200 px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:py-2.5 sm:text-[11px]">
                   Položka
                 </th>
                 <th className="border-b border-honey-200 bg-honey-100/60 px-2 py-2 text-left text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:py-2.5 sm:text-[11px]">
                   Balení
                 </th>
-                <th className="border-b border-honey-200 bg-honey-200/50 px-2 py-2 text-right text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:py-2.5 sm:text-[11px]">
+                <th className="border-b border-honey-200 px-2 py-2 text-right text-[10px] font-semibold uppercase tracking-wide text-honey-700 sm:px-5 sm:py-2.5 sm:text-[11px]">
                   Cena
                 </th>
               </tr>
             </thead>
             <tbody>
               {cenik.honey.map((row) => (
-                <tr key={row.size} className="group">
-                  <td className="border-b border-block bg-paper-raised px-2 py-2 group-hover:bg-honey-50/60 sm:px-5 sm:py-2.5">
-                    Med (všechny druhy)
-                  </td>
-                  <td className="border-b border-block bg-honey-50/80 px-2 py-2 group-hover:bg-honey-100/50 sm:px-5 sm:py-2.5">
-                    {row.size}
-                  </td>
-                  <td className="border-b border-block bg-honey-100/40 px-2 py-2 text-right font-bold tabular-nums text-honey-700 group-hover:bg-honey-100/70 sm:px-5 sm:py-2.5">
+                <tr key={row.size} className="hover:bg-honey-50/60">
+                  <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">Med (všechny druhy)</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">{row.size}</td>
+                  <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
                     {row.price} {row.unit.split('/')[0].trim()}
                   </td>
                 </tr>
               ))}
               {cenik.propolis.map((row) => (
-                <tr key={row.name} className="group">
-                  <td className="border-b border-block bg-paper-raised px-2 py-2 group-hover:bg-honey-50/60 sm:px-5 sm:py-2.5">
-                    {row.name}
-                  </td>
-                  <td className="border-b border-block bg-honey-50/80 px-2 py-2 group-hover:bg-honey-100/50 sm:px-5 sm:py-2.5">
-                    {row.size}
-                  </td>
-                  <td className="border-b border-block bg-honey-100/40 px-2 py-2 text-right font-bold tabular-nums text-honey-700 group-hover:bg-honey-100/70 sm:px-5 sm:py-2.5">
+                <tr key={row.name} className="hover:bg-honey-50/60">
+                  <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">{row.name}</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">{row.size}</td>
+                  <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
                     {row.price} {row.unit}
                   </td>
                 </tr>
@@ -76,15 +68,13 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                 const isLast = i === cenik.giftSets.length - 1;
                 const borderClass = isLast ? '' : 'border-b border-block';
                 return (
-                  <tr key={row.name} className="group">
-                    <td className={`bg-paper-raised px-2 py-2 group-hover:bg-honey-50/60 sm:px-5 sm:py-2.5 ${borderClass}`}>
-                      Dárkový karton
-                    </td>
-                    <td className={`bg-honey-50/80 px-2 py-2 group-hover:bg-honey-100/50 sm:px-5 sm:py-2.5 ${borderClass}`}>
+                  <tr key={row.name} className="hover:bg-honey-50/60">
+                    <td className={`px-2 py-2 sm:px-5 sm:py-2.5 ${borderClass}`}>Dárkový karton</td>
+                    <td className={`bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5 ${borderClass}`}>
                       {row.name.replace('Karton ', '')}
                     </td>
                     <td
-                      className={`bg-honey-100/40 px-2 py-2 text-right font-bold tabular-nums text-honey-700 group-hover:bg-honey-100/70 sm:px-5 sm:py-2.5 ${borderClass}`}
+                      className={`px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5 ${borderClass}`}
                     >
                       {row.price} {row.unit}
                     </td>
