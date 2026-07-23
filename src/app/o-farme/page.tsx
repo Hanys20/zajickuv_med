@@ -60,13 +60,13 @@ export default function OFarmePage() {
 
       <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+          <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
             <div>
               <span className="eyebrow">Historie</span>
               <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
               <Timeline />
             </div>
-            <div className="relative mx-auto h-[220px] w-full max-w-[300px] sm:h-[280px] lg:h-auto lg:min-h-[320px] lg:max-w-none">
+            <div className="relative mx-auto h-[240px] w-full max-w-[360px] sm:h-[300px] md:h-auto md:min-h-[320px] md:max-w-none">
               <Image
                 src="/images/watercolor/old-smoker.png"
                 alt="Starý dýmák, malovaná ilustrace akvarelem"
@@ -122,7 +122,7 @@ export default function OFarmePage() {
                 alt="Detail plástu s medem a včelou na prstu včelaře"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover"
+                className="object-cover object-[center_75%] lg:object-center"
               />
             </div>
 

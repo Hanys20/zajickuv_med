@@ -46,8 +46,8 @@ export default function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-50 animate-pop-in sm:inset-x-auto sm:right-5 sm:w-full sm:max-w-[360px]">
-      <div className="rounded-xl border border-honey-200 bg-paper-raised p-4 shadow-warm sm:p-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4">
+      <div className="w-full max-w-[420px] animate-pop-in rounded-xl border border-honey-200 bg-paper-raised p-5 shadow-warm sm:p-6">
         <div className="flex items-center gap-2.5">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-honey-100">
             <Image src="/images/icons/honey-drop.svg" alt="" width={17} height={17} />

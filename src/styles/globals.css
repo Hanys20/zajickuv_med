@@ -47,7 +47,7 @@
   }
 
   .btn {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-ink px-5 py-3 text-sm font-bold uppercase tracking-wide no-underline transition-all;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-ink px-5 py-3 text-sm font-bold uppercase tracking-wide no-underline transition-all;
   }
   .btn-primary {
     @apply border-honey-500 bg-honey-500 text-white shadow-warm hover:-translate-y-0.5 hover:border-honey-600 hover:bg-honey-600;

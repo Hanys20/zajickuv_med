@@ -126,7 +126,7 @@ export default function Carousel({ children }: Props) {
         type="button"
         aria-label="Předchozí"
         onClick={prev}
-        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700 sm:flex"
+        className="flex h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700"
       >
         <ChevronIcon direction="left" />
       </button>
@@ -159,7 +159,7 @@ export default function Carousel({ children }: Props) {
         type="button"
         aria-label="Další"
         onClick={next}
-        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700 sm:flex"
+        className="flex h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700"
       >
         <ChevronIcon direction="right" />
       </button>

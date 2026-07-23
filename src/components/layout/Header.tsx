@@ -37,7 +37,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-[13px] font-semibold uppercase tracking-wide text-ink-dim md:flex">
+        <nav className="hidden items-center gap-6 text-[13px] font-semibold uppercase tracking-wide text-ink-dim min-[815px]:flex">
           {NAV_ITEMS.map((item) =>
             item.cta ? (
               <Link key={item.label} href={item.href} className="btn btn-primary !px-4 !py-2 !text-[13px]">
@@ -89,7 +89,7 @@ export default function Header() {
           aria-label={open ? 'Zavřít menu' : 'Otevřít menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-11 w-11 shrink-0 items-center justify-center md:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center min-[815px]:hidden"
         >
           <span className="relative block h-[18px] w-7">
             <span
@@ -112,7 +112,7 @@ export default function Header() {
       </div>
 
       <div
-        className={`grid transition-all duration-300 ease-in-out md:hidden ${
+        className={`grid transition-all duration-300 ease-in-out min-[815px]:hidden ${
           open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
         }`}
       >
