@@ -68,6 +68,15 @@ export default function Footer() {
               )
             )}
           </div>
+
+          <h4 className="mb-2.5 mt-4 text-[11px] font-bold uppercase tracking-wide text-honey-300">Další odkazy</h4>
+          <Link href="/ochrana-osobnich-udaju" className="mb-1.5 block text-honey-50/90 hover:text-honey-300">
+            Zásady ochrany osobních údajů
+          </Link>
+          <Link href="/cookies" className="mb-1.5 block text-honey-50/90 hover:text-honey-300">
+            Zásady používání cookies
+          </Link>
+          <CookieSettingsButton className="block text-honey-50/90 underline hover:text-honey-300" />
         </div>
 
         <div>
@@ -81,17 +90,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-content flex-wrap items-center gap-x-4 gap-y-2 border-t border-honey-900/50 pt-4 text-[11.5px] text-honey-50/60">
-        <Link href="/ochrana-osobnich-udaju" className="hover:text-honey-300">
-          Zásady ochrany osobních údajů
-        </Link>
-        <Link href="/cookies" className="hover:text-honey-300">
-          Zásady používání cookies
-        </Link>
-        <CookieSettingsButton className="text-[11.5px] text-honey-50/60 underline hover:text-honey-300" />
-      </div>
-
-      <div className="mx-auto mt-2 flex max-w-content flex-wrap justify-between gap-2 text-[11.5px] text-honey-50/60">
+      <div className="mx-auto mt-6 flex max-w-content flex-wrap justify-between gap-2 border-t border-honey-900/50 pt-4 text-[11.5px] text-honey-50/60">
         <span>© {new Date().getFullYear()} Zajíčkův med. Všechna práva vyhrazena.</span>
         <span>{site.seoLocations.join(' · ')}</span>
       </div>
