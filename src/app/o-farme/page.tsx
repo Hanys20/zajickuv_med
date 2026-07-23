@@ -38,8 +38,8 @@ export default function OFarmePage() {
 
             <div className="relative mx-auto h-[220px] w-full max-w-[420px] sm:h-[280px] md:h-[340px] md:max-w-none lg:h-[400px]">
               <Image
-                src="/images/watercolor/smoker.png"
-                alt="Včelař s dýmákem, malovaná ilustrace akvarelem"
+                src="/images/watercolor/family-tradition.png"
+                alt="Rodinná tradice včelaření, malovaná ilustrace akvarelem"
                 fill
                 priority
                 sizes="(min-width: 768px) 45vw, 90vw"

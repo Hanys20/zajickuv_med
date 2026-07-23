@@ -62,7 +62,7 @@ export default function KontaktPage() {
               </div>
             </div>
 
-            <div className="relative mx-auto hidden h-56 w-56 sm:block sm:h-64 sm:w-64 lg:h-full lg:min-h-[420px] lg:w-full lg:max-w-none">
+            <div className="relative mx-auto hidden h-56 w-56 sm:block sm:h-64 sm:w-64 lg:h-full lg:w-full lg:max-w-none">
               <Image
                 src="/images/watercolor/honey-jar.png"
                 alt="Sklenice medu, malovaná ilustrace akvarelem"
