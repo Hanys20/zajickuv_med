@@ -67,6 +67,7 @@ const config: Config = {
       },
       maxWidth: {
         content: '1180px',
+        hero: '1200px',
         header: '1440px',
       },
       boxShadow: {

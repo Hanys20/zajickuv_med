@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-honey-100/70 via-honey-50/40 to-paper">
-      <div className="relative mx-auto max-w-header px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-10">
+      <div className="relative mx-auto max-w-hero px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-10">
         <div className="grid items-center gap-6 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
           <div className="max-w-[560px]">
             <span className="eyebrow">Rodinná včelí farma · Opava-Podvihov</span>
