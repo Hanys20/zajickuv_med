@@ -27,7 +27,7 @@ export default function HoneyCards({ initialHoneys }: { initialHoneys: Product[]
   }, []);
 
   return (
-    <Carousel itemsPerPage={4}>
+    <Carousel>
       {honeys.map((honey) => (
         <HoneyCard
           key={honey.slug}

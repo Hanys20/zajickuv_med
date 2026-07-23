@@ -32,16 +32,25 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
         <span className="eyebrow">Co se děje na farmě</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Aktuality</h2>
 
-        <div className="mt-5 overflow-hidden rounded-xl border border-honey-200 bg-paper-raised">
-          <div className="border-l-4 border-honey-400 px-6 py-9 sm:px-9 sm:py-11">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-honey-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-honey-700">
-              <Image src="/images/icons/calendar.svg" alt="" width={12} height={12} />
-              {formatDate(post.date)}
-            </span>
-            <h3 className="mt-3.5 text-lg font-extrabold sm:text-xl">{post.title}</h3>
-            <p className="mt-2.5 max-w-[65ch] text-[14px] leading-relaxed text-ink-dim">
-              {post.body}
-            </p>
+        <div className="relative mt-5">
+          <Image
+            src="/images/watercolor/beekeeper.png"
+            alt=""
+            width={782}
+            height={1000}
+            className="pointer-events-none absolute -top-12 right-4 hidden w-24 -scale-x-100 select-none sm:block md:-top-16 md:right-8 md:w-32"
+          />
+          <div className="overflow-hidden rounded-xl border border-honey-200 bg-paper-raised">
+            <div className="border-l-4 border-honey-400 px-6 py-9 sm:px-9 sm:py-11">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-honey-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-honey-700">
+                <Image src="/images/icons/calendar.svg" alt="" width={12} height={12} />
+                {formatDate(post.date)}
+              </span>
+              <h3 className="mt-3.5 text-lg font-extrabold sm:text-xl">{post.title}</h3>
+              <p className="mt-2.5 max-w-[65ch] text-[14px] leading-relaxed text-ink-dim">
+                {post.body}
+              </p>
+            </div>
           </div>
         </div>
       </div>

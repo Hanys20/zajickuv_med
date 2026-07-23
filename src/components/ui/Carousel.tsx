@@ -1,17 +1,16 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, useCallback, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode[];
-  itemsPerPage?: number;
 };
 
 function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
   return (
     <svg
-      width="18"
-      height="18"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -24,87 +23,133 @@ function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
   );
 }
 
-export default function Carousel({ children, itemsPerPage = 4 }: Props) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [page, setPage] = useState(0);
-  const pageCount = Math.max(1, Math.ceil(children.length / itemsPerPage));
+// Nekonečný karusel: položky jsou ztrojené (kopie-skutečné-kopie), scrollujeme
+// uprostřed a při přiblížení k okraji tiše (bez animace) skočíme o jednu
+// "kopii" dál/zpět, takže scrollování nikdy nenarazí na konec.
+export default function Carousel({ children }: Props) {
+  const items = Children.toArray(children).filter(isValidElement);
+  const count = items.length;
 
-  const scrollToPage = useCallback(
-    (target: number) => {
-      const el = scrollerRef.current;
-      if (!el) return;
-      const clamped = Math.max(0, Math.min(pageCount - 1, target));
-      const child = el.children[clamped * itemsPerPage] as HTMLElement | undefined;
-      if (child) {
-        el.scrollTo({ left: child.offsetLeft - el.offsetLeft, behavior: 'smooth' });
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [activeDot, setActiveDot] = useState(0);
+
+  const nearestIndex = useCallback((): number => {
+    const el = scrollerRef.current;
+    if (!el || !el.children.length) return count;
+    const elRect = el.getBoundingClientRect();
+    let nearest = 0;
+    let nearestDist = Infinity;
+    Array.from(el.children).forEach((child, i) => {
+      const dist = Math.abs((child as HTMLElement).getBoundingClientRect().left - elRect.left);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = i;
       }
-      setPage(clamped);
+    });
+    return nearest;
+  }, [count]);
+
+  const scrollToChildIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
+    const el = scrollerRef.current;
+    const child = el?.children[index] as HTMLElement | undefined;
+    if (!el || !child) return;
+    const elRect = el.getBoundingClientRect();
+    const childRect = child.getBoundingClientRect();
+    el.scrollTo({ left: el.scrollLeft + (childRect.left - elRect.left), behavior });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (count === 0) return;
+    scrollToChildIndex(count, 'auto');
+    setActiveDot(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
+
+  const handleScroll = useCallback(() => {
+    const idx = nearestIndex();
+    setActiveDot(((idx % count) + count) % count);
+
+    if (settleTimer.current) clearTimeout(settleTimer.current);
+    settleTimer.current = setTimeout(() => {
+      const settled = nearestIndex();
+      if (settled < count) scrollToChildIndex(settled + count, 'auto');
+      else if (settled >= count * 2) scrollToChildIndex(settled - count, 'auto');
+    }, 150);
+  }, [count, nearestIndex, scrollToChildIndex]);
+
+  useLayoutEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      el.removeEventListener('scroll', handleScroll);
+      if (settleTimer.current) clearTimeout(settleTimer.current);
+    };
+  }, [handleScroll]);
+
+  const goTo = useCallback(
+    (dotIndex: number) => {
+      const current = nearestIndex();
+      const currentDot = ((current % count) + count) % count;
+      let delta = dotIndex - currentDot;
+      if (delta > count / 2) delta -= count;
+      if (delta < -count / 2) delta += count;
+      scrollToChildIndex(current + delta);
     },
-    [itemsPerPage, pageCount]
+    [count, nearestIndex, scrollToChildIndex]
   );
 
-  const onScroll = useCallback(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    if (maxScroll <= 0) return;
-    const ratio = el.scrollLeft / maxScroll;
-    setPage(Math.round(ratio * (pageCount - 1)));
-  }, [pageCount]);
+  const next = useCallback(() => scrollToChildIndex(nearestIndex() + 1), [nearestIndex, scrollToChildIndex]);
+  const prev = useCallback(() => scrollToChildIndex(nearestIndex() - 1), [nearestIndex, scrollToChildIndex]);
 
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
-  }, [onScroll]);
+  if (count === 0) return null;
+
+  const tripled = [0, 1, 2].flatMap((copy) => items.map((child, i) => cloneElement(child, { key: `c${copy}-${i}` })));
 
   return (
-    <div className="relative">
-      <div
-        ref={scrollerRef}
-        className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto scroll-smooth"
+    <div className="flex items-center gap-1 sm:gap-3">
+      <button
+        type="button"
+        aria-label="Předchozí"
+        onClick={prev}
+        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700 sm:flex"
       >
-        {children}
+        <ChevronIcon direction="left" />
+      </button>
+
+      <div className="min-w-0 flex-1">
+        <div
+          ref={scrollerRef}
+          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto scroll-smooth"
+        >
+          {tripled}
+        </div>
+
+        <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+          {Array.from({ length: count }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Karta ${i + 1}`}
+              aria-current={activeDot === i}
+              onClick={() => goTo(i)}
+              className={`h-2 rounded-full transition-all ${
+                activeDot === i ? 'w-5 bg-honey-500' : 'w-2 bg-honey-200 hover:bg-honey-300'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
-      {pageCount > 1 && (
-        <>
-          <button
-            type="button"
-            aria-label="Předchozí"
-            disabled={page <= 0}
-            onClick={() => scrollToPage(page - 1)}
-            className="absolute -left-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-honey-200 bg-paper-raised/95 text-honey-700 shadow-warm backdrop-blur transition-all hover:scale-110 hover:border-honey-400 hover:bg-honey-50 hover:shadow-lg disabled:pointer-events-none disabled:opacity-0 disabled:hover:scale-100 sm:flex"
-          >
-            <ChevronIcon direction="left" />
-          </button>
-          <button
-            type="button"
-            aria-label="Další"
-            disabled={page >= pageCount - 1}
-            onClick={() => scrollToPage(page + 1)}
-            className="absolute -right-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-honey-200 bg-paper-raised/95 text-honey-700 shadow-warm backdrop-blur transition-all hover:scale-110 hover:border-honey-400 hover:bg-honey-50 hover:shadow-lg disabled:pointer-events-none disabled:opacity-0 disabled:hover:scale-100 sm:flex"
-          >
-            <ChevronIcon direction="right" />
-          </button>
-
-          <div className="mt-4 flex justify-center gap-2">
-            {Array.from({ length: pageCount }).map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Strana ${i + 1}`}
-                aria-current={page === i}
-                onClick={() => scrollToPage(i)}
-                className={`h-2.5 rounded-full transition-all ${
-                  page === i ? 'w-6 bg-honey-500' : 'w-2.5 bg-honey-200 hover:bg-honey-300'
-                }`}
-              />
-            ))}
-          </div>
-        </>
-      )}
+      <button
+        type="button"
+        aria-label="Další"
+        onClick={next}
+        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700 sm:flex"
+      >
+        <ChevronIcon direction="right" />
+      </button>
     </div>
   );
 }

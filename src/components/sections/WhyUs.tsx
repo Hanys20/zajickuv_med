@@ -30,15 +30,8 @@ const CARDS = [
 
 export default function WhyUs() {
   return (
-    <section className="section-tint relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
-      <Image
-        src="/images/watercolor/bee-flower.png"
-        alt=""
-        width={340}
-        height={349}
-        className="pointer-events-none absolute -right-6 -top-8 hidden w-32 select-none sm:block md:w-40 lg:w-48"
-      />
-      <div className="relative mx-auto max-w-content">
+    <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <div className="mx-auto max-w-content">
         <span className="eyebrow">Proč zrovna my</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">
           Proč si vybrat med právě od nás?
@@ -59,7 +52,7 @@ export default function WhyUs() {
         </div>
 
         <div className="section-dark mt-5 rounded-xl px-4 py-8 text-center">
-          <p className="text-5xl font-extrabold text-honey-300 sm:text-6xl">
+          <p className="text-5xl font-medium tracking-wide text-honey-300 sm:text-6xl">
             <CountUp target={20} suffix="+" />
           </p>
           <p className="mt-2 text-sm font-bold uppercase tracking-wide text-white/85">

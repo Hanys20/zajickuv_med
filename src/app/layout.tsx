@@ -1,14 +1,24 @@
 import type { Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/layout/BackToTop';
+import CookieConsent from '@/components/CookieConsent';
 import '@/styles/globals.css';
 
 const workSans = Work_Sans({
   subsets: ['latin', 'latin-ext'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-body',
+  display: 'swap',
+});
+
+// Klientův brandový font - jen na nadpisy a tlačítka, ne na běžný text
+// (viz CLAUDE.md/zadání: "žádné přemrštěné fonty" pro čitelnost běžného textu).
+const bandy = localFont({
+  src: '../fonts/bandy-demo-light.otf',
+  variable: '--font-heading',
   display: 'swap',
 });
 
@@ -23,12 +33,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="cs" className={workSans.variable}>
+    <html lang="cs" className={`${workSans.variable} ${bandy.variable}`}>
       <body className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
         <BackToTop />
+        <CookieConsent />
       </body>
     </html>
   );

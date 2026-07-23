@@ -10,48 +10,62 @@ const SOCIALS = [
 export default function ContactInfo() {
   return (
     <div className="flex h-full flex-col gap-4 rounded-xl border border-honey-100 bg-paper-raised p-5 shadow-warm sm:p-6">
-      <div className="text-[13.5px]">
-        <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
-          Adresa
-        </strong>
-        {site.contact.address.street}, {site.contact.address.zip} {site.contact.address.city}
-      </div>
-      <div className="text-[13.5px]">
-        <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
-          Telefon / WhatsApp
-        </strong>
-        <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a>
-      </div>
-      <div className="text-[13.5px]">
-        <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
-          E-mail
-        </strong>
-        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-      </div>
+      <div className="flex gap-4">
+        <div className="flex flex-1 flex-col gap-4">
+          <div className="text-[13.5px]">
+            <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
+              Adresa
+            </strong>
+            {site.contact.address.street}, {site.contact.address.zip} {site.contact.address.city}
+          </div>
+          <div className="text-[13.5px]">
+            <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
+              Telefon / WhatsApp
+            </strong>
+            <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>{site.contact.phone}</a>
+          </div>
+          <div className="text-[13.5px]">
+            <strong className="mb-0.5 block text-[11px] font-semibold uppercase tracking-wide text-ink-dim">
+              E-mail
+            </strong>
+            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          </div>
 
-      <div className="flex gap-2.5">
-        {SOCIALS.map((s) =>
-          s.href ? (
-            <a
-              key={s.key}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-honey-200 bg-honey-50 transition-colors hover:bg-honey-100"
-            >
-              <Image src={s.icon} alt="" width={15} height={15} />
-            </a>
-          ) : (
-            <span
-              key={s.key}
-              title={`${s.label} — připravujeme`}
-              className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-dashed border-border bg-paper opacity-50"
-            >
-              <Image src={s.icon} alt="" width={15} height={15} />
-            </span>
-          )
-        )}
+          <div className="flex gap-2.5">
+            {SOCIALS.map((s) =>
+              s.href ? (
+                <a
+                  key={s.key}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-honey-200 bg-honey-50 transition-colors hover:bg-honey-100"
+                >
+                  <Image src={s.icon} alt="" width={15} height={15} />
+                </a>
+              ) : (
+                <span
+                  key={s.key}
+                  title={`${s.label} — připravujeme`}
+                  className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-dashed border-border bg-paper opacity-50"
+                >
+                  <Image src={s.icon} alt="" width={15} height={15} />
+                </span>
+              )
+            )}
+          </div>
+        </div>
+
+        <div className="hidden w-20 shrink-0 self-start pt-1 sm:block md:w-24">
+          <Image
+            src="/images/watercolor/bee-flower.png"
+            alt="Včela na květu, malovaná ilustrace akvarelem"
+            width={976}
+            height={1000}
+            className="h-auto w-full"
+          />
+        </div>
       </div>
 
       <div className="min-h-[220px] flex-1 overflow-hidden rounded-md border border-honey-100">

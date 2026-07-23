@@ -29,9 +29,9 @@ export default function Reviews() {
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Recenze</h2>
 
         <div className="mt-5">
-          <Carousel itemsPerPage={3}>
+          <Carousel>
             {PLACEHOLDER_REVIEWS.map((review, i) => (
-              <div key={i} className="card w-[270px] shrink-0 snap-start sm:w-[calc(33.333%-10px)]">
+              <div key={i} className="card w-[270px] shrink-0 snap-start sm:w-[300px] lg:w-[330px]">
                 <div className="flex items-center gap-3">
                   <div
                     className={`flex h-[42px] w-12 shrink-0 items-center justify-center ${TONES[i % TONES.length]} [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]`}

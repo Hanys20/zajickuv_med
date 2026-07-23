@@ -8,7 +8,7 @@ export default function Hero() {
         <div className="grid items-center gap-6 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
           <div className="max-w-[560px]">
             <span className="eyebrow">Rodinná včelí farma · Opava-Podvihov</span>
-            <h1 className="mt-2.5 text-[30px] font-extrabold leading-tight md:text-[46px]">
+            <h1 className="mt-2.5 text-[28px] font-bold uppercase leading-tight tracking-wide md:text-[42px]">
               Med s rodinným příběhem
             </h1>
             <p className="mt-3 text-base font-semibold">

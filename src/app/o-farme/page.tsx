@@ -8,59 +8,71 @@ import StoryBlock from '@/components/sections/StoryBlock';
 export const metadata: Metadata = {
   title: 'O farmě',
   description:
-    'Rodinná tradice včelaření sahající do 19. století. Poznejte příběh farmy Zajíčkův med v Opavě-Podvihově a způsob, jakým se šetrně staráme o naše včely.',
+    'Rodinná tradice včelaření sahající do devatenáctého století. Poznejte příběh farmy Zajíčkův med v Opavě-Podvihově a způsob, jakým se šetrně staráme o naše včely.',
 };
 
 export default function OFarmePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-honey-50/70 to-paper px-4 py-8 sm:px-6 md:py-12">
-        <Image
-          src="/images/watercolor/hives-four.png"
-          alt=""
-          width={800}
-          height={408}
-          className="pointer-events-none absolute -bottom-10 -right-10 hidden w-64 select-none sm:block md:w-80 lg:w-96"
-        />
-        <div className="relative mx-auto max-w-content">
-          <span className="eyebrow">O farmě</span>
-          <h1 className="mt-2 text-2xl font-extrabold leading-tight md:text-[32px]">
-            Rodinná farma s kořeny až v 19. století
-          </h1>
-          <p className="mt-3 max-w-[60ch] text-[14.5px] text-ink-dim">
-            Naše včelaření není jen způsobem získávání medu — je to rodinná tradice předávaná
-            z generace na generaci.
-          </p>
+      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-honey-100/70 via-honey-50/40 to-paper">
+        <div className="relative mx-auto max-w-hero px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-10">
+          <div className="grid items-center gap-6 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
+            <div className="max-w-[560px]">
+              <span className="eyebrow">O farmě</span>
+              <h1 className="mt-2.5 text-[26px] font-extrabold leading-tight md:text-[38px]">
+                Rodinná farma s kořeny až v devatenáctém století
+              </h1>
+              <p className="mt-3 max-w-[54ch] text-[14.5px] text-ink-dim">
+                Naše včelaření není jen způsobem získávání medu — je to rodinná tradice předávaná
+                z generace na generaci.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-2.5">
+                <Link href="/#produkty" className="btn btn-primary">
+                  Co u nás vzniká
+                </Link>
+                <Link href="/kontakt" className="btn btn-secondary">
+                  Kontaktovat
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative mx-auto h-[220px] w-full max-w-[420px] sm:h-[280px] md:h-[340px] md:max-w-none lg:h-[400px]">
+              <Image
+                src="/images/watercolor/smoker.png"
+                alt="Včelař s dýmákem, malovaná ilustrace akvarelem"
+                fill
+                priority
+                sizes="(min-width: 768px) 45vw, 90vw"
+                className="-scale-x-100 object-contain object-center"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section-tint relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
-        <Image
-          src="/images/watercolor/beekeeper.png"
-          alt=""
-          width={625}
-          height={800}
-          className="pointer-events-none absolute -right-6 -top-10 hidden w-32 select-none sm:block md:w-40 lg:w-48"
-        />
-        <div className="relative mx-auto max-w-content">
+      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
+        <div className="mx-auto max-w-content">
           <span className="eyebrow">Naše hodnoty</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Co je pro nás důležité</h2>
           <ValuesGrid />
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-b border-border px-4 py-8 sm:px-6 md:py-12">
-        <Image
-          src="/images/watercolor/honeycomb.png"
-          alt=""
-          width={800}
-          height={736}
-          className="pointer-events-none absolute -bottom-8 -left-8 hidden w-28 select-none sm:block md:w-36"
-        />
-        <div className="relative mx-auto max-w-content">
+      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
+        <div className="mx-auto max-w-content">
           <span className="eyebrow">Historie</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
-          <Timeline />
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div className="relative mx-auto h-[200px] w-full max-w-[300px] sm:h-[240px] lg:h-[300px] lg:max-w-none">
+              <Image
+                src="/images/watercolor/old-smoker.png"
+                alt="Starý dýmák, malovaná ilustrace akvarelem"
+                fill
+                className="object-contain object-center"
+              />
+            </div>
+            <Timeline />
+          </div>
         </div>
       </section>
 

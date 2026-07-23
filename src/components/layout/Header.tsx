@@ -25,10 +25,16 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-paper-raised">
-      <div className="mx-auto flex max-w-header items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-10">
-        <Link href="/" className="flex items-center gap-2 font-bold" onClick={() => setOpen(false)}>
-          <Image src="/images/icons/bee.svg" alt="" width={22} height={22} className="shrink-0" />
-          <span>Zajíčkův med</span>
+      <div className="mx-auto flex max-w-hero items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-10">
+        <Link href="/" className="flex shrink-0 items-center" onClick={() => setOpen(false)}>
+          <Image
+            src="/images/logo/wordmark.svg"
+            alt="Zajíčkův med"
+            width={199}
+            height={56}
+            priority
+            className="h-12 w-auto sm:h-14"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 text-[13px] font-semibold text-ink-dim md:flex">

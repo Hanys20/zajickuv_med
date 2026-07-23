@@ -32,9 +32,9 @@ export default function HoneyCard({
             <Image src={icon} alt="" width={18} height={18} />
           </span>
         )}
-        <span className="absolute right-2 top-2 rounded-full bg-white/90 p-0.5 shadow-sm backdrop-blur-sm">
+        <div className="absolute right-2 top-2">
           <Badge availability={product.availability} />
-        </span>
+        </div>
       </div>
       <div className="p-3.5">
         <h3 className="text-[13.5px] font-bold leading-snug">{product.name}</h3>
