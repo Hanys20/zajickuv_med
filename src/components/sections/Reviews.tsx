@@ -25,8 +25,10 @@ export default function Reviews() {
   return (
     <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
       <div className="mx-auto max-w-content">
-        <span className="eyebrow">Co říkají zákazníci</span>
-        <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Recenze</h2>
+        <div className="text-center">
+          <span className="eyebrow">Co říkají zákazníci</span>
+          <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Recenze</h2>
+        </div>
 
         <div className="mt-5">
           <Carousel>

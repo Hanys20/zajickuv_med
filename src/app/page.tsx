@@ -16,8 +16,8 @@ export default function HomePage() {
       <ProductsPricing />
       <News />
       <Reviews />
-      <FaqTeaser />
       <ContactSection />
+      <FaqTeaser />
     </>
   );
 }

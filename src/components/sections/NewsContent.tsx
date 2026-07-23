@@ -27,7 +27,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
   if (!post) return null;
 
   return (
-    <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
+    <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
       <div className="mx-auto max-w-content">
         <span className="eyebrow">Co se děje na farmě</span>
         <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Aktuality</h2>
@@ -38,7 +38,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
             alt=""
             width={782}
             height={1000}
-            className="pointer-events-none absolute -top-12 right-4 hidden w-24 -scale-x-100 select-none sm:block md:-top-16 md:right-8 md:w-32"
+            className="pointer-events-none absolute -top-24 right-4 hidden w-48 -scale-x-100 select-none sm:block md:-top-32 md:right-8 md:w-64"
           />
           <div className="overflow-hidden rounded-xl border border-honey-200 bg-paper-raised">
             <div className="border-l-4 border-honey-400 px-6 py-9 sm:px-9 sm:py-11">

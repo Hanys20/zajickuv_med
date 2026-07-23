@@ -26,6 +26,12 @@ function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
 // Nekonečný karusel: položky jsou ztrojené (kopie-skutečné-kopie), scrollujeme
 // uprostřed a při přiblížení k okraji tiše (bez animace) skočíme o jednu
 // "kopii" dál/zpět, takže scrollování nikdy nenarazí na konec.
+//
+// Pozn.: záměrně NEpoužíváme Tailwind `scroll-smooth` (CSS scroll-behavior:
+// smooth) na scrolleru - kdyby tam bylo, prohlížeč by dle specifikace
+// interpretoval i naše "tiché" přeskoky (behavior: 'auto') jako smooth,
+// takže by přeskok na druhou kopii byl viditelně animovaný ("cukne zpátky
+// na začátek"). Animaci řídíme čistě přes explicitní `behavior` v JS.
 export default function Carousel({ children }: Props) {
   const items = Children.toArray(children).filter(isValidElement);
   const count = items.length;
@@ -34,21 +40,28 @@ export default function Carousel({ children }: Props) {
   const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeDot, setActiveDot] = useState(0);
 
+  const peekOffset = useCallback((el: HTMLDivElement): number => {
+    const value = getComputedStyle(el).scrollPaddingLeft;
+    const parsed = parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }, []);
+
   const nearestIndex = useCallback((): number => {
     const el = scrollerRef.current;
     if (!el || !el.children.length) return count;
     const elRect = el.getBoundingClientRect();
+    const target = elRect.left + peekOffset(el);
     let nearest = 0;
     let nearestDist = Infinity;
     Array.from(el.children).forEach((child, i) => {
-      const dist = Math.abs((child as HTMLElement).getBoundingClientRect().left - elRect.left);
+      const dist = Math.abs((child as HTMLElement).getBoundingClientRect().left - target);
       if (dist < nearestDist) {
         nearestDist = dist;
         nearest = i;
       }
     });
     return nearest;
-  }, [count]);
+  }, [count, peekOffset]);
 
   const scrollToChildIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const el = scrollerRef.current;
@@ -56,8 +69,8 @@ export default function Carousel({ children }: Props) {
     if (!el || !child) return;
     const elRect = el.getBoundingClientRect();
     const childRect = child.getBoundingClientRect();
-    el.scrollTo({ left: el.scrollLeft + (childRect.left - elRect.left), behavior });
-  }, []);
+    el.scrollTo({ left: el.scrollLeft + (childRect.left - elRect.left - peekOffset(el)), behavior });
+  }, [peekOffset]);
 
   useLayoutEffect(() => {
     if (count === 0) return;
@@ -121,7 +134,7 @@ export default function Carousel({ children }: Props) {
       <div className="min-w-0 flex-1">
         <div
           ref={scrollerRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto scroll-smooth"
+          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto [scroll-padding-left:8%] [scroll-padding-right:8%] sm:[scroll-padding-left:6%] sm:[scroll-padding-right:6%]"
         >
           {tripled}
         </div>

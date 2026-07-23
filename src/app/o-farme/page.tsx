@@ -20,7 +20,7 @@ export default function OFarmePage() {
             <div className="max-w-[560px]">
               <span className="eyebrow">O farmě</span>
               <h1 className="mt-2.5 text-[26px] font-extrabold leading-tight md:text-[38px]">
-                Rodinná farma s kořeny až v devatenáctém století
+                Rodinná farma s kořeny až v 19. století
               </h1>
               <p className="mt-3 max-w-[54ch] text-[14.5px] text-ink-dim">
                 Naše včelaření není jen způsobem získávání medu — je to rodinná tradice předávaná
@@ -76,7 +76,7 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
           <span className="eyebrow">Celý příběh</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak to celé začalo</h2>
@@ -111,7 +111,7 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
           <span className="eyebrow">Metody</span>
           <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak včelaříme</h2>

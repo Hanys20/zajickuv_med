@@ -52,7 +52,7 @@ export default function WhyUs() {
         </div>
 
         <div className="section-dark mt-5 rounded-xl px-4 py-8 text-center">
-          <p className="text-5xl font-medium tracking-wide text-honey-300 sm:text-6xl">
+          <p className="font-heading text-5xl font-bold text-honey-300 sm:text-6xl">
             <CountUp target={20} suffix="+" />
           </p>
           <p className="mt-2 text-sm font-bold uppercase tracking-wide text-white/85">

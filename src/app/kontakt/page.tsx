@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import ContactSection from '@/components/sections/ContactSection';
+import FaqTeaser from '@/components/sections/FaqTeaser';
 import { salesPoints } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -12,22 +12,15 @@ export const metadata: Metadata = {
 export default function KontaktPage() {
   return (
     <>
-      <section className="relative overflow-hidden px-4 py-8 sm:px-6 md:py-12">
-        <Image
-          src="/images/watercolor/smoker.png"
-          alt=""
-          width={635}
-          height={800}
-          className="pointer-events-none absolute -right-4 -top-6 hidden w-28 select-none sm:block md:w-32"
-        />
-        <div className="relative mx-auto max-w-content">
+      <section className="px-4 py-8 sm:px-6 md:py-12">
+        <div className="mx-auto max-w-content">
           <span className="eyebrow">Objednávka / dotaz</span>
           <h1 className="mt-1.5 text-2xl font-extrabold md:text-[28px]">Kontakt</h1>
           <ContactSection bare />
         </div>
       </section>
 
-      <section className="border-t border-border px-4 py-8 sm:px-6 md:py-12">
+      <section className="section-frame border-t border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
           <h2 className="mb-5 text-xl font-extrabold md:text-2xl">Kde jinde med seženete</h2>
 
@@ -48,6 +41,8 @@ export default function KontaktPage() {
           </div>
         </div>
       </section>
+
+      <FaqTeaser />
     </>
   );
 }
