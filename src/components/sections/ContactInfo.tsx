@@ -9,7 +9,7 @@ const SOCIALS = [
 
 export default function ContactInfo() {
   return (
-    <div className="flex h-full flex-col gap-4 rounded-xl border border-honey-100 bg-paper-raised p-5 shadow-warm sm:p-6">
+    <div className="flex h-full min-w-0 flex-col gap-4 rounded-xl border border-honey-100 bg-paper-raised p-5 shadow-warm sm:p-6">
       <div className="flex gap-4">
         <div className="flex flex-1 flex-col gap-4">
           <div className="text-[13.5px]">

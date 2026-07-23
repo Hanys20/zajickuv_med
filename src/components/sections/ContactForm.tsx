@@ -35,7 +35,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+    <form onSubmit={handleSubmit} className="flex min-w-0 flex-col gap-3.5">
       <div className="flex flex-col gap-1.5">
         <label htmlFor="name" className="text-[12.5px] font-bold">
           Jméno
