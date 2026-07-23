@@ -21,7 +21,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
       message,
     ].join('\n');
     const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent(
-      'Poptávka z webu — ' + productChoice
+      'Poptávka z webu — ' + productChoice
     )}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   };
@@ -117,7 +117,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Kolik a jakého medu máte zájem…"
+          placeholder="Kolik a jakého medu máte zájem…"
           className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>

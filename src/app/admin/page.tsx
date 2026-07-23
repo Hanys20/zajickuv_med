@@ -30,13 +30,13 @@ function LoginForm({ onLoggedIn }: { onLoggedIn: () => void }) {
       onLoggedIn();
     } else {
       const data = await res.json().catch(() => null);
-      setError(data?.error ?? 'Přihlášení se nepovedlo.');
+      setError(data?.error ?? 'Přihlášení se nepovedlo.');
     }
   }
 
   return (
     <form onSubmit={submit} style={{ maxWidth: 340, margin: '4rem auto', padding: '0 1rem' }}>
-      <h1 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>Přihlášení do správy webu</h1>
+      <h1 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1.5rem' }}>Přihlášení do správy webu</h1>
       <label style={labelStyle}>
         Uživatelské jméno
         <input style={inputStyle} value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
@@ -82,7 +82,7 @@ export default function AdminPage() {
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '1.5rem 1rem 4rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-        <h1 style={{ fontSize: '1.3rem', fontWeight: 800 }}>Správa webu — Zajíčkův med</h1>
+        <h1 style={{ fontSize: '1.3rem', fontWeight: 800 }}>Správa webu — Zajíčkův med</h1>
         <button onClick={logout} style={secondaryButtonStyle}>
           Odhlásit se
         </button>

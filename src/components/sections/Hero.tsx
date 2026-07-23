@@ -9,18 +9,18 @@ export default function Hero() {
           <div className="max-w-[560px]">
             <span className="eyebrow">Rodinná včelí farma · Opava-Podvihov</span>
             <h1 className="mt-2.5 text-[28px] font-bold uppercase leading-tight tracking-wide md:text-[42px]">
-              Med s rodinným příběhem
+              Med s rodinným příběhem
             </h1>
             <p className="mt-3 text-base font-semibold">
-              Od včel, o které pečujeme s respektem k jejich přirozenosti
+              Od včel, o které pečujeme s respektem k jejich přirozenosti
             </p>
             <p className="mt-3 max-w-[46ch] text-[14.5px] text-ink-dim">
-              Poctivý český med z našich stanovišť v okolí Libavé a na úpatí Nízkého Jeseníku. Od
-              vlastního vosku až po sklenici medu máme celý proces ve svých rukou.
+              Poctivý český med z našich stanovišť v okolí Libavé a na úpatí Nízkého Jeseníku. Od
+              vlastního vosku až po sklenici medu máme celý proces ve svých rukou.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
               <Link href="/#produkty" className="btn btn-primary">
-                Co u nás vzniká
+                Co u nás vzniká
               </Link>
               <Link href="/#kontakt" className="btn btn-secondary">
                 Kontaktovat

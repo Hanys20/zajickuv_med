@@ -11,28 +11,28 @@ const TONES = [
 const VALUES = [
   {
     icon: '/images/icons/heart.svg',
-    title: 'Respekt ke včelám',
-    text: 'Včelstvo nevnímáme pouze jako prostředek k získávání medu. Snažíme se rozumět jeho přirozenému vývoji a do života včel zasahovat s rozvahou.',
+    title: 'Respekt ke včelám',
+    text: 'Včelstvo nevnímáme pouze jako prostředek k získávání medu. Snažíme se rozumět jeho přirozenému vývoji a do života včel zasahovat s rozvahou.',
   },
   {
     icon: '/images/icons/location.svg',
     title: 'Známý původ',
-    text: 'Máme přehled o tom, kde naše včely žijí, odkud pochází náš vosk a jakým způsobem je med získáván a zpracováván.',
+    text: 'Máme přehled o tom, kde naše včely žijí, odkud pochází náš vosk a jakým způsobem je med získáván a zpracováván.',
   },
   {
     icon: '/images/icons/tree.svg',
     title: 'Přírodní materiály',
-    text: 'Používáme především dřevo a vlastní včelí vosk. Plastové rámky ani plastové mezistěny do našich úlů nezařazujeme.',
+    text: 'Používáme především dřevo a vlastní včelí vosk. Plastové rámky ani plastové mezistěny do našich úlů nezařazujeme.',
   },
   {
     icon: '/images/icons/cells.svg',
     title: 'Vlastní zpracování vosku',
-    text: 'Vosk z našich včelstev si sami čistíme a vyrábíme z něj nové mezistěny. Můžeme tak kontrolovat celý jeho koloběh.',
+    text: 'Vosk z našich včelstev si sami čistíme a vyrábíme z něj nové mezistěny. Můžeme tak kontrolovat celý jeho koloběh.',
   },
   {
     icon: '/images/icons/support.svg',
     title: 'Osobní přístup',
-    text: 'Jsme malá rodinná včelí farma. Zákazníkům proto rádi představíme původ jednotlivých medů a poradíme s jejich výběrem.',
+    text: 'Jsme malá rodinná včelí farma. Zákazníkům proto rádi představíme původ jednotlivých medů a poradíme s jejich výběrem.',
   },
 ];
 

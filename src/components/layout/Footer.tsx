@@ -80,9 +80,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-wide text-honey-300">Kde nás najdete</h4>
+          <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-wide text-honey-300">Kde nás najdete</h4>
           <p className="mb-3 text-honey-50/75">
-            Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.
+            Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.
           </p>
           <Link href="/kontakt" className="btn btn-invert !px-4 !py-2 !text-[12.5px]">
             Chci ochutnat med
@@ -91,7 +91,7 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-6 flex max-w-content flex-wrap justify-between gap-2 border-t border-honey-900/50 pt-4 text-[11.5px] text-honey-50/60">
-        <span>© {new Date().getFullYear()} Zajíčkův med. Všechna práva vyhrazena.</span>
+        <span>© {new Date().getFullYear()} Zajíčkův med. Všechna práva vyhrazena.</span>
         <span>{site.seoLocations.join(' · ')}</span>
       </div>
     </footer>

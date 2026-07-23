@@ -1,6 +1,6 @@
 const STEPS = [
   { when: '19. století · Volyň', what: 'Začátky rodinného včelaření' },
-  { when: 'Po 2. sv. válce', what: 'Návrat rodiny do Československa' },
+  { when: 'Po 2. sv. válce', what: 'Návrat rodiny do Československa' },
   { when: '30. narozeniny', what: 'První vlastní včelstvo' },
   { when: 'Současnost', what: 'Rodinná farma, ~40 včelstev' },
 ];

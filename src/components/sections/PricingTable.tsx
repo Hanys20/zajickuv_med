@@ -66,7 +66,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                 </tr>
               ))}
               {cenik.giftSets.map((row, i) => {
-                const isLast = i === cenik.giftSets.length - 1;
+                const isLast = i === cenik.giftSets.length - 1;
                 const borderClass = isLast ? '' : 'border-b border-block';
                 return (
                   <tr key={row.name} className="hover:bg-honey-50/60">
@@ -86,7 +86,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
           </table>
         </div>
         <p className="border-t border-honey-100 bg-honey-50 px-4 py-2.5 text-xs text-ink-dim sm:px-5">
-          Uvedené ceny medu zahrnují vratnou zálohu na sklenici {cenik.jarDeposit.amount} Kč.
+          Uvedené ceny medu zahrnují vratnou zálohu na sklenici {cenik.jarDeposit.amount} Kč.
         </p>
       </div>
 
@@ -95,9 +95,9 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
           <Image src="/images/icons/mead.svg" alt="" width={26} height={26} />
         </div>
         <div className="flex-1">
-          <strong className="text-sm">Také z našeho medu — medovina</strong>
+          <strong className="text-sm">Také z našeho medu — medovina</strong>
           <p className="mt-1.5 text-[13px] text-ink-dim">
-            {cenik.mead.variants.join(' a ')} {cenik.mead.name.toLowerCase()}, zraje minimálně
+            {cenik.mead.variants.join(' a ')} {cenik.mead.name.toLowerCase()}, zraje minimálně
             10 měsíců.
           </p>
         </div>

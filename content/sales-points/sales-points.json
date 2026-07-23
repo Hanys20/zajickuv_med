@@ -4,11 +4,14 @@
       "name": "Kozí farma Magdaléna",
       "contactPerson": "Renata Vajdová",
       "address": "Hlavní 203, 747 91 Štítina",
-      "note": "Vždy na objednávku."
+      "note": "Vždy na objednávku."
     }
   ],
   "delivery": {
-    "areas": ["Opava a okolí", "Studénka"],
-    "note": "Po dohodě je možné med dovézt na určené místo v Opavě a okolí a také ve Studénce."
+    "areas": [
+      "Opava a okolí",
+      "Studénka"
+    ],
+    "note": "Po dohodě je možné med dovézt na určené místo v Opavě a okolí a také ve Studénce."
   }
 }

@@ -24,11 +24,11 @@ const ptSerif = PT_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Zajíčkův med — poctivý med z Opavy-Podvihova',
-    template: '%s — Zajíčkův med',
+    default: 'Zajíčkův med — poctivý med z Opavy-Podvihova',
+    template: '%s — Zajíčkův med',
   },
   description:
-    'Rodinná včelí farma v Opavě-Podvihově. Poctivý český med a propolisové produkty z vlastních stanovišť u Libavé a Nízkého Jeseníku. Ostrava, Opava, Studénka.',
+    'Rodinná včelí farma v Opavě-Podvihově. Poctivý český med a propolisové produkty z vlastních stanovišť u Libavé a Nízkého Jeseníku. Ostrava, Opava, Studénka.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

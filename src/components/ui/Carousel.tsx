@@ -144,11 +144,11 @@ export default function Carousel({ children }: Props) {
             <button
               key={i}
               type="button"
-              aria-label={`Karta ${i + 1}`}
+              aria-label={`Karta ${i + 1}`}
               aria-current={activeDot === i}
               onClick={() => goTo(i)}
               className={`h-2 rounded-full transition-all ${
-                activeDot === i ? 'w-5 bg-honey-500' : 'w-2 bg-honey-200 hover:bg-honey-300'
+                activeDot === i ? 'w-5 bg-honey-500' : 'w-2 bg-honey-200 hover:bg-honey-300'
               }`}
             />
           ))}

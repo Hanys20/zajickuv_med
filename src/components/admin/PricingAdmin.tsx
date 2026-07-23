@@ -22,7 +22,7 @@ export default function PricingAdmin() {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(cenik),
     });
-    setStatus(res.ok ? 'Uloženo.' : 'Uložení se nepovedlo.');
+    setStatus(res.ok ? 'Uloženo.' : 'Uložení se nepovedlo.');
   }
 
   if (!cenik) return <p>Načítám…</p>;
@@ -31,7 +31,7 @@ export default function PricingAdmin() {
     <div>
       <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Ceník</h2>
       <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1rem' }}>
-        Upravujte pouze částky. Ostatní údaje (velikosti, názvy) se editují jinde.
+        Upravujte pouze částky. Ostatní údaje (velikosti, názvy) se editují jinde.
       </p>
 
       <div style={{ ...cardStyle, marginBottom: '1rem' }}>
@@ -47,7 +47,7 @@ export default function PricingAdmin() {
                 const price = Number(e.target.value);
                 setCenik({
                   ...cenik,
-                  honey: cenik.honey.map((r, idx) => (idx === i ? { ...r, price } : r)),
+                  honey: cenik.honey.map((r, idx) => (idx === i ? { ...r, price } : r)),
                 });
               }}
             />
@@ -68,7 +68,7 @@ export default function PricingAdmin() {
                 const price = Number(e.target.value);
                 setCenik({
                   ...cenik,
-                  propolis: cenik.propolis.map((r, idx) => (idx === i ? { ...r, price } : r)),
+                  propolis: cenik.propolis.map((r, idx) => (idx === i ? { ...r, price } : r)),
                 });
               }}
             />
@@ -89,7 +89,7 @@ export default function PricingAdmin() {
                 const price = Number(e.target.value);
                 setCenik({
                   ...cenik,
-                  giftSets: cenik.giftSets.map((r, idx) => (idx === i ? { ...r, price } : r)),
+                  giftSets: cenik.giftSets.map((r, idx) => (idx === i ? { ...r, price } : r)),
                 });
               }}
             />
@@ -98,7 +98,7 @@ export default function PricingAdmin() {
       </div>
 
       <div style={{ ...cardStyle, marginBottom: '1rem' }}>
-        <strong>Záloha na sklenici</strong>
+        <strong>Záloha na sklenici</strong>
         <label style={labelStyle}>
           Výše zálohy ({cenik.jarDeposit.currency})
           <input

@@ -53,7 +53,7 @@ export default function NewsAdmin() {
       setEditing(null);
       load();
     } else {
-      setStatus('Uložení se nepovedlo.');
+      setStatus('Uložení se nepovedlo.');
     }
   }
 
@@ -69,7 +69,7 @@ export default function NewsAdmin() {
     <div>
       <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Aktuality</h2>
       <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1rem' }}>
-        Na webu se vždy zobrazuje aktualita s nejnovějším datem.
+        Na webu se vždy zobrazuje aktualita s nejnovějším datem.
       </p>
 
       {!editing && (

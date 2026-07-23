@@ -5,7 +5,7 @@ import CookieSettingsButton from '@/components/CookieSettingsButton';
 
 export const metadata: Metadata = {
   title: 'Zásady používání cookies',
-  description: 'Jaké cookies a podobné technologie web Zajíčkův med používá a jak si je můžete nastavit.',
+  description: 'Jaké cookies a podobné technologie web Zajíčkův med používá a jak si je můžete nastavit.',
 };
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
@@ -28,47 +28,47 @@ export default function CookiesPage() {
         <div className="mt-6 max-w-[70ch]">
           <Section title="Co jsou cookies">
             <p>
-              Cookies jsou malé textové soubory, které si při návštěvě webu ukládá váš prohlížeč. Podobně
-              fungují i jiné technologie ukládající data lokálně ve vašem prohlížeči (například localStorage).
-              Používáme je jen v rozsahu popsaném níže.
+              Cookies jsou malé textové soubory, které si při návštěvě webu ukládá váš prohlížeč. Podobně
+              fungují i jiné technologie ukládající data lokálně ve vašem prohlížeči (například localStorage).
+              Používáme je jen v rozsahu popsaném níže.
             </p>
           </Section>
 
           <Section title="Nezbytné cookies">
             <p>
-              Tyto cookies web potřebuje k základnímu fungování a nelze je vypnout. Nesouvisí s běžnou
-              návštěvou webu — nastavují se jen při přihlášení do administrace webu:
+              Tyto cookies web potřebuje k základnímu fungování a nelze je vypnout. Nesouvisí s běžnou
+              návštěvou webu — nastavují se jen při přihlášení do administrace webu:
             </p>
             <ul className="ml-5 list-disc space-y-1">
               <li>
-                <strong>session</strong> — udržuje přihlášení v administraci webu (<code>/admin</code>),
-                platnost 30 dní, nastavuje se jen tomu, kdo se do administrace přihlásí.
+                <strong>session</strong> — udržuje přihlášení v administraci webu (<code>/admin</code>),
+                platnost 30 dní, nastavuje se jen tomu, kdo se do administrace přihlásí.
               </li>
             </ul>
           </Section>
 
-          <Section title="Vaše volba souhlasu s cookies">
+          <Section title="Vaše volba souhlasu s cookies">
             <p>
-              Když na webu poprvé zvolíte, zda souhlasíte s nepovinnými (analytickými) cookies, uložíme si
-              tuto volbu lokálně ve vašem prohlížeči (localStorage), abychom se vás nemuseli ptát znovu při
-              každé návštěvě. Nejde o sledovací cookie — tento údaj neopouští váš prohlížeč a slouží jen k
+              Když na webu poprvé zvolíte, zda souhlasíte s nepovinnými (analytickými) cookies, uložíme si
+              tuto volbu lokálně ve vašem prohlížeči (localStorage), abychom se vás nemuseli ptát znovu při
+              každé návštěvě. Nejde o sledovací cookie — tento údaj neopouští váš prohlížeč a slouží jen k
               zapamatování vaší volby.
             </p>
           </Section>
 
           <Section title="Analytické cookies">
             <p>
-              Rádi bychom v budoucnu měřili anonymní návštěvnost webu, abychom věděli, které stránky lidi
-              zajímají. Tato kategorie je na webu připravená, ale aktuálně žádný analytický nástroj aktivně
-              neběží — pokud a až ho zapojíme, načte se pouze těm návštěvníkům, kteří s ním vysloví souhlas
-              v cookie liště, a tuto stránku předem aktualizujeme s konkrétním popisem použitého nástroje.
+              Rádi bychom v budoucnu měřili anonymní návštěvnost webu, abychom věděli, které stránky lidi
+              zajímají. Tato kategorie je na webu připravená, ale aktuálně žádný analytický nástroj aktivně
+              neběží — pokud a až ho zapojíme, načte se pouze těm návštěvníkům, kteří s ním vysloví souhlas
+              v cookie liště, a tuto stránku předem aktualizujeme s konkrétním popisem použitého nástroje.
             </p>
           </Section>
 
           <Section title="Služby třetích stran">
             <p>
-              Na stránce Kontakt zobrazujeme mapu přes vloženou (embed) Google mapu. Při jejím načtení může
-              Google do vašeho prohlížeče uložit vlastní cookies podle{' '}
+              Na stránce Kontakt zobrazujeme mapu přes vloženou (embed) Google mapu. Při jejím načtení může
+              Google do vašeho prohlížeče uložit vlastní cookies podle{' '}
               <a
                 className="underline hover:text-honey-700"
                 href="https://policies.google.com/privacy"
@@ -77,7 +77,7 @@ export default function CookiesPage() {
               >
                 zásad ochrany soukromí Google
               </a>
-              . Na tyto cookies nemáme vliv.
+              . Na tyto cookies nemáme vliv.
             </p>
           </Section>
 
@@ -92,7 +92,7 @@ export default function CookiesPage() {
               <a className="underline hover:text-honey-700" href={`mailto:${site.contact.email}`}>
                 {site.contact.email}
               </a>
-              . Více o zpracování osobních údajů najdete v{' '}
+              . Více o zpracování osobních údajů najdete v{' '}
               <a className="underline hover:text-honey-700" href="/ochrana-osobnich-udaju">
                 zásadách ochrany osobních údajů
               </a>

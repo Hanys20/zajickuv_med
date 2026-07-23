@@ -20,7 +20,7 @@ export default function ChangePasswordForm() {
       return;
     }
     if (newPassword !== confirmPassword) {
-      setStatus({ type: 'error', text: 'Nová hesla se neshodují.' });
+      setStatus({ type: 'error', text: 'Nová hesla se neshodují.' });
       return;
     }
 
@@ -39,13 +39,13 @@ export default function ChangePasswordForm() {
       setConfirmPassword('');
     } else {
       const data = await res.json().catch(() => null);
-      setStatus({ type: 'error', text: data?.error ?? 'Změna hesla se nepovedla.' });
+      setStatus({ type: 'error', text: data?.error ?? 'Změna hesla se nepovedla.' });
     }
   }
 
   return (
     <div>
-      <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Změna hesla</h2>
+      <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Změna hesla</h2>
       <form onSubmit={submit} style={{ ...cardStyle, maxWidth: 360 }}>
         <label style={labelStyle}>
           Současné heslo

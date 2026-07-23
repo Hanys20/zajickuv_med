@@ -48,7 +48,7 @@ export default function CookieConsent() {
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-honey-200 bg-paper-raised px-4 py-4 shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.15)] sm:px-6">
       <div className="mx-auto max-w-content">
         <p className="text-[13px] leading-relaxed text-ink-dim">
-          Používáme nezbytné cookies pro chod webu. Se souhlasem bychom rádi měřili i anonymní návštěvnost.
+          Používáme nezbytné cookies pro chod webu. Se souhlasem bychom rádi měřili i anonymní návštěvnost.
           Více v{' '}
           <Link href="/cookies" className="underline hover:text-honey-700">
             zásadách používání cookies
@@ -66,7 +66,7 @@ export default function CookieConsent() {
             />
             <span>
               <strong>Analytické cookies</strong> — pomohou nám anonymně vyhodnotit návštěvnost webu.
-              Nezbytné cookies (přihlášení do administrace) jsou vždy zapnuté.
+              Nezbytné cookies (přihlášení do administrace) jsou vždy zapnuté.
             </span>
           </label>
         )}

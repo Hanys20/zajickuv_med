@@ -5,7 +5,7 @@ import FaqAccordion from '@/components/sections/FaqAccordion';
 
 export const metadata: Metadata = {
   title: 'FAQ',
-  description: 'Odpovědi na nejčastější otázky o medu — krystalizace, skladování, nákup a původ medu od Zajíčkova medu z Opavy-Podvihova.',
+  description: 'Odpovědi na nejčastější otázky o medu — krystalizace, skladování, nákup a původ medu od Zajíčkova medu z Opavy-Podvihova.',
 };
 
 export default function FaqPage() {

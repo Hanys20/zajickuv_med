@@ -27,7 +27,7 @@ export default function AvailabilityAdmin() {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ availability: next }),
     });
-    setStatus(res.ok ? 'Uloženo.' : 'Uložení se nepovedlo.');
+    setStatus(res.ok ? 'Uloženo.' : 'Uložení se nepovedlo.');
   }
 
   if (!items) return <p>Načítám…</p>;

@@ -5,19 +5,19 @@ const TONES = ['bg-honey-200', 'bg-leaf-100', 'bg-honey-100'];
 
 const PLACEHOLDER_REVIEWS = [
   {
-    text: '„Ukázková recenze — text doplní klient / migrace z Google recenzí po zřízení provozovny. Sem přijde delší, autentický text od spokojeného zákazníka popisující zkušenost s nákupem a kvalitou medu.“',
+    text: '„Ukázková recenze — text doplní klient / migrace z Google recenzí po zřízení provozovny. Sem přijde delší, autentický text od spokojeného zákazníka popisující zkušenost s nákupem a kvalitou medu.“',
   },
   {
-    text: '„Ukázková recenze — placeholder textu pro layout. Tady bude reálná zkušenost zákazníka, klidně o pár vět delší, ať je vidět, jak bude karta s recenzí vypadat v praxi.“',
+    text: '„Ukázková recenze — placeholder textu pro layout. Tady bude reálná zkušenost zákazníka, klidně o pár vět delší, ať je vidět, jak bude karta s recenzí vypadat v praxi.“',
   },
   {
-    text: '„Ukázková recenze — placeholder textu pro layout. I tahle karta počítá s trochu delším textem, aby náhled recenzí na homepage působil věrohodně a ne prázdně.“',
+    text: '„Ukázková recenze — placeholder textu pro layout. I tahle karta počítá s trochu delším textem, aby náhled recenzí na homepage působil věrohodně a ne prázdně.“',
   },
   {
-    text: '„Ukázková recenze — placeholder textu pro layout. Po zřízení provozovny na Google Maps se sem propíšou skutečné recenze i s hodnocením hvězdičkami.“',
+    text: '„Ukázková recenze — placeholder textu pro layout. Po zřízení provozovny na Google Maps se sem propíšou skutečné recenze i s hodnocením hvězdičkami.“',
   },
   {
-    text: '„Ukázková recenze — placeholder textu pro layout. Do té doby tu zůstávají ručně vybrané ukázkové texty, které klient postupně nahradí reálnými ohlasy.“',
+    text: '„Ukázková recenze — placeholder textu pro layout. Do té doby tu zůstávají ručně vybrané ukázkové texty, které klient postupně nahradí reálnými ohlasy.“',
   },
 ];
 
@@ -36,7 +36,7 @@ export default function Reviews() {
               <div key={i} className="card w-[calc(100%-48px)] shrink-0 snap-start sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
                 <div className="flex items-center gap-3">
                   <div
-                    className={`flex h-[42px] w-12 shrink-0 items-center justify-center ${TONES[i % TONES.length]} [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]`}
+                    className={`flex h-[42px] w-12 shrink-0 items-center justify-center ${TONES[i % TONES.length]} [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]`}
                   >
                     <Image src="/images/icons/person.svg" alt="" width={18} height={18} className="opacity-70" />
                   </div>

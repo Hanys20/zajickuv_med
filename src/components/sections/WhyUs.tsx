@@ -5,25 +5,25 @@ const CARDS = [
   {
     icon: '/images/icons/family.svg',
     title: 'Rodinná tradice',
-    text: 'Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.',
+    text: 'Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.',
     tone: 'bg-honey-100 border-honey-200',
   },
   {
     icon: '/images/icons/honeycomb-alt.svg',
     title: 'Vlastní koloběh vosku',
-    text: 'Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.',
+    text: 'Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.',
     tone: 'bg-leaf-100 border-leaf-300',
   },
   {
     icon: '/images/icons/hive.svg',
     title: 'Dřevěné úly',
-    text: 'Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a mezistěnami.',
+    text: 'Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a mezistěnami.',
     tone: 'bg-honey-100 border-honey-200',
   },
   {
     icon: '/images/icons/leaf.svg',
-    title: 'Šetrná péče o včely',
-    text: 'Včelstva vedeme co nejpřirozenější cestou a maximálně omezujeme látky, které jsou včelám a přírodě cizí.',
+    title: 'Šetrná péče o včely',
+    text: 'Včelstva vedeme co nejpřirozenější cestou a maximálně omezujeme látky, které jsou včelám a přírodě cizí.',
     tone: 'bg-leaf-100 border-leaf-300',
   },
 ];

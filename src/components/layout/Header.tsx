@@ -29,7 +29,7 @@ export default function Header() {
         <Link href="/" className="flex shrink-0 items-center" onClick={() => setOpen(false)}>
           <Image
             src="/images/logo/wordmark.svg"
-            alt="Zajíčkův med"
+            alt="Zajíčkův med"
             width={199}
             height={56}
             priority
