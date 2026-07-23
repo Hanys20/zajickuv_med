@@ -23,15 +23,15 @@ export default function KontaktPage() {
 
       <section className="section-dark border-t border-honey-900/50 px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <span className="eyebrow-invert">Prodejní místa a rozvoz</span>
+          <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-stretch">
+            <div>
+              <span className="eyebrow-invert">Prodejní místa a rozvoz</span>
           <h2 className="mb-2.5 mt-1 text-xl font-extrabold text-white md:text-2xl">Kde jinde med seženete</h2>
           <p className="mb-5 max-w-[60ch] text-[14.5px] text-honey-50/80">
             Med od nás seženete i mimo naši farmu — u vybraného prodejce, nebo přímo u vás doma
             díky rozvozu po dohodě.
           </p>
 
-          <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-stretch">
-            <div>
               {salesPoints.resellers.map((r) => (
                 <div
                   key={r.name}
@@ -62,10 +62,10 @@ export default function KontaktPage() {
               </div>
             </div>
 
-            <div className="relative mx-auto hidden h-56 w-56 sm:block sm:h-64 sm:w-64 lg:h-full lg:min-h-[280px] lg:w-full lg:max-w-none">
+            <div className="relative mx-auto hidden h-56 w-56 sm:block sm:h-64 sm:w-64 lg:h-full lg:min-h-[420px] lg:w-full lg:max-w-none">
               <Image
-                src="/images/watercolor/honeycomb.png"
-                alt="Včelí plástev, malovaná ilustrace akvarelem"
+                src="/images/watercolor/honey-jar.png"
+                alt="Sklenice medu, malovaná ilustrace akvarelem"
                 fill
                 className="object-contain object-center"
               />
