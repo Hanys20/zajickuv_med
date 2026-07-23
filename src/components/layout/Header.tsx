@@ -37,7 +37,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-[13px] font-semibold text-ink-dim md:flex">
+        <nav className="hidden items-center gap-6 text-[13px] font-semibold uppercase tracking-wide text-ink-dim md:flex">
           {NAV_ITEMS.map((item) =>
             item.cta ? (
               <Link key={item.label} href={item.href} className="btn btn-primary !px-4 !py-2 !text-[13px]">
@@ -104,8 +104,8 @@ export default function Header() {
               onClick={() => setOpen(false)}
               className={
                 item.cta
-                  ? 'my-1.5 rounded-full bg-honey-500 px-4 py-2.5 text-center text-sm font-bold text-white'
-                  : 'border-b border-block py-2.5 text-sm font-semibold'
+                  ? 'my-1.5 rounded-full bg-honey-500 px-4 py-2.5 text-center text-sm font-bold uppercase tracking-wide text-white'
+                  : 'border-b border-block py-2.5 text-sm font-semibold uppercase tracking-wide'
               }
             >
               {item.label}

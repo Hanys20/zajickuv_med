@@ -85,9 +85,14 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
             </tbody>
           </table>
         </div>
-        <p className="border-t border-honey-100 bg-honey-50 px-4 py-2.5 text-xs text-ink-dim sm:px-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-honey-100 bg-honey-50 px-4 py-3 sm:px-5">
+          <p className="text-xs text-ink-dim">
           Uvedené ceny medu zahrnují vratnou zálohu na sklenici {cenik.jarDeposit.amount} Kč.
-        </p>
+          </p>
+          <Link href="/kontakt" className="btn btn-primary shrink-0 !px-4 !py-2 !text-[12.5px]">
+            Mám zájem
+          </Link>
+        </div>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3.5 rounded-md border border-dashed border-honey-400 bg-honey-50 p-4">
@@ -101,9 +106,6 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
             10 měsíců.
           </p>
         </div>
-        <Link href="/kontakt" className="btn btn-primary shrink-0">
-          Mám zájem
-        </Link>
       </div>
     </div>
   );
