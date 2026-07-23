@@ -103,6 +103,36 @@ async function handleLogin(request: Request, env: Env): Promise<Response> {
   return jsonResponse({ ok: true }, { headers: { 'set-cookie': sessionCookieHeader(token, SESSION_TTL_SECONDS) } });
 }
 
+async function handleChangePassword(request: Request, env: Env, userId: number): Promise<Response> {
+  const body = (await request.json().catch(() => null)) as
+    | { currentPassword?: string; newPassword?: string }
+    | null;
+  if (!body?.currentPassword || !body?.newPassword) {
+    return jsonResponse({ error: 'Chybí současné nebo nové heslo' }, { status: 400 });
+  }
+  if (body.newPassword.length < 8) {
+    return jsonResponse({ error: 'Nové heslo musí mít alespoň 8 znaků' }, { status: 400 });
+  }
+
+  const user = await env.DB.prepare('SELECT password_hash, password_salt FROM admin_user WHERE id = ?')
+    .bind(userId)
+    .first<{ password_hash: string; password_salt: string }>();
+  if (!user) return jsonResponse({ error: 'Uživatel nenalezen' }, { status: 404 });
+
+  const computedHash = await hashPassword(body.currentPassword, user.password_salt);
+  if (!timingSafeEqualHex(computedHash, user.password_hash)) {
+    return jsonResponse({ error: 'Současné heslo není správné' }, { status: 401 });
+  }
+
+  const newSalt = randomTokenHex(16);
+  const newHash = await hashPassword(body.newPassword, newSalt);
+  await env.DB.prepare('UPDATE admin_user SET password_hash = ?, password_salt = ? WHERE id = ?')
+    .bind(newHash, newSalt, userId)
+    .run();
+
+  return jsonResponse({ ok: true });
+}
+
 async function handlePublicNews(env: Env): Promise<Response> {
   const row = await env.DB.prepare('SELECT title, date, body FROM news ORDER BY date DESC LIMIT 1').first();
   return jsonResponse(row ?? null);
@@ -214,6 +244,11 @@ export default {
       if (url.pathname === '/api/auth/me' && request.method === 'GET') {
         const userId = await requireSession(request, env);
         return jsonResponse({ authenticated: userId !== null });
+      }
+      if (url.pathname === '/api/auth/change-password' && request.method === 'POST') {
+        const userId = await requireSession(request, env);
+        if (userId === null) return jsonResponse({ error: 'Nepřihlášeno' }, { status: 401 });
+        return handleChangePassword(request, env, userId);
       }
 
       if (url.pathname === '/api/public/news' && request.method === 'GET') {

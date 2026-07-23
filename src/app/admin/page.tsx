@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import NewsAdmin from '@/components/admin/NewsAdmin';
 import AvailabilityAdmin from '@/components/admin/AvailabilityAdmin';
 import PricingAdmin from '@/components/admin/PricingAdmin';
+import ChangePasswordForm from '@/components/admin/ChangePasswordForm';
+import PasswordInput from '@/components/admin/PasswordInput';
 import { buttonStyle, secondaryButtonStyle, inputStyle, labelStyle } from '@/components/admin/styles';
 
-type Tab = 'news' | 'availability' | 'pricing';
+type Tab = 'news' | 'availability' | 'pricing' | 'password';
 
 function LoginForm({ onLoggedIn }: { onLoggedIn: () => void }) {
   const [username, setUsername] = useState('');
@@ -41,12 +43,7 @@ function LoginForm({ onLoggedIn }: { onLoggedIn: () => void }) {
       </label>
       <label style={labelStyle}>
         Heslo
-        <input
-          type="password"
-          style={inputStyle}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <PasswordInput value={password} onChange={setPassword} autoComplete="current-password" />
       </label>
       {error && <p style={{ color: '#b00020', marginBottom: '0.75rem' }}>{error}</p>}
       <button type="submit" style={{ ...buttonStyle, width: '100%' }} disabled={loading}>
@@ -104,11 +101,15 @@ export default function AdminPage() {
         <button onClick={() => setTab('pricing')} style={tab === 'pricing' ? buttonStyle : secondaryButtonStyle}>
           Ceník
         </button>
+        <button onClick={() => setTab('password')} style={tab === 'password' ? buttonStyle : secondaryButtonStyle}>
+          Heslo
+        </button>
       </div>
 
       {tab === 'news' && <NewsAdmin />}
       {tab === 'availability' && <AvailabilityAdmin />}
       {tab === 'pricing' && <PricingAdmin />}
+      {tab === 'password' && <ChangePasswordForm />}
     </div>
   );
 }
