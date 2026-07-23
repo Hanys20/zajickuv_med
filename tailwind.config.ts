@@ -64,11 +64,12 @@ const config: Config = {
           'Arial',
           'sans-serif',
         ],
+        // Brandový font z loga - jen na nadpisy (viz globals.css).
+        heading: ['var(--font-heading)', 'var(--font-body)', '-apple-system', 'sans-serif'],
       },
       maxWidth: {
         content: '1180px',
         hero: '1200px',
-        header: '1440px',
       },
       boxShadow: {
         warm: '0 12px 30px -12px rgba(217, 113, 16, 0.32)',
