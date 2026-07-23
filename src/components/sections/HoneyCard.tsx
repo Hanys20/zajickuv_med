@@ -12,14 +12,14 @@ export default function HoneyCard({
   photo?: string;
 }) {
   return (
-    <div className="w-[260px] shrink-0 snap-start overflow-hidden rounded-md border border-border bg-paper-raised">
+    <div className="w-[calc(100%-48px)] shrink-0 snap-start overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
       <div className="relative aspect-square w-full border-b border-border">
         {photo ? (
           <Image
             src={photo}
             alt=""
             fill
-            sizes="(min-width: 640px) 260px, 90vw"
+            sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
             className="object-cover"
           />
         ) : (

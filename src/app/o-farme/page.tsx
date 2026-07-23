@@ -60,7 +60,12 @@ export default function OFarmePage() {
 
       <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+            <div>
+              <span className="eyebrow">Historie</span>
+              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
+              <Timeline />
+            </div>
             <div className="relative mx-auto h-[220px] w-full max-w-[300px] sm:h-[280px] lg:h-auto lg:min-h-[320px] lg:max-w-none">
               <Image
                 src="/images/watercolor/old-smoker.png"
@@ -68,11 +73,6 @@ export default function OFarmePage() {
                 fill
                 className="object-contain object-center"
               />
-            </div>
-            <div>
-              <span className="eyebrow">Historie</span>
-              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
-              <Timeline />
             </div>
           </div>
         </div>

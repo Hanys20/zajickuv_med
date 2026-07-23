@@ -38,7 +38,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
             alt=""
             width={782}
             height={1000}
-            className="pointer-events-none absolute -top-24 right-4 hidden w-48 -scale-x-100 select-none sm:block md:-top-32 md:right-8 md:w-64"
+            className="pointer-events-none absolute bottom-0 right-4 hidden w-60 -scale-x-100 select-none sm:block md:right-8 md:w-80"
           />
           <div className="overflow-hidden rounded-xl border border-honey-200 bg-paper-raised">
             <div className="border-l-4 border-honey-400 px-6 py-9 sm:px-9 sm:py-11">

@@ -134,7 +134,7 @@ export default function Carousel({ children }: Props) {
       <div className="min-w-0 flex-1">
         <div
           ref={scrollerRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto [scroll-padding-left:8%] [scroll-padding-right:8%] sm:[scroll-padding-left:6%] sm:[scroll-padding-right:6%]"
+          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto [scroll-padding-left:24px] [scroll-padding-right:24px] sm:[scroll-padding-left:28px] sm:[scroll-padding-right:28px] lg:[scroll-padding-left:32px] lg:[scroll-padding-right:32px]"
         >
           {tripled}
         </div>

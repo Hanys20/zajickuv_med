@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Cenik } from '@/lib/content';
 
 export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) {
@@ -89,18 +90,20 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
         </p>
       </div>
 
-      <div className="mt-4 flex items-center gap-3.5 rounded-md border border-dashed border-honey-400 bg-honey-50 p-4">
+      <div className="mt-4 flex flex-wrap items-center gap-3.5 rounded-md border border-dashed border-honey-400 bg-honey-50 p-4">
         <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-md border border-border bg-paper-raised">
           <Image src="/images/icons/mead.svg" alt="" width={26} height={26} />
         </div>
-        <div>
+        <div className="flex-1">
           <strong className="text-sm">Také z našeho medu — medovina</strong>
           <p className="mt-1.5 text-[13px] text-ink-dim">
             {cenik.mead.variants.join(' a ')} {cenik.mead.name.toLowerCase()}, zraje minimálně
-            10 měsíců. Bez ceny a bez možnosti objednání — nelze přímo prodávat, na webu jen
-            zmínka.
+            10 měsíců.
           </p>
         </div>
+        <Link href="/kontakt" className="btn btn-primary shrink-0">
+          Mám zájem o med
+        </Link>
       </div>
     </div>
   );

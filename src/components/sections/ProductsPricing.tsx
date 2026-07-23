@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { getHoneys } from '@/lib/products';
 import { cenik } from '@/lib/content';
 import HoneyCards from './HoneyCards';
@@ -17,11 +16,6 @@ export default function ProductsPricing() {
             Každý med je trochu jiný — jeho barvu, vůni i chuť ovlivňuje krajina, počasí a
             rostliny, které v době snůšky právě kvetou.
           </p>
-          <div className="mt-4">
-            <Link href="/kontakt" className="btn btn-primary">
-              Mám zájem o med
-            </Link>
-          </div>
         </div>
 
         <div className="mt-5">

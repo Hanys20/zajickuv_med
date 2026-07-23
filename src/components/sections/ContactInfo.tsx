@@ -57,7 +57,7 @@ export default function ContactInfo() {
           </div>
         </div>
 
-        <div className="hidden w-40 shrink-0 self-start pt-1 sm:block md:w-48">
+        <div className="hidden w-56 shrink-0 self-start -mt-8 sm:block sm:-mt-10 md:w-64 md:-mt-12">
           <Image
             src="/images/watercolor/bee-flower.png"
             alt="Včela na květu, malovaná ilustrace akvarelem"

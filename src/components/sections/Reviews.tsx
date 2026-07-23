@@ -33,7 +33,7 @@ export default function Reviews() {
         <div className="mt-5">
           <Carousel>
             {PLACEHOLDER_REVIEWS.map((review, i) => (
-              <div key={i} className="card w-[270px] shrink-0 snap-start sm:w-[300px] lg:w-[330px]">
+              <div key={i} className="card w-[calc(100%-48px)] shrink-0 snap-start sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
                 <div className="flex items-center gap-3">
                   <div
                     className={`flex h-[42px] w-12 shrink-0 items-center justify-center ${TONES[i % TONES.length]} [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]`}
