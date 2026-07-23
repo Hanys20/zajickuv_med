@@ -126,7 +126,7 @@ export default function Carousel({ children }: Props) {
         type="button"
         aria-label="Předchozí"
         onClick={prev}
-        className="flex h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700"
+        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700 sm:flex"
       >
         <ChevronIcon direction="left" />
       </button>
@@ -139,19 +139,39 @@ export default function Carousel({ children }: Props) {
           {tripled}
         </div>
 
-        <div className="mt-2 flex flex-wrap justify-center gap-1.5">
-          {Array.from({ length: count }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              aria-label={`Karta ${i + 1}`}
-              aria-current={activeDot === i}
-              onClick={() => goTo(i)}
-              className={`h-2 rounded-full transition-all ${
-                activeDot === i ? 'w-5 bg-honey-500' : 'w-2 bg-honey-200 hover:bg-honey-300'
-              }`}
-            />
-          ))}
+        <div className="mt-2 flex items-center justify-center gap-3 sm:gap-1.5">
+          <button
+            type="button"
+            aria-label="Předchozí"
+            onClick={prev}
+            className="flex h-7 w-7 shrink-0 items-center justify-center text-honey-500 transition-all hover:-translate-x-0.5 hover:text-honey-700 sm:hidden"
+          >
+            <ChevronIcon direction="left" />
+          </button>
+
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {Array.from({ length: count }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Karta ${i + 1}`}
+                aria-current={activeDot === i}
+                onClick={() => goTo(i)}
+                className={`h-2 rounded-full transition-all ${
+                  activeDot === i ? 'w-5 bg-honey-500' : 'w-2 bg-honey-200 hover:bg-honey-300'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Další"
+            onClick={next}
+            className="flex h-7 w-7 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700 sm:hidden"
+          >
+            <ChevronIcon direction="right" />
+          </button>
         </div>
       </div>
 
@@ -159,7 +179,7 @@ export default function Carousel({ children }: Props) {
         type="button"
         aria-label="Další"
         onClick={next}
-        className="flex h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700"
+        className="hidden h-10 w-6 shrink-0 items-center justify-center text-honey-500 transition-all hover:translate-x-0.5 hover:text-honey-700 sm:flex"
       >
         <ChevronIcon direction="right" />
       </button>
