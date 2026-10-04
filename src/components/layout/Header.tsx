@@ -13,6 +13,13 @@ const SOCIALS = [
   { key: 'whatsapp', label: 'WhatsApp', icon: '/images/icons/whatsapp.svg', href: `https://wa.me/${site.socials.whatsapp.replace(/\D/g, '')}` },
 ];
 
+const OFFER_ICONS: Record<string, string> = {
+  '/#med': '/images/icons/honey-jar.svg',
+  '/#propolis': '/images/icons/molecule.svg',
+  '/#vosk-a-svicky': '/images/icons/honeycomb.svg',
+  '/#oddelky': '/images/icons/beehive.svg',
+};
+
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -161,17 +168,35 @@ export default function Header() {
                   {item.label}
                 </Link>
                 {item.children && (
-                  <div className="grid grid-cols-2 gap-x-3 border-b border-block bg-honey-50/50 px-3 py-2">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => setOpen(false)}
-                        className="py-1.5 text-[13px] text-ink-dim hover:text-honey-700"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                  <div className="border-b border-block pb-3">
+                    <div className="mt-1.5 overflow-hidden rounded-md border border-honey-200 bg-honey-50/70 px-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setOpen(false)}
+                          className="group flex min-h-12 items-center gap-3 border-b border-honey-200/70 px-1 py-2 text-sm font-semibold text-ink transition-colors last:border-b-0 hover:text-honey-700"
+                        >
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-paper-raised shadow-sm ring-1 ring-honey-200 transition-colors group-hover:bg-honey-100">
+                            <Image
+                              src={OFFER_ICONS[child.href] ?? '/images/icons/honeycomb.svg'}
+                              alt=""
+                              width={17}
+                              height={17}
+                            />
+                          </span>
+                          <span className="flex-1">{child.label}</span>
+                          <svg
+                            aria-hidden="true"
+                            viewBox="0 0 16 16"
+                            className="h-4 w-4 shrink-0 fill-none stroke-honey-600 transition-transform group-hover:translate-x-0.5"
+                            strokeWidth="1.7"
+                          >
+                            <path d="m6 3.5 4.5 4.5L6 12.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>

@@ -50,15 +50,17 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <section id="historie" className="scroll-mt-24 border-b border-border px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-stretch">
-            <div>
+          <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-stretch lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center lg:gap-10 xl:grid-cols-[minmax(0,1fr)_400px] xl:gap-14">
+            <div className="text-center md:text-left lg:order-1">
               <span className="eyebrow">Historie</span>
-              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Naše cesta ve zkratce</h2>
+              <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl lg:mb-8 lg:text-[34px]">
+                Naše cesta ve zkratce
+              </h2>
               <Timeline />
             </div>
-            <div className="relative mx-auto h-[240px] w-full max-w-[360px] sm:h-[300px] md:h-auto md:min-h-[320px] md:max-w-none">
+            <div className="relative mx-auto h-[240px] w-full max-w-[360px] sm:h-[300px] md:h-auto md:min-h-[320px] md:max-w-none lg:order-2 lg:h-[360px] lg:min-h-0 lg:max-w-[400px] xl:h-[390px]">
               <Image
                 src="/images/watercolor/old-smoker.png"
                 alt="Starý dýmák, malovaná ilustrace akvarelem"
@@ -70,29 +72,29 @@ export default function OFarmePage() {
         </div>
       </section>
 
-      <section className="section-tint border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <section className="section-dark border-b border-honey-900/50 px-4 py-8 sm:px-6 md:py-12">
         <div className="mx-auto max-w-content">
-          <span className="eyebrow">Celý příběh</span>
-          <h2 className="mb-5 mt-1 text-xl font-extrabold md:text-2xl">Jak to celé začalo</h2>
+          <span className="eyebrow-invert">Celý příběh</span>
+          <h2 className="mb-5 mt-1 text-xl font-extrabold text-white md:text-2xl">Jak to celé začalo</h2>
           <div className="grid gap-6 lg:grid-cols-2">
             <div>
-              <StoryBlock title="Příběh rodiny">
+              <StoryBlock title="Příběh rodiny" dark>
                 Počátky včelaření jsou spojeny s Volyní, dnešní Ukrajinou, kde žil strýc otce. Po
                 druhé světové válce se rodina vracela do Československa, včely ale nebylo možné
                 převézt — tradice byla na čas přerušena, než se k ní jako chlapec vrátil otec.
               </StoryBlock>
-              <StoryBlock title="Návrat ke včelám">
+              <StoryBlock title="Návrat ke včelám" dark>
                 Aktivně včelařit jsem začal kolem svých 30. narozenin — první vlastní včelstvo
                 jako dar od manželky a švagrové. Ve stejném roce jsem převzal i včelstva po otci a
                 pokračuji v rodinné tradici dodnes.
               </StoryBlock>
-              <StoryBlock title="Kde naše včely žijí">
+              <StoryBlock title="Kde naše včely žijí" dark>
                 Společně s manželkou pečujeme o ~40 včelstev ve výšce 200–550 m — poblíž
                 vojenského prostoru Libavá a na úpatí Nízkého Jeseníku. Rozmanitost krajiny dává
                 medům rozdílnou barvu, vůni i chuť.
               </StoryBlock>
             </div>
-            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:min-h-full">
+            <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-50/15 shadow-warm lg:min-h-full">
               <Image
                 src="/images/photos/o-farme-apiary-family.jpg"
                 alt="Řada úlů na našem včelím stanovišti"
