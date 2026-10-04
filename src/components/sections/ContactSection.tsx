@@ -18,11 +18,12 @@ export default function ContactSection({
 }: Props) {
   const honeys = getHoneys();
   const propolis = getPropolis();
+  const theme = bare ? 'light' : 'dark';
 
   const grid = (
     <div className="mt-5 grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-      <ContactForm honeys={honeys} propolis={propolis} />
-      <ContactInfo />
+      <ContactForm honeys={honeys} propolis={propolis} theme={theme} />
+      <ContactInfo theme={theme} />
     </div>
   );
 
@@ -37,11 +38,11 @@ export default function ContactSection({
   return (
     <section
       id={id}
-      className="section-frame scroll-mt-20 border-b border-border px-4 py-8 sm:px-6 md:py-12"
+      className="section-dark scroll-mt-20 border-b border-honey-900/50 px-4 py-10 sm:px-6 md:py-14"
     >
       <Reveal className="mx-auto max-w-content">
-        <span className="eyebrow">{eyebrow}</span>
-        <h2 className="mt-1 text-xl font-extrabold md:text-2xl">{title}</h2>
+        <span className="eyebrow-invert">{eyebrow}</span>
+        <h2 className="mt-1 text-xl font-extrabold text-white md:text-2xl">{title}</h2>
         {grid}
       </Reveal>
     </section>

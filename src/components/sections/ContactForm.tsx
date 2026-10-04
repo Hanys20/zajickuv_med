@@ -4,12 +4,26 @@ import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/products';
 import { cenik, site } from '@/lib/content';
 
-export default function ContactForm({ honeys, propolis }: { honeys: Product[]; propolis: Product[] }) {
+export default function ContactForm({
+  honeys,
+  propolis,
+  theme = 'light',
+}: {
+  honeys: Product[];
+  propolis: Product[];
+  theme?: 'light' | 'dark';
+}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [productChoice, setProductChoice] = useState('');
   const [message, setMessage] = useState('');
+  const labelClass = `text-[12.5px] font-bold ${theme === 'dark' ? 'text-honey-50' : ''}`;
+  const fieldClass = `rounded-sm border px-3 py-2.5 text-sm ${
+    theme === 'dark'
+      ? 'border-white/20 bg-honey-50 text-ink placeholder:text-ink-dim/70'
+      : 'border-border bg-paper-raised'
+  }`;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -45,7 +59,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
   return (
     <form onSubmit={handleSubmit} className="flex min-w-0 flex-col gap-3.5">
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="name" className="text-[12.5px] font-bold">
+        <label htmlFor="name" className={labelClass}>
           Jméno
         </label>
         <input
@@ -55,11 +69,11 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Vaše jméno"
-          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className={fieldClass}
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="email" className="text-[12.5px] font-bold">
+        <label htmlFor="email" className={labelClass}>
           E-mail
         </label>
         <input
@@ -69,11 +83,11 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="jan@example.com"
-          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className={fieldClass}
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="phone" className="text-[12.5px] font-bold">
+        <label htmlFor="phone" className={labelClass}>
           Telefon
         </label>
         <input
@@ -82,11 +96,11 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="+420 000 000 000"
-          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className={fieldClass}
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="product" className="text-[12.5px] font-bold">
+        <label htmlFor="product" className={labelClass}>
           Výběr produktu
         </label>
         <select
@@ -94,7 +108,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           required
           value={productChoice}
           onChange={(e) => setProductChoice(e.target.value)}
-          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className={fieldClass}
         >
           <option value="" disabled>
             Vyberte produkt…
@@ -133,7 +147,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
         </select>
       </div>
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-[12.5px] font-bold">
+        <label htmlFor="message" className={labelClass}>
           Zpráva
         </label>
         <textarea
@@ -142,7 +156,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Napište nám, o jaký produkt a v jakém množství máte zájem"
-          className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
+          className={fieldClass}
         />
       </div>
       <button type="submit" className="btn btn-primary btn-block">
