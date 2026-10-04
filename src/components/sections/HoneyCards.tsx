@@ -12,7 +12,7 @@ export default function HoneyCards({ initialHoneys }: { initialHoneys: Product[]
   const [honeys, setHoneys] = useState(initialHoneys);
 
   useEffect(() => {
-    fetch('/api/public/availability')
+    fetch('/api/public/availability', { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : null))
       .then((rows: AvailabilityRow[] | null) => {
         if (!rows) return;

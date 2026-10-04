@@ -12,7 +12,6 @@ type Props = {
   availability: Availability;
   cta?: string;
   note?: string;
-  inquiryWhenSoldOut?: boolean;
 };
 
 export default function OfferCard({
@@ -24,10 +23,7 @@ export default function OfferCard({
   availability,
   cta = 'Mám zájem',
   note,
-  inquiryWhenSoldOut = false,
 }: Props) {
-  const canContact = availability !== 'sold-out' || inquiryWhenSoldOut;
-
   return (
     <article className="flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-64px)/2)] lg:w-[calc((100%-96px)/4)]">
       <div className="relative aspect-square border-b border-border">
@@ -47,7 +43,7 @@ export default function OfferCard({
         <h3 className="mt-1 text-[14px] font-bold leading-snug">{name}</h3>
         <p className="mt-1.5 line-clamp-3 flex-1 text-xs leading-relaxed text-ink-dim">{description}</p>
         {note && <p className="mt-1.5 text-[11px] font-semibold text-honey-700">{note}</p>}
-        {canContact ? (
+        {availability !== 'sold-out' ? (
           <Link href={href} className="btn btn-primary btn-block mt-3 !py-2 !text-[12px]">
             {cta}
           </Link>

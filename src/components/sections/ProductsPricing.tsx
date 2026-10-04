@@ -132,7 +132,6 @@ export default function ProductsPricing() {
                 availability={product.availability}
                 cta="Poptat"
                 note="Parametry a cena budou doplněny"
-                inquiryWhenSoldOut
               />
             ))}
           </Carousel>
