@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getHoneys, getPropolis } from '@/lib/products';
+import { getHoneys, getPropolis, type Availability } from '@/lib/products';
 import { cenik } from '@/lib/content';
 import HoneyCards from './HoneyCards';
 import PricingTable from './PricingTable';
@@ -7,19 +7,32 @@ import OfferCard from './OfferCard';
 import Carousel from '@/components/ui/Carousel';
 import Reveal from '@/components/ui/Reveal';
 
-const ADDITIONAL_PRODUCTS = {
+type AdditionalProduct = {
+  name: string;
+  description: string;
+  photo: string;
+  slug: string;
+  availability: Availability;
+};
+
+const ADDITIONAL_PRODUCTS: {
+  waxAndCandles: AdditionalProduct[];
+  nucs: AdditionalProduct[];
+} = {
   waxAndCandles: [
     {
       name: 'Včelí vosk',
       description: 'Včelí vosk z naší farmy. Konkrétní balení, dostupnost a další podrobnosti doplníme.',
       photo: '/images/photos/vceli-vosk.webp',
       slug: 'vceli-vosk',
+      availability: 'available',
     },
     {
       name: 'Svíčky z mezistěn',
       description: 'Svíčky vyráběné z mezistěn. Varianty, rozměry a dostupnost doplníme.',
       photo: '/images/photos/svicky-z-mezisten.webp',
       slug: 'svicky-z-mezisten',
+      availability: 'available',
     },
   ],
   nucs: [
@@ -28,12 +41,14 @@ const ADDITIONAL_PRODUCTS = {
       description: 'Připravené místo pro doplnění konkrétních parametrů a dostupnosti tohoto typu oddělku.',
       photo: '/images/photos/oddelek-klasicky.webp',
       slug: 'oddelek-klasicky',
+      availability: 'sold-out',
     },
     {
       name: 'Sběrný oddělek',
       description: 'Připravené místo pro doplnění konkrétních parametrů a dostupnosti tohoto typu oddělku.',
       photo: '/images/photos/oddelek-sberny.webp',
       slug: 'oddelek-sberny',
+      availability: 'sold-out',
     },
   ],
 };
@@ -91,6 +106,7 @@ export default function ProductsPricing() {
                 description={product.shortDescription}
                 photo={product.slug === 'propolisova-tinktura' ? '/images/photos/propolisova-tinktura.webp' : '/images/photos/propolis-skrabany.webp'}
                 href={`/kontakt?produkt=${product.slug}#kontakt`}
+                availability={product.availability}
               />
             ))}
             {ADDITIONAL_PRODUCTS.waxAndCandles.map((product) => (
@@ -101,6 +117,7 @@ export default function ProductsPricing() {
                 description={product.description}
                 photo={product.photo}
                 href={`/kontakt?produkt=${product.slug}#kontakt`}
+                availability={product.availability}
                 note="Podrobnosti připravujeme"
               />
             ))}
@@ -112,8 +129,10 @@ export default function ProductsPricing() {
                 description={product.description}
                 photo={product.photo}
                 href={`/kontakt?produkt=${product.slug}#kontakt`}
-                cta="Poptat podrobnosti"
+                availability={product.availability}
+                cta="Poptat"
                 note="Parametry a cena budou doplněny"
+                inquiryWhenSoldOut
               />
             ))}
           </Carousel>

@@ -13,7 +13,7 @@ export default function HoneyCard({
   photo?: string;
 }) {
   return (
-    <div className="w-[calc(100%-48px)] shrink-0 snap-start overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
+    <div className="flex w-[calc(100%-48px)] shrink-0 snap-start flex-col overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
       <div className="relative aspect-square w-full border-b border-border">
         {photo ? (
           <Image
@@ -28,18 +28,13 @@ export default function HoneyCard({
             <Image src={icon} alt="" width={40} height={40} className="opacity-60" />
           </div>
         )}
-        {photo && (
-          <span className="absolute left-2 top-2 flex h-9 w-9 items-center justify-center rounded-full border border-honey-200 bg-white/90 shadow-sm backdrop-blur-sm">
-            <Image src={icon} alt="" width={18} height={18} />
-          </span>
-        )}
         <div className="absolute right-2 top-2">
           <Badge availability={product.availability} />
         </div>
       </div>
-      <div className="p-3.5">
+      <div className="flex flex-1 flex-col p-3.5">
         <h3 className="text-[13.5px] font-bold leading-snug">{product.name}</h3>
-        <p className="mt-1.5 text-xs leading-relaxed text-ink-dim">{product.shortDescription}</p>
+        <p className="mt-1.5 flex-1 text-xs leading-relaxed text-ink-dim">{product.shortDescription}</p>
 
         {product.availability === 'sold-out' ? (
           <span
