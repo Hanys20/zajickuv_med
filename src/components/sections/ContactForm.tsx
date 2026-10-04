@@ -1,8 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { Product } from '@/lib/products';
+import type { Availability, Product } from '@/lib/products';
 import { cenik, site } from '@/lib/content';
+
+const ADDITIONAL_FORM_PRODUCTS = [
+  { slug: 'vceli-vosk', name: 'Včelí vosk', group: 'wax', availability: 'available' },
+  { slug: 'svicky-z-mezisten', name: 'Svíčky z mezistěn', group: 'wax', availability: 'available' },
+  { slug: 'oddelek-klasicky', name: 'Klasický oddělek', group: 'nucs', availability: 'sold-out' },
+  { slug: 'oddelek-sberny', name: 'Sběrný oddělek', group: 'nucs', availability: 'sold-out' },
+] satisfies Array<{ slug: string; name: string; group: 'wax' | 'nucs'; availability: Availability }>;
 
 export default function ContactForm({
   honeys,
@@ -18,6 +25,14 @@ export default function ContactForm({
   const [phone, setPhone] = useState('');
   const [productChoice, setProductChoice] = useState('');
   const [message, setMessage] = useState('');
+  const [availabilityBySlug, setAvailabilityBySlug] = useState<Record<string, Availability>>(() =>
+    Object.fromEntries(
+      [...honeys, ...propolis, ...ADDITIONAL_FORM_PRODUCTS].map((product) => [
+        product.slug,
+        product.availability,
+      ])
+    )
+  );
   const labelClass = `text-[12.5px] font-bold ${theme === 'dark' ? 'text-honey-50' : ''}`;
   const fieldClass = `rounded-sm border px-3 py-2.5 text-sm ${
     theme === 'dark'
@@ -26,18 +41,35 @@ export default function ContactForm({
   }`;
 
   useEffect(() => {
+    fetch('/api/public/availability', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((rows: Array<{ slug: string; availability: Availability }> | null) => {
+        if (!rows) return;
+        setAvailabilityBySlug((current) => ({
+          ...current,
+          ...Object.fromEntries(rows.map((row) => [row.slug, row.availability])),
+        }));
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const selectedProduct = [...honeys, ...propolis, ...ADDITIONAL_FORM_PRODUCTS].find(
+      (product) => product.name === productChoice
+    );
+    if (selectedProduct && availabilityBySlug[selectedProduct.slug] === 'sold-out') {
+      setProductChoice('');
+    }
+  }, [availabilityBySlug, honeys, productChoice, propolis]);
+
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('produkt') ?? params.get('med');
     if (!slug) return;
     const match = honeys.find((h) => h.slug === slug);
     const propolisMatch = propolis.find((p) => p.slug === slug);
-    const additionalProducts: Record<string, string> = {
-      'vceli-vosk': 'Včelí vosk',
-      'svicky-z-mezisten': 'Svíčky z mezistěn',
-      'oddelek-klasicky': 'Klasický oddělek',
-      'oddelek-sberny': 'Sběrný oddělek',
-    };
-    setProductChoice(match?.name ?? propolisMatch?.name ?? additionalProducts[slug] ?? '');
+    const additionalProduct = ADDITIONAL_FORM_PRODUCTS.find((product) => product.slug === slug);
+    setProductChoice(match?.name ?? propolisMatch?.name ?? additionalProduct?.name ?? '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -114,28 +146,48 @@ export default function ContactForm({
             Vyberte produkt…
           </option>
           <optgroup label="Med">
-            {honeys.map((p) => (
-              <option key={p.slug} value={p.name} disabled={p.availability === 'sold-out'}>
-                {p.name}
-                {p.availability === 'sold-out' ? ' — vyprodáno' : ''}
-              </option>
-            ))}
+            {honeys.map((p) => {
+              const isSoldOut = availabilityBySlug[p.slug] === 'sold-out';
+              return (
+                <option key={p.slug} value={p.name} disabled={isSoldOut}>
+                  {p.name}
+                  {isSoldOut ? ' — vyprodáno' : ''}
+                </option>
+              );
+            })}
           </optgroup>
           <optgroup label="Propolis">
-            {propolis.map((p) => (
-              <option key={p.slug} value={p.name} disabled={p.availability === 'sold-out'}>
-                {p.name}
-                {p.availability === 'sold-out' ? ' — vyprodáno' : ''}
-              </option>
-            ))}
+            {propolis.map((p) => {
+              const isSoldOut = availabilityBySlug[p.slug] === 'sold-out';
+              return (
+                <option key={p.slug} value={p.name} disabled={isSoldOut}>
+                  {p.name}
+                  {isSoldOut ? ' — vyprodáno' : ''}
+                </option>
+              );
+            })}
           </optgroup>
           <optgroup label="Vosk a svíčky">
-            <option value="Včelí vosk">Včelí vosk</option>
-            <option value="Svíčky z mezistěn">Svíčky z mezistěn</option>
+            {ADDITIONAL_FORM_PRODUCTS.filter((product) => product.group === 'wax').map((product) => {
+              const isSoldOut = availabilityBySlug[product.slug] === 'sold-out';
+              return (
+                <option key={product.slug} value={product.name} disabled={isSoldOut}>
+                  {product.name}
+                  {isSoldOut ? ' — vyprodáno' : ''}
+                </option>
+              );
+            })}
           </optgroup>
           <optgroup label="Včelí oddělky">
-            <option value="Klasický oddělek">Klasický oddělek</option>
-            <option value="Sběrný oddělek">Sběrný oddělek</option>
+            {ADDITIONAL_FORM_PRODUCTS.filter((product) => product.group === 'nucs').map((product) => {
+              const isSoldOut = availabilityBySlug[product.slug] === 'sold-out';
+              return (
+                <option key={product.slug} value={product.name} disabled={isSoldOut}>
+                  {product.name}
+                  {isSoldOut ? ' — vyprodáno' : ''}
+                </option>
+              );
+            })}
           </optgroup>
           <optgroup label="Dárkové balení">
             {cenik.giftSets.map((g) => (

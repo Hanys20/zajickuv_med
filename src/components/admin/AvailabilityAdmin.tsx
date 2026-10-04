@@ -10,7 +10,7 @@ export default function AvailabilityAdmin() {
   const [status, setStatus] = useState<string | null>(null);
 
   function load() {
-    fetch('/api/admin/availability')
+    fetch('/api/admin/availability', { cache: 'no-store' })
       .then((res) => res.json())
       .then(setItems);
   }
@@ -19,6 +19,7 @@ export default function AvailabilityAdmin() {
 
   async function toggle(row: Row) {
     const next = row.availability === 'available' ? 'sold-out' : 'available';
+    const previous = row.availability;
     setItems((current) =>
       current ? current.map((r) => (r.slug === row.slug ? { ...r, availability: next } : r)) : current
     );
@@ -27,26 +28,35 @@ export default function AvailabilityAdmin() {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ availability: next }),
     });
+    if (!res.ok) {
+      setItems((current) =>
+        current
+          ? current.map((r) => (r.slug === row.slug ? { ...r, availability: previous } : r))
+          : current
+      );
+    }
     setStatus(res.ok ? 'Uloženo.' : 'Uložení se nepovedlo.');
   }
 
   if (!items) return <p>Načítám…</p>;
 
-  return (
-    <div>
-      <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Dostupnost medů</h2>
-      {status && <p style={{ marginBottom: '0.75rem' }}>{status}</p>}
+  const honeys = items.filter((row) => row.slug.startsWith('med-'));
+  const otherProducts = items.filter((row) => !row.slug.startsWith('med-'));
+
+  function renderItems(rows: Row[]) {
+    return (
       <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {items.map((row) => (
+        {rows.map((row) => (
           <li
             key={row.slug}
-            style={{ ...cardStyle, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+            style={{ ...cardStyle, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}
           >
             <span style={{ fontWeight: 600 }}>{row.name}</span>
             <button
               onClick={() => toggle(row)}
               style={{
                 ...buttonStyle,
+                flexShrink: 0,
                 background: row.availability === 'available' ? '#c8e6c9' : '#e0e0e0',
               }}
             >
@@ -55,6 +65,23 @@ export default function AvailabilityAdmin() {
           </li>
         ))}
       </ul>
+    );
+  }
+
+  return (
+    <div>
+      <h2 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>Dostupnost</h2>
+      {status && <p style={{ marginBottom: '0.75rem' }}>{status}</p>}
+      <section>
+        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '1rem 0 0.6rem' }}>Medy</h3>
+        {renderItems(honeys)}
+      </section>
+      <section>
+        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '1.5rem 0 0.6rem' }}>
+          Ostatní produkty
+        </h3>
+        {renderItems(otherProducts)}
+      </section>
     </div>
   );
 }

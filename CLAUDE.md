@@ -27,9 +27,9 @@ Podrobné Q&A a otevřené úkoly směrem ke klientovi: [client-materials/qa-kli
 ## Tech stack (rozhodnuto 2026-07-20, admin systém přepracován 2026-07-21)
 
 - **Framework:** Next.js, `output: 'export'` (statický export).
-- **Admin systém:** vlastní řešení na míru (ne TinaCMS – viz "Proč ne TinaCMS" níže). Cloudflare D1 databáze (`zajickuv-med-admin`) + Cloudflare Worker (`worker/worker.ts`), který zároveň servíruje statický web (`env.ASSETS`) i vlastní API (`/api/...`). Admin UI na `/admin` (`src/app/admin/page.tsx`) – přihlášení uživatelské jméno/heslo (žádný e-mail, žádné OAuth) a 3 záložky: Aktuality, Dostupnost medů, Ceník.
+- **Admin systém:** vlastní řešení na míru (ne TinaCMS – viz "Proč ne TinaCMS" níže). Cloudflare D1 databáze (`zajickuv-med-admin`) + Cloudflare Worker (`worker/worker.ts`), který zároveň servíruje statický web (`env.ASSETS`) i vlastní API (`/api/...`). Admin UI na `/admin` (`src/app/admin/page.tsx`) – přihlášení uživatelské jméno/heslo (žádný e-mail, žádné OAuth) a 3 záložky: Aktuality, Dostupnost, Ceník.
   - **Přihlášení:** PBKDF2-SHA256 hash hesla (100 000 iterací, sůl) v tabulce `admin_user`; po přihlášení session token v httpOnly cookie `session` (30 dní), session záznamy v tabulce `sessions` – logout je v D1 skutečně maže (ne jen cookie v prohlížeči).
-  - **Editovatelné jen:** aktuality (web vždy zobrazí nejnovější podle data), dostupnost jednotlivých druhů medu (skladem/vyprodáno), ceny v ceníku (jen částky – velikosti/názvy needitovatelné). Nic jiného klient přes admin needituje.
+  - **Editovatelné jen:** aktuality (web vždy zobrazí nejnovější podle data), dostupnost medů i ostatních produktů (skladem/vyprodáno), ceny v ceníku (jen částky – velikosti/názvy needitovatelné). Nic jiného klient přes admin needituje.
   - **Zabezpečení je záměrně odlehčené** – klientovo rozhodnutí, na webu nejsou citlivá data: žádné 2FA, rate limiting ani reset hesla e-mailem. Hash hesla + httpOnly cookie je bráno jako nutné minimum (aby šel web triviálně "zdefacovat"), ne jako "extra" bezpečnost navíc.
   - Ostatní obsah (texty stránek, popisy produktů, FAQ, prodejní místa, nastavení) zůstává v `content/` a edituje se přímo v repozitáři – viz sekce Obsah níže.
 - **Databáze:** Cloudflare D1 (`zajickuv-med-admin`, `database_id` v `wrangler.jsonc`). Schéma v `worker/schema.sql`, výchozí data pro lokální vývoj v `worker/seed.sql` (`npx wrangler d1 execute zajickuv-med-admin --local --file=worker/schema.sql` a stejně pro seed.sql).
@@ -45,7 +45,7 @@ Tina byla původně naplánovaný a reálně zprovozněný CMS (napojený na Tin
 
 Next.js aplikace odpovídá wireframu (`wireframes/index.html`) — `output: 'export'`, App Router, TypeScript, Tailwind CSS s prozatímní medovou paletou. Ikony pro karty/kontakty jsou zkopírované z `client-materials/Ikony` do `public/images/icons` (ASCII názvy). Fotky jsou zatím schematické placeholdery (`.imgph` bloky) – nahradit až dorazí reálné podklady od klienta. Logo je zatím jen textové + ikona včely, čeká na finální grafiku.
 
-Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, otestovaný lokálně (`npx wrangler dev`) i naostro nasazený a ověřený. Homepage sekce Aktuality, Dostupnost medů a Ceník si po načtení tiše donačtou živá data z D1 přes `/api/public/*`, s fallbackem na build-time obsah z `content/` pro případ výpadku API.
+Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, otestovaný lokálně (`npx wrangler dev`) i naostro nasazený a ověřený. Homepage sekce Aktuality, Dostupnost produktů a Ceník si po načtení tiše donačtou živá data z D1 přes `/api/public/*`, s fallbackem na build-time obsah z `content/` pro případ výpadku API.
 
 Zbývá:
 1. Získat přístupy k doméně `zajickuv-med.cz` od GDstudio (Radim Steuer) a přesměrovat DNS na nasazený Cloudflare Worker.
@@ -72,10 +72,10 @@ Menu: Domů, O farmě, Nabídka (odkazy na sekce homepage: Med, Propolis, Vosk &
 
 ## Obsah – zdroje pravdy
 
-Aktuality, dostupnost medů a ceny jsou od 2026-07-21 v Cloudflare D1 a edituje je klient přes `/admin` (viz Tech stack). Zbytek obsahu zůstává v `content/` a edituje se přímo v repozitáři – žádný z těchto souborů přes admin needituje klient.
+Aktuality, dostupnost všech produktů a ceny jsou v Cloudflare D1 a edituje je klient přes `/admin` (viz Tech stack). Zbytek obsahu zůstává v `content/` a edituje se přímo v repozitáři – žádný z těchto souborů přes admin needituje klient.
 
 - `content/pages/` – texty stránek Domů, O farmě, Kontakt (Markdown, frontmatter + tělo).
-- `content/products/` – jednotlivé druhy medu a propolisové produkty (název, kategorie, velikosti, krátký + plný popis). Pole `availability` v těchto souborech je jen build-time fallback – skutečnou dostupnost medů edituje klient v `/admin` (D1 tabulka `honey_availability`).
+- `content/products/` – jednotlivé druhy medu a propolisové produkty (název, kategorie, velikosti, krátký + plný popis). Pole `availability` v těchto souborech je jen build-time fallback – skutečnou dostupnost všech produktů edituje klient v `/admin` (D1 tabulka `honey_availability`, historický název tabulky).
 - `content/pricing/cenik.json` – needitovatelná pole ceníku (velikosti, názvy, medovina, poznámky) + build-time fallback cen. Skutečné ceny edituje klient v `/admin` (D1 tabulka `pricing`).
 - `content/faq/faq.json` – otázky a odpovědi.
 - `content/sales-points/sales-points.json` – prodejní místa a rozvoz.
@@ -101,7 +101,7 @@ Aktuality, dostupnost medů a ceny jsou od 2026-07-21 v Cloudflare D1 a edituje 
 - Google mapa s odkazem na Opava-Podvihov, do budoucna oficiální provozovna na Google Maps.
 - Lazy loading obrázků na homepage i podstránkách.
 - Recenze zákazníků (zatím ručně vložené, později Google recenze).
-- Kontaktní formulář s **výběrem medu vč. zobrazené dostupnosti** (skladem/vyprodáno) – editovatelné klientem v adminu.
+- Kontaktní formulář s **výběrem produktů vč. zobrazené dostupnosti** (skladem/vyprodáno) – editovatelné klientem v adminu.
 - Cookie/analytics consent (klient chce sledovat návštěvnost).
 
 ## SEO lokality (do metadat i textu)

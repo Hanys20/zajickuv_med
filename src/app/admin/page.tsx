@@ -96,7 +96,7 @@ export default function AdminPage() {
           onClick={() => setTab('availability')}
           style={tab === 'availability' ? buttonStyle : secondaryButtonStyle}
         >
-          Dostupnost medů
+          Dostupnost
         </button>
         <button onClick={() => setTab('pricing')} style={tab === 'pricing' ? buttonStyle : secondaryButtonStyle}>
           Ceník

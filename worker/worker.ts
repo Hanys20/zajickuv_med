@@ -147,7 +147,7 @@ async function handlePublicAvailability(env: Env): Promise<Response> {
   const { results } = await env.DB.prepare(
     'SELECT slug, name, availability FROM honey_availability ORDER BY slug'
   ).all();
-  return jsonResponse(results);
+  return jsonResponse(results, { headers: { 'cache-control': 'no-store' } });
 }
 
 async function handleAdminNews(request: Request, env: Env, id: string | undefined): Promise<Response> {
@@ -183,7 +183,7 @@ async function handleAdminAvailability(request: Request, env: Env, slug: string 
     const { results } = await env.DB.prepare(
       'SELECT slug, name, availability FROM honey_availability ORDER BY slug'
     ).all();
-    return jsonResponse(results);
+    return jsonResponse(results, { headers: { 'cache-control': 'no-store' } });
   }
   if (slug && request.method === 'PUT') {
     const body = (await request.json()) as { availability?: string };

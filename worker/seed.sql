@@ -33,6 +33,12 @@ INSERT OR IGNORE INTO honey_availability (slug, name, availability) VALUES
   ('med-kvetovy-lipovy', 'Med květový lipový', 'available'),
   ('med-kvetovy-pohankovy', 'Med květový pohankový', 'available'),
   ('med-medovicovy-lesni', 'Med medovicový (lesní)', 'available'),
-  ('med-smiseny', 'Med smíšený', 'available');
+  ('med-smiseny', 'Med smíšený', 'available'),
+  ('propolisova-tinktura', 'Propolisová tinktura', 'available'),
+  ('propolis-skrabany', 'Propolis škrábaný', 'available'),
+  ('vceli-vosk', 'Včelí vosk', 'available'),
+  ('svicky-z-mezisten', 'Svíčky z mezistěn', 'available'),
+  ('oddelek-klasicky', 'Klasický oddělek', 'sold-out'),
+  ('oddelek-sberny', 'Sběrný oddělek', 'sold-out');
 
 INSERT OR IGNORE INTO pricing (id, data) VALUES (1, '{"effectiveFrom":"2025-07-15","note":"Cena medu je stejná napříč všemi druhy medu, liší se pouze podle velikosti balení. Uvedené ceny zahrnují vratnou zálohu na sklenici (5 Kč).","honey":[{"size":"950g","price":190,"unit":"Kč/sklenici"},{"size":"450g","price":110,"unit":"Kč/sklenici"}],"propolis":[{"name":"Propolisová tinktura","size":"50 ml","price":180,"unit":"Kč"},{"name":"Propolis škrábaný","size":"20 g","price":110,"unit":"Kč"}],"waxAndCandles":[{"name":"Včelí vosk","size":null,"price":null,"unit":"Kč"},{"name":"Svíčky z mezistěn","size":null,"price":null,"unit":"Kč"}],"nucs":[{"name":"Klasický oddělek","size":null,"price":null,"unit":"Kč"},{"name":"Sběrný oddělek","size":null,"price":null,"unit":"Kč"}],"giftSets":[{"name":"Karton 2× 450g","price":250,"unit":"Kč"},{"name":"Karton 1× 950g","price":220,"unit":"Kč"},{"name":"Karton 2× 950g","price":410,"unit":"Kč"}],"mead":{"name":"Medovina","variants":["Zlatá","Královská (s vybraným kořením)"],"note":"Vyrábí se z vlastního medu přírodním kvašením medu a vody, zraje nejméně 10 měsíců. Bez cenovky a možnosti objednání – nelze přímo prodávat, na webu jen zmínka (bez ceny a bez tlačítka objednat)."},"jarDeposit":{"amount":5,"currency":"CZK","note":"Vratná záloha na sklenici, je součástí uvedené ceny v ceníku (ne příplatek navíc)."},"namingNote":"Nabídka zahrnuje med, propolis, vosk a svíčky i včelí oddělky. Medovina zůstává pouze informativní zmínkou bez ceny a možnosti objednání."}');

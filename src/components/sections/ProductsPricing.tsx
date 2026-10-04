@@ -3,8 +3,7 @@ import { getHoneys, getPropolis, type Availability } from '@/lib/products';
 import { cenik } from '@/lib/content';
 import HoneyCards from './HoneyCards';
 import PricingTable from './PricingTable';
-import OfferCard from './OfferCard';
-import Carousel from '@/components/ui/Carousel';
+import OfferCards, { type OfferProduct } from './OfferCards';
 import Reveal from '@/components/ui/Reveal';
 
 type AdditionalProduct = {
@@ -56,6 +55,33 @@ const ADDITIONAL_PRODUCTS: {
 export default function ProductsPricing() {
   const honeys = getHoneys();
   const propolis = getPropolis();
+  const offerProducts: OfferProduct[] = [
+    ...propolis.map((product) => ({
+      slug: product.slug,
+      name: product.name,
+      category: 'Propolis',
+      description: product.shortDescription,
+      photo:
+        product.slug === 'propolisova-tinktura'
+          ? '/images/photos/propolisova-tinktura.webp'
+          : '/images/photos/propolis-skrabany.webp',
+      href: `/kontakt?produkt=${product.slug}#kontakt`,
+      availability: product.availability,
+    })),
+    ...ADDITIONAL_PRODUCTS.waxAndCandles.map((product) => ({
+      ...product,
+      category: 'Vosk a svíčky',
+      href: `/kontakt?produkt=${product.slug}#kontakt`,
+      note: 'Podrobnosti připravujeme',
+    })),
+    ...ADDITIONAL_PRODUCTS.nucs.map((product) => ({
+      ...product,
+      category: 'Včelí oddělky',
+      href: `/kontakt?produkt=${product.slug}#kontakt`,
+      cta: 'Poptat',
+      note: 'Parametry a cena budou doplněny',
+    })),
+  ];
 
   return (
     <section id="nabidka" className="scroll-mt-24 border-b border-border px-4 py-8 sm:px-6 md:py-12">
@@ -97,44 +123,7 @@ export default function ProductsPricing() {
         </div>
 
         <div className="mt-4">
-          <Carousel>
-            {propolis.map((product) => (
-              <OfferCard
-                key={product.slug}
-                name={product.name}
-                category="Propolis"
-                description={product.shortDescription}
-                photo={product.slug === 'propolisova-tinktura' ? '/images/photos/propolisova-tinktura.webp' : '/images/photos/propolis-skrabany.webp'}
-                href={`/kontakt?produkt=${product.slug}#kontakt`}
-                availability={product.availability}
-              />
-            ))}
-            {ADDITIONAL_PRODUCTS.waxAndCandles.map((product) => (
-              <OfferCard
-                key={product.slug}
-                name={product.name}
-                category="Vosk a svíčky"
-                description={product.description}
-                photo={product.photo}
-                href={`/kontakt?produkt=${product.slug}#kontakt`}
-                availability={product.availability}
-                note="Podrobnosti připravujeme"
-              />
-            ))}
-            {ADDITIONAL_PRODUCTS.nucs.map((product) => (
-              <OfferCard
-                key={product.slug}
-                name={product.name}
-                category="Včelí oddělky"
-                description={product.description}
-                photo={product.photo}
-                href={`/kontakt?produkt=${product.slug}#kontakt`}
-                availability={product.availability}
-                cta="Poptat"
-                note="Parametry a cena budou doplněny"
-              />
-            ))}
-          </Carousel>
+          <OfferCards initialProducts={offerProducts} />
         </div>
 
         <div id="cenik" className="scroll-mt-28 pt-4">

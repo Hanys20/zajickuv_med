@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Badge from '@/components/ui/Badge';
 import type { Availability } from '@/lib/products';
 
-type Props = {
+export type OfferCardProps = {
   name: string;
   category: string;
   description: string;
@@ -23,7 +23,7 @@ export default function OfferCard({
   availability,
   cta = 'Mám zájem',
   note,
-}: Props) {
+}: OfferCardProps) {
   return (
     <article className="flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-64px)/2)] lg:w-[calc((100%-96px)/4)]">
       <div className="relative aspect-square border-b border-border">
