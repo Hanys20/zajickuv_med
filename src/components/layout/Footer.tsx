@@ -58,7 +58,7 @@ export default function Footer() {
             Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.
           </p>
           <Link href="/kontakt" className="btn btn-invert !hidden !px-4 !py-2 !text-[12.5px] md:!inline-flex">
-            Chci ochutnat med
+            Mám zájem
           </Link>
 
           <div className="mt-4 hidden gap-2.5 md:flex">

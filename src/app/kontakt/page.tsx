@@ -25,12 +25,11 @@ export default function KontaktPage() {
         <div className="mx-auto max-w-content">
           <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-stretch">
             <div>
-              <span className="eyebrow-invert">Prodejní místa a rozvoz</span>
-          <h2 className="mb-2.5 mt-1 text-xl font-extrabold text-white md:text-2xl">Kde jinde med seženete</h2>
-          <p className="mb-5 max-w-[60ch] text-[14.5px] text-honey-50/80">
-            Med od nás seženete i mimo naši farmu — u vybraného prodejce, nebo přímo u vás doma
-            díky rozvozu po dohodě.
-          </p>
+              <span className="eyebrow-invert">Prodej a předání</span>
+              <h2 className="mb-2.5 mt-1 text-xl font-extrabold text-white md:text-2xl">Kde nás najdete</h2>
+              <p className="mb-5 max-w-[60ch] text-[14.5px] text-honey-50/80">
+                Vyberte si způsob nákupu nebo předání, který vám vyhovuje.
+              </p>
 
               {salesPoints.resellers.map((r) => (
                 <div
@@ -41,11 +40,9 @@ export default function KontaktPage() {
                     <Image src="/images/icons/house.svg" alt="" width={17} height={17} />
                   </span>
                   <div>
-                    <strong className="text-[13.5px] text-white">
-                      {r.name} — {r.contactPerson}
-                    </strong>
+                    <strong className="text-[13.5px] text-white">Prodej na {r.name}</strong>
                     <p className="mt-1 text-[12.5px] text-honey-50/70">
-                      {r.address} · {r.note}
+                      {r.address} · {r.contactPerson} · {r.note}
                     </p>
                   </div>
                 </div>
@@ -56,8 +53,8 @@ export default function KontaktPage() {
                   <Image src="/images/icons/car.svg" alt="" width={17} height={17} />
                 </span>
                 <div>
-                  <strong className="text-[13.5px] text-white">Rozvoz po dohodě</strong>
-                  <p className="mt-1 text-[12.5px] text-honey-50/70">{salesPoints.delivery.areas.join(', ')}</p>
+                  <strong className="text-[13.5px] text-white">Možnost rozvozu po Opavě a Studénce</strong>
+                  <p className="mt-1 text-[12.5px] text-honey-50/70">{salesPoints.delivery.note}</p>
                 </div>
               </div>
             </div>

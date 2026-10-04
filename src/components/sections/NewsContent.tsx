@@ -43,8 +43,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
           />
           <div className="overflow-hidden rounded-xl border border-honey-200 bg-paper-raised">
             <div className="border-l-4 border-honey-400 py-9 pl-6 pr-6 sm:py-11 sm:pl-9 sm:pr-[280px] md:pr-[380px]">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-honey-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-honey-700">
-                <Image src="/images/icons/calendar.svg" alt="" width={12} height={12} />
+              <span className="inline-flex items-center rounded-full bg-honey-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-honey-700">
                 {formatDate(post.date)}
               </span>
               <h3 className="mt-3.5 text-lg font-extrabold sm:text-xl">{post.title}</h3>

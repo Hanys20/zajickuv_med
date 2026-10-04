@@ -12,10 +12,18 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get('med');
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('produkt') ?? params.get('med');
     if (!slug) return;
     const match = honeys.find((h) => h.slug === slug);
-    if (match) setProductChoice(match.name);
+    const propolisMatch = propolis.find((p) => p.slug === slug);
+    const additionalProducts: Record<string, string> = {
+      'vceli-vosk': 'Včelí vosk',
+      'svicky-z-mezisten': 'Svíčky z mezistěn',
+      'oddelek-klasicky': 'Klasický oddělek',
+      'oddelek-sberny': 'Sběrný oddělek',
+    };
+    setProductChoice(match?.name ?? propolisMatch?.name ?? additionalProducts[slug] ?? '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -107,6 +115,14 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
               </option>
             ))}
           </optgroup>
+          <optgroup label="Vosk a svíčky">
+            <option value="Včelí vosk">Včelí vosk</option>
+            <option value="Svíčky z mezistěn">Svíčky z mezistěn</option>
+          </optgroup>
+          <optgroup label="Včelí oddělky">
+            <option value="Klasický oddělek">Klasický oddělek</option>
+            <option value="Sběrný oddělek">Sběrný oddělek</option>
+          </optgroup>
           <optgroup label="Dárkové balení">
             {cenik.giftSets.map((g) => (
               <option key={g.name} value={g.name}>
@@ -125,7 +141,7 @@ export default function ContactForm({ honeys, propolis }: { honeys: Product[]; p
           rows={4}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Napište nám, o jaký med a v jakém množství máte zájem"
+          placeholder="Napište nám, o jaký produkt a v jakém množství máte zájem"
           className="rounded-sm border border-border bg-paper-raised px-3 py-2.5 text-sm"
         />
       </div>

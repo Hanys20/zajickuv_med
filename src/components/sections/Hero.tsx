@@ -19,8 +19,8 @@ export default function Hero() {
               vlastního vosku až po sklenici medu máme celý proces ve svých rukou.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-2.5">
-              <Link href="/#produkty" className="btn btn-primary">
-                Co u nás vzniká
+              <Link href="/#nabidka" className="btn btn-primary">
+                Co Vám můžeme nabídnout
               </Link>
               <Link href="/#kontakt" className="btn btn-secondary">
                 Kontaktovat

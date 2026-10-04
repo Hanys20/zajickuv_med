@@ -26,14 +26,6 @@ export default function OFarmePage() {
                 Naše včelaření není jen způsobem získávání medu — je to rodinná tradice předávaná
                 z generace na generaci.
               </p>
-              <div className="mt-6 flex flex-wrap items-center gap-2.5">
-                <Link href="/#produkty" className="btn btn-primary">
-                  Co u nás vzniká
-                </Link>
-                <Link href="/kontakt" className="btn btn-secondary">
-                  Kontaktovat
-                </Link>
-              </div>
             </div>
 
             <div className="relative mx-auto h-[260px] w-full max-w-[460px] sm:h-[320px] md:h-[400px] md:max-w-none lg:h-[460px]">
@@ -151,11 +143,21 @@ export default function OFarmePage() {
                 přírody, stejně jako to bylo předáno nám.
               </StoryBlock>
 
-              <div className="mt-2">
-                <Link href="/#produkty" className="btn btn-primary">
-                  Chci ochutnat váš med
-                </Link>
-              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-md border border-honey-200 bg-honey-50 p-5 text-center sm:flex-row sm:text-left">
+            <div>
+              <h3 className="text-base font-bold">Poznejte, co naše rodinná farma nabízí</h3>
+              <p className="mt-1 text-[13px] text-ink-dim">Prohlédněte si nabídku nebo se nám ozvěte s dotazem.</p>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2.5 sm:justify-end">
+              <Link href="/#nabidka" className="btn btn-primary">
+                Naše nabídka
+              </Link>
+              <Link href="/kontakt" className="btn btn-secondary">
+                Kontaktovat
+              </Link>
             </div>
           </div>
         </div>

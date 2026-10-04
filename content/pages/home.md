@@ -45,7 +45,7 @@ Krátké karty (teaser text, plná verze viz `content/products/`):
 - **Med smíšený** – To nejlepší z květů i lesa. Přirozeně v sobě propojuje květový nektar s lesní medovicí. Jeho chuť je plnější než u květového medu, ale stále příjemně sladká.
 - **Med medovicový neboli lesní** – Tmavý, hustý a méně sladký. Vzniká z medovice, kterou včely sbírají na listech a jehličí stromů. Má výraznou vůni, plnou chuť a typickou tmavou barvu.
 
-CTA: [Naše medy] → odkaz na sekci produkty/ceník
+CTA: [Co Vám můžeme nabídnout] → odkaz na sekci `/#nabidka`
 
 ## Aktuality z naší farmy
 
@@ -53,7 +53,7 @@ Prostor pro jednu aktualitu, která se bude měnit (cca 2×/rok – např. zah�
 
 ## Další sekce na homepage (dle zadání, texty zatím k doplnění klientem)
 
-- Ceník (zkrácený výběr, plná verze na /produkty)
+- Ceník jako součást homepage (`/#cenik`)
 - Sekce "O farmě" – teaser (viz výše) s proklikem
 - Recenze zákazníků – zatím ručně vložené, později napojit na Google recenze
 - FAQ – zkrácený výběr nejdůležitějších otázek, plná verze na /faq

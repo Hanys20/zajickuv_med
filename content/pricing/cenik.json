@@ -27,6 +27,34 @@
       "unit": "Kč"
     }
   ],
+  "waxAndCandles": [
+    {
+      "name": "Včelí vosk",
+      "size": null,
+      "price": null,
+      "unit": "Kč"
+    },
+    {
+      "name": "Svíčky z mezistěn",
+      "size": null,
+      "price": null,
+      "unit": "Kč"
+    }
+  ],
+  "nucs": [
+    {
+      "name": "Klasický oddělek",
+      "size": null,
+      "price": null,
+      "unit": "Kč"
+    },
+    {
+      "name": "Sběrný oddělek",
+      "size": null,
+      "price": null,
+      "unit": "Kč"
+    }
+  ],
   "giftSets": [
     {
       "name": "Karton 2× 450g",
@@ -57,5 +85,5 @@
     "currency": "CZK",
     "note": "Vratná záloha na sklenici, je součástí uvedené ceny v ceníku (ne příplatek navíc)."
   },
-  "namingNote": "Klient navrhuje sekci nepojmenovávat 'Naše produkty', ale např. 'Co u nás vzniká' nebo 'Z naší včelí farmy' – kvůli zmínce o medovině, kterou nelze přímo prodávat."
+  "namingNote": "Nabídka zahrnuje med, propolis, vosk a svíčky i včelí oddělky. Medovina zůstává pouze informativní zmínkou bez ceny a možnosti objednání."
 }

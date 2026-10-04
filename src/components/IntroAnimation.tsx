@@ -10,6 +10,7 @@ export default function IntroAnimation() {
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (sessionStorage.getItem('introShown')) return;
     sessionStorage.setItem('introShown', '1');
     setVisible(true);

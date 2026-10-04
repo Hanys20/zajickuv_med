@@ -63,11 +63,12 @@ Zbývá:
 
 1. **Domů (`/`)** – hero, teaser příběhu s proklikem na O farmě, "Proč si vybrat med od nás" (4 karty + "20+ let zkušeností"), produktový karusel s proklikem na ceník, zkrácený ceník, teaser recenzí, zkrácené FAQ, aktuality (mění se ~2×/rok), kontaktní formulář + mapa.
 2. **O farmě (`/o-farme`)** – historie rodiny (časová osa), "co je pro nás důležité" (5 kartiček), detailní popis metod včelaření, péče o zdraví včel, koloběh vosku. Viz `content/pages/o-farme.md`.
-3. **Produkty / ceník** – rozhodnout, zda samostatná stránka nebo jen sekce+scroll na homepage (klient inklinuje k druhé variantě – proklik + scroll na sekci na homepage). Název sekce zvážit jinak než "Naše produkty" kvůli medovině (viz `content/pricing/cenik.json` → `namingNote`), např. "Co u nás vzniká" / "Z naší včelí farmy".
-4. **Kontakt (`/kontakt`)** – rozšířená verze kontaktní sekce z homepage: kontaktní formulář (vč. výběru medu s dostupností), mapa Opava-Podvihov, prodejní místa (Kozí farma Magdaléna – Štítina), rozvoz do Opavy a Studénky.
-5. **FAQ (`/faq`)** – plný seznam otázek, viz `content/faq/faq.json`.
+3. **Nabídka (`/#nabidka`)** – sekce na homepage: med, propolis, vosk a svíčky a dva připravované typy včelích oddělků. Medy a další produkty mají samostatné carousely.
+4. **Ceník (`/#cenik`)** – sekce na homepage. Ceny medu, propolisu a dárkových balení zůstávají zachované; vosk, svíčky a oddělky mají prázdné ceny editovatelné v administraci.
+5. **Kontakt (`/kontakt`)** – rozšířená verze kontaktní sekce z homepage: kontaktní formulář (vč. výběru produktů), mapa Opava-Podvihov, prodej na Kozí farmě Magdaléna a rozvoz po Opavě a Studénce.
+6. **FAQ (`/faq`)** – plný seznam otázek, viz `content/faq/faq.json`.
 
-Menu: cca 5 položek (Domů, O farmě, Produkty/Ceník, FAQ, Kontakt).
+Menu: Domů, O farmě, Nabídka (odkazy na sekce homepage: Med, Propolis, Vosk & svíčky, Oddělky), Ceník (sekce homepage), FAQ, Kontakt.
 
 ## Obsah – zdroje pravdy
 

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s — Zajíčkův med',
   },
   description:
-    'Rodinná včelí farma v Opavě-Podvihově. Poctivý český med a propolisové produkty z vlastních stanovišť u Libavé a Nízkého Jeseníku. Ostrava, Opava, Studénka.',
+    'Rodinná včelí farma v Opavě-Podvihově. Český med, propolis, včelí vosk, svíčky a včelí oddělky z vlastních stanovišť u Libavé a Nízkého Jeseníku.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

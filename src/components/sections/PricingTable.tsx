@@ -12,7 +12,14 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
     fetch('/api/public/pricing')
       .then((res) => (res.ok ? res.json() : null))
       .then((data: Cenik | null) => {
-        if (data) setCenik(data);
+        if (data) {
+          setCenik({
+            ...initialCenik,
+            ...data,
+            waxAndCandles: data.waxAndCandles ?? initialCenik.waxAndCandles,
+            nucs: data.nucs ?? initialCenik.nucs,
+          });
+        }
       })
       .catch(() => {});
   }, []);
@@ -62,6 +69,28 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                   <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">{row.size}</td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
                     {row.price} {row.unit}
+                  </td>
+                </tr>
+              ))}
+              {cenik.waxAndCandles.map((row) => (
+                <tr key={row.name} className="hover:bg-honey-50/60">
+                  <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">{row.name}</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">
+                    {row.size ?? 'Doplníme'}
+                  </td>
+                  <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
+                    {row.price === null ? 'Doplníme' : `${row.price} ${row.unit}`}
+                  </td>
+                </tr>
+              ))}
+              {cenik.nucs.map((row) => (
+                <tr key={row.name} className="hover:bg-honey-50/60">
+                  <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">{row.name}</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">
+                    {row.size ?? 'Doplníme'}
+                  </td>
+                  <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
+                    {row.price === null ? 'Doplníme' : `${row.price} ${row.unit}`}
                   </td>
                 </tr>
               ))}

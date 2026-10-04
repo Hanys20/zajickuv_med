@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Cenik } from '@/lib/content';
+import { cenik as fallbackCenik } from '@/lib/content';
 import { buttonStyle, cardStyle, labelStyle, inputStyle } from './styles';
 
 export default function PricingAdmin() {
@@ -11,7 +12,14 @@ export default function PricingAdmin() {
   useEffect(() => {
     fetch('/api/admin/pricing')
       .then((res) => res.json())
-      .then(setCenik);
+      .then((data: Partial<Cenik>) =>
+        setCenik({
+          ...fallbackCenik,
+          ...data,
+          waxAndCandles: data.waxAndCandles ?? fallbackCenik.waxAndCandles,
+          nucs: data.nucs ?? fallbackCenik.nucs,
+        })
+      );
   }, []);
 
   async function save() {
@@ -90,6 +98,52 @@ export default function PricingAdmin() {
                 setCenik({
                   ...cenik,
                   giftSets: cenik.giftSets.map((r, idx) => (idx === i ? { ...r, price } : r)),
+                });
+              }}
+            />
+          </label>
+        ))}
+      </div>
+
+      <div style={{ ...cardStyle, marginBottom: '1rem' }}>
+        <strong>Vosk a svíčky</strong>
+        {cenik.waxAndCandles.map((row, i) => (
+          <label key={row.name} style={labelStyle}>
+            {row.name}
+            <input
+              type="number"
+              min="0"
+              style={inputStyle}
+              value={row.price ?? ''}
+              placeholder="Cena zatím není vyplněná"
+              onChange={(e) => {
+                const price = e.target.value === '' ? null : Number(e.target.value);
+                setCenik({
+                  ...cenik,
+                  waxAndCandles: cenik.waxAndCandles.map((r, idx) => (idx === i ? { ...r, price } : r)),
+                });
+              }}
+            />
+          </label>
+        ))}
+      </div>
+
+      <div style={{ ...cardStyle, marginBottom: '1rem' }}>
+        <strong>Včelí oddělky</strong>
+        {cenik.nucs.map((row, i) => (
+          <label key={row.name} style={labelStyle}>
+            {row.name}
+            <input
+              type="number"
+              min="0"
+              style={inputStyle}
+              value={row.price ?? ''}
+              placeholder="Cena zatím není vyplněná"
+              onChange={(e) => {
+                const price = e.target.value === '' ? null : Number(e.target.value);
+                setCenik({
+                  ...cenik,
+                  nucs: cenik.nucs.map((r, idx) => (idx === i ? { ...r, price } : r)),
                 });
               }}
             />
