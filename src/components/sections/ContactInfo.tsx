@@ -21,8 +21,8 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
           : 'border-honey-100 bg-paper-raised'
       }`}
     >
-      <div className="grid min-w-0 gap-4 sm:grid-cols-[minmax(0,1fr)_16rem] md:grid-cols-1 min-[949px]:grid-cols-[minmax(0,1fr)_10rem] lg:grid-cols-[minmax(0,1fr)_12rem] xl:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="flex min-w-0 flex-col gap-4">
+      <div className="flex min-w-0 gap-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4">
           <div className="text-[13.5px]">
             <strong className={labelClass}>
               Adresa
@@ -71,7 +71,7 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
           </div>
         </div>
 
-        <div className="w-full max-w-72 justify-self-center sm:max-w-none md:max-w-72 min-[949px]:max-w-none">
+        <div className="hidden w-60 shrink-0 self-start -mt-12 sm:block sm:-mt-16 md:hidden min-[949px]:block min-[949px]:w-36 min-[949px]:-mt-12 lg:w-44 xl:w-60 xl:-mt-20">
           <Image
             src="/images/watercolor/contact-bee-flower.png"
             alt="Včela na květu, malovaná ilustrace akvarelem"
