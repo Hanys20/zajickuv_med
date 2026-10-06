@@ -11,7 +11,8 @@ buď přímo na `bg-paper`/`bg-paper-raised`, nebo na `section-tint`.
   ať úly "hledí" směrem k textu)
 - `bee-flower.png` — původní ilustrace včely na květu, nyní nepoužitá
 - `contact-bee-flower.png` — ilustrace v kontaktní kartě na homepage a `/kontakt`, dodaná samostatně
-- `honey-jar.png` — sekce "Co u nás vzniká" (ceník) na homepage
+- `honey-jar.png` — původní ilustrace sklenice medu, nyní nepoužitá
+- `contact-honey-jar.png` — aktualizovaná ilustrace sklenice medu na `/kontakt`
 - `bees-cluster.png` — sekce FAQ na homepage
 - `hives-four.png` — úvodní sekce `/o-farme`
 - `beekeeper.png` — sekce "Co je pro nás důležité" na `/o-farme`
