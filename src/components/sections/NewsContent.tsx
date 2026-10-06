@@ -35,10 +35,10 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
 
         <div className="relative mt-5">
           <Image
-            src="/images/watercolor/beekeeper.png"
+            src="/images/watercolor/news-beekeeper.png"
             alt=""
-            width={782}
-            height={1000}
+            width={1122}
+            height={1402}
             className="pointer-events-none absolute bottom-0 right-4 hidden w-60 -scale-x-100 select-none sm:block md:right-8 md:w-80"
           />
           <div className="overflow-hidden rounded-xl border border-white/15 bg-white/[0.07] shadow-warm">

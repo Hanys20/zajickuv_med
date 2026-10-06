@@ -15,6 +15,7 @@ buď přímo na `bg-paper`/`bg-paper-raised`, nebo na `section-tint`.
 - `bees-cluster.png` — sekce FAQ na homepage
 - `hives-four.png` — úvodní sekce `/o-farme`
 - `beekeeper.png` — sekce "Co je pro nás důležité" na `/o-farme`
+- `news-beekeeper.png` — ilustrace u aktualit na homepage (zrcadlově otočená), dodaná samostatně
 - `honeycomb.png` — sekce "Naše cesta ve zkratce" na `/o-farme`
 - `smoker.png` — **klient poznamenal "použít pouze na bílém pozadí"** - použito
   na `/kontakt` (sekce na `bg-paper`, prakticky bílá `#faf9f7`)

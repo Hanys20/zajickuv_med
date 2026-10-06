@@ -21,13 +21,14 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
           : 'border-honey-100 bg-paper-raised'
       }`}
     >
-      <div className="flex gap-4">
-        <div className="flex flex-1 flex-col gap-4">
+      <div className="grid min-w-0 gap-4 sm:grid-cols-[minmax(0,1fr)_16rem] md:grid-cols-1 min-[949px]:grid-cols-[minmax(0,1fr)_10rem] lg:grid-cols-[minmax(0,1fr)_12rem] xl:grid-cols-[minmax(0,1fr)_16rem]">
+        <div className="flex min-w-0 flex-col gap-4">
           <div className="text-[13.5px]">
             <strong className={labelClass}>
               Adresa
             </strong>
-            {site.contact.address.street}, {site.contact.address.zip} {site.contact.address.city}
+            <span className="block">{site.contact.address.street}</span>
+            <span className="block">{site.contact.address.zip} {site.contact.address.city}</span>
           </div>
           <div className="text-[13.5px]">
             <strong className={labelClass}>
@@ -39,7 +40,7 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
             <strong className={labelClass}>
               E-mail
             </strong>
-            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+            <a className="break-words" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
           </div>
 
           <div className="flex gap-2.5">
@@ -70,7 +71,7 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
           </div>
         </div>
 
-        <div className="hidden w-56 shrink-0 self-start -mt-12 sm:block sm:-mt-16 md:hidden min-[949px]:block min-[949px]:w-32 min-[949px]:-mt-12 lg:w-40 xl:w-56 xl:-mt-20">
+        <div className="w-full max-w-72 justify-self-center sm:max-w-none md:max-w-72 min-[949px]:max-w-none">
           <Image
             src="/images/watercolor/contact-bee-flower.png"
             alt="Včela na květu, malovaná ilustrace akvarelem"
