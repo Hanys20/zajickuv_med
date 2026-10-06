@@ -72,10 +72,10 @@ export default function ContactInfo({ theme = 'light' }: { theme?: 'light' | 'da
 
         <div className="hidden w-56 shrink-0 self-start -mt-12 sm:block sm:-mt-16 md:hidden min-[949px]:block min-[949px]:w-32 min-[949px]:-mt-12 lg:w-40 xl:w-56 xl:-mt-20">
           <Image
-            src="/images/watercolor/bee-flower.png"
+            src="/images/watercolor/contact-bee-flower.png"
             alt="Včela na květu, malovaná ilustrace akvarelem"
-            width={976}
-            height={1000}
+            width={1254}
+            height={1254}
             className="h-auto w-full"
           />
         </div>

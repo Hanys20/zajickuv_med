@@ -1,14 +1,16 @@
 # Watercolor ilustrace
 
-Transparentní akvarelové ilustrace od klienta (dodané 2026-07-22, zdroj
-`client-materials/Transparentní watercolor obrázky/`), oříznuté na obsah
-(odstraněné průhledné okraje), zmenšené a komprimované (paleta PNG).
+Transparentní akvarelové ilustrace od klienta. Původní sada (dodaná 2026-07-22,
+zdroj `client-materials/Transparentní watercolor obrázky/`) je oříznutá na obsah,
+zmenšená a komprimovaná (paleta PNG). Nová ilustrace pro kontakt byla dodána
+samostatně a zachována v původním rozlišení.
 Používají se jako volné dekorativní prvky (ne ve zvláštních boxech/rámečcích) -
 buď přímo na `bg-paper`/`bg-paper-raised`, nebo na `section-tint`.
 
 - `hives-two.png` — Hero na homepage (zrcadlově otočená přes `-scale-x-100`,
   ať úly "hledí" směrem k textu)
-- `bee-flower.png` — sekce "Proč zrovna my" na homepage
+- `bee-flower.png` — původní ilustrace včely na květu, nyní nepoužitá
+- `contact-bee-flower.png` — ilustrace v kontaktní kartě na homepage a `/kontakt`, dodaná samostatně
 - `honey-jar.png` — sekce "Co u nás vzniká" (ceník) na homepage
 - `bees-cluster.png` — sekce FAQ na homepage
 - `hives-four.png` — úvodní sekce `/o-farme`
