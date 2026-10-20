@@ -25,7 +25,7 @@ export default function StoryTeaser() {
         <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:order-1 md:min-h-[300px]">
           <Image
             src="/images/photos/story-rodinna-tradice.jpg"
-            alt="Včelař za soumraku kontroluje rámek s plástem"
+            alt="Včelař kontroluje rámek se včelami u otevřeného úlu"
             fill
             sizes="(min-width: 768px) 45vw, 100vw"
             className="object-cover"

@@ -113,10 +113,10 @@ export default function OFarmePage() {
             <div className="relative order-2 min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1">
               <Image
                 src="/images/photos/jak-vcelarime-honeycomb.jpg"
-                alt="Detail plástu s medem a včelou na prstu včelaře"
+                alt="Včelař vyjímá rámek plný včel z otevřeného úlu"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover object-[center_75%] lg:object-center"
+                className="object-cover object-center"
               />
             </div>
 

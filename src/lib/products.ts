@@ -22,8 +22,8 @@ const PRODUCTS_DIR = path.join(process.cwd(), 'content', 'products');
 const HONEY_ORDER = [
   'med-kvetovy-jarni',
   'med-kvetovy-jarni-pastovany',
-  'med-kvetovy-lipovy',
   'med-kvetovy-pohankovy',
+  'med-kvetovy-lipovy',
   'med-smiseny',
   'med-medovicovy-lesni',
 ];
