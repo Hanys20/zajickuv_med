@@ -3,9 +3,9 @@
 **Reálné fotky od klienta** (dodané 2026-07-21, zdroj `client-materials/Fotky/`,
 zpracované – oříznuté na web. rozměry, komprimované, zbavené EXIF metadat):
 
-- `o-farme-apiary-family.jpg` — sekce "Jak to celé začalo" na `/o-farme`
-- `jak-vcelarime-honeycomb.jpg` — sekce "Jak včelaříme" na `/o-farme`
-- `story-rodinna-tradice.jpg` — sekce "Náš příběh" na homepage
+- `o-farme-apiary-family.webp` — sekce "Jak to celé začalo" na `/o-farme`
+- `jak-vcelarime-honeycomb.webp` — sekce "Jak včelaříme" na `/o-farme`
+- `story-rodinna-tradice.webp` — sekce "Náš příběh" na homepage
 - `hero-beekeeper-apiary.jpg` — **momentálně nepoužitá** (hero od 2026-07-22 používá
   watercolor ilustraci místo fotky, viz `../watercolor/CREDITS.md`), soubor
   zůstává pro případné budoucí využití.

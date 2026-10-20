@@ -7,16 +7,16 @@ samostatně a zachována v původním rozlišení.
 Používají se jako volné dekorativní prvky (ne ve zvláštních boxech/rámečcích) -
 buď přímo na `bg-paper`/`bg-paper-raised`, nebo na `section-tint`.
 
-- `hives-two.png` — Hero na homepage (zrcadlově otočená přes `-scale-x-100`,
+- `hives-two.webp` — Hero na homepage (zrcadlově otočená přes `-scale-x-100`,
   ať úly "hledí" směrem k textu)
 - `bee-flower.png` — původní ilustrace včely na květu, nyní nepoužitá
-- `contact-bee-flower.png` — ilustrace v kontaktní kartě na homepage a `/kontakt`, dodaná samostatně
+- `contact-bee-flower.webp` — ilustrace v kontaktní kartě na homepage a `/kontakt`, dodaná samostatně
 - `honey-jar.png` — původní ilustrace sklenice medu, nyní nepoužitá
-- `contact-honey-jar.png` — aktualizovaná ilustrace sklenice medu na `/kontakt`
+- `contact-honey-jar.webp` — aktualizovaná ilustrace sklenice medu na `/kontakt`
 - `bees-cluster.png` — sekce FAQ na homepage
 - `hives-four.png` — úvodní sekce `/o-farme`
 - `beekeeper.png` — sekce "Co je pro nás důležité" na `/o-farme`
-- `news-beekeeper.png` — ilustrace u aktualit na homepage (zrcadlově otočená), dodaná samostatně
+- `news-beekeeper.webp` — ilustrace u aktualit na homepage (zrcadlově otočená), dodaná samostatně
 - `honeycomb.png` — sekce "Naše cesta ve zkratce" na `/o-farme`
 - `smoker.png` — **klient poznamenal "použít pouze na bílém pozadí"** - použito
   na `/kontakt` (sekce na `bg-paper`, prakticky bílá `#faf9f7`)

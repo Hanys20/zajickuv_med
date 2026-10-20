@@ -30,7 +30,7 @@ export default function Hero() {
 
           <div className="relative mx-auto h-[220px] w-full max-w-[420px] sm:h-[280px] md:h-[340px] md:max-w-none lg:h-[400px]">
             <Image
-              src="/images/watercolor/hives-two.png"
+              src="/images/watercolor/hives-two.webp"
               alt="Dva úly, malovaná ilustrace akvarelem"
               fill
               priority

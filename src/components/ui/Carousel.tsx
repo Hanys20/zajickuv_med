@@ -4,6 +4,7 @@ import { Children, cloneElement, isValidElement, useCallback, useLayoutEffect, u
 
 type Props = {
   children: ReactNode[];
+  gapClassName?: string;
 };
 
 function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
@@ -32,7 +33,7 @@ function ChevronIcon({ direction }: { direction: 'left' | 'right' }) {
 // interpretoval i naše "tiché" přeskoky (behavior: 'auto') jako smooth,
 // takže by přeskok na druhou kopii byl viditelně animovaný ("cukne zpátky
 // na začátek"). Animaci řídíme čistě přes explicitní `behavior` v JS.
-export default function Carousel({ children }: Props) {
+export default function Carousel({ children, gapClassName = 'gap-3.5' }: Props) {
   const items = Children.toArray(children).filter(isValidElement);
   const count = items.length;
 
@@ -134,7 +135,7 @@ export default function Carousel({ children }: Props) {
       <div className="min-w-0 flex-1">
         <div
           ref={scrollerRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-3.5 overflow-x-auto py-2 [scroll-padding-left:24px] [scroll-padding-right:24px] sm:[scroll-padding-left:28px] sm:[scroll-padding-right:28px] lg:[scroll-padding-left:32px] lg:[scroll-padding-right:32px]"
+          className={`no-scrollbar flex snap-x snap-mandatory overflow-x-auto py-2 [scroll-padding-left:24px] [scroll-padding-right:24px] sm:[scroll-padding-left:28px] sm:[scroll-padding-right:28px] lg:[scroll-padding-left:32px] lg:[scroll-padding-right:32px] ${gapClassName}`}
         >
           {tripled}
         </div>

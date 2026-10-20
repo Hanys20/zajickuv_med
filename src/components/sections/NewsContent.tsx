@@ -35,7 +35,7 @@ export default function NewsContent({ initialPost }: { initialPost: NewsPost | n
 
         <div className="relative mt-5">
           <Image
-            src="/images/watercolor/news-beekeeper.png"
+            src="/images/watercolor/news-beekeeper.webp"
             alt=""
             width={1122}
             height={1402}

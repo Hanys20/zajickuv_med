@@ -18,7 +18,7 @@ export default function HoneyCard({
         {photo ? (
           <Image
             src={photo}
-            alt=""
+            alt={`${product.name} z rodinné včelí farmy Zajíčkův med`}
             fill
             sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
             className="object-cover"

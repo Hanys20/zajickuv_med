@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ValuesGrid from '@/components/sections/ValuesGrid';
 import Timeline from '@/components/sections/Timeline';
 import StoryBlock from '@/components/sections/StoryBlock';
+import FarmGallery from '@/components/sections/FarmGallery';
 
 export const metadata: Metadata = {
   title: 'O farmě',
@@ -30,7 +31,7 @@ export default function OFarmePage() {
 
             <div className="relative mx-auto h-[260px] w-full max-w-[460px] sm:h-[320px] md:h-[400px] md:max-w-none lg:h-[460px]">
               <Image
-                src="/images/watercolor/family-tradition.png"
+                src="/images/watercolor/family-tradition.webp"
                 alt="Rodinná tradice včelaření, malovaná ilustrace akvarelem"
                 fill
                 priority
@@ -65,6 +66,7 @@ export default function OFarmePage() {
                 src="/images/watercolor/old-smoker.png"
                 alt="Starý dýmák, malovaná ilustrace akvarelem"
                 fill
+                sizes="(min-width: 1024px) 400px, (min-width: 768px) 45vw, 360px"
                 className="object-contain object-center"
               />
             </div>
@@ -96,7 +98,7 @@ export default function OFarmePage() {
             </div>
             <div className="relative min-h-[260px] overflow-hidden rounded-xl border border-honey-50/15 shadow-warm lg:min-h-full">
               <Image
-                src="/images/photos/o-farme-apiary-family.jpg"
+                src="/images/photos/o-farme-apiary-family.webp"
                 alt="Řada úlů na našem včelím stanovišti"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
@@ -112,7 +114,7 @@ export default function OFarmePage() {
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
             <div className="relative order-2 min-h-[260px] overflow-hidden rounded-xl border border-honey-200/70 shadow-warm lg:order-1">
               <Image
-                src="/images/photos/jak-vcelarime-honeycomb.jpg"
+                src="/images/photos/jak-vcelarime-honeycomb.webp"
                 alt="Včelař vyjímá rámek plný včel z otevřeného úlu"
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"
@@ -148,7 +150,18 @@ export default function OFarmePage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-md border border-honey-200 bg-honey-50 p-5 text-center sm:flex-row sm:text-left">
+        </div>
+      </section>
+
+      <section className="section-dark border-b border-honey-900/50 px-4 py-8 sm:px-6 md:py-12">
+        <div className="mx-auto max-w-content">
+          <FarmGallery />
+        </div>
+      </section>
+
+      <section className="border-b border-border px-4 py-8 sm:px-6 md:py-10">
+        <div className="mx-auto max-w-content">
+          <div className="flex flex-col items-center justify-between gap-4 rounded-md border border-honey-200 bg-honey-50 p-5 text-center sm:flex-row sm:text-left">
             <div>
               <h3 className="text-base font-bold">Poznejte, co naše rodinná farma nabízí</h3>
               <p className="mt-1 text-[13px] text-ink-dim">Prohlédněte si nabídku nebo se nám ozvěte s dotazem.</p>

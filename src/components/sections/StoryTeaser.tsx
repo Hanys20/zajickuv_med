@@ -24,10 +24,10 @@ export default function StoryTeaser() {
         </div>
         <div className="w-full overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:order-1">
           <Image
-            src="/images/photos/story-rodinna-tradice.jpg"
+            src="/images/photos/story-rodinna-tradice.webp"
             alt="Včelař kontroluje rámek se včelami u otevřeného úlu"
-            width={1800}
-            height={1200}
+            width={1400}
+            height={933}
             sizes="(min-width: 768px) 45vw, 100vw"
             className="h-auto w-full"
           />

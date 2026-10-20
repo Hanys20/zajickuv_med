@@ -15,9 +15,9 @@ OUTPUT = ROOT / "public" / "images" / "photos"
 
 # source, output, output size, focal point (relative x/y), retained crop scale
 PHOTOS = (
-    ("jak to celé začalo.jpg", "o-farme-apiary-family.jpg", (1800, 1200), (0.50, 0.50), 1.00),
-    ("jak včelaříme.jpg", "jak-vcelarime-honeycomb.jpg", (1600, 1200), (0.62, 0.60), 0.88),
-    ("včelaření po generace.jpg", "story-rodinna-tradice.jpg", (1800, 1200), (0.50, 0.50), 1.00),
+    ("jak to celé začalo.jpg", "o-farme-apiary-family.webp", (1400, 933), (0.50, 0.50), 1.00),
+    ("jak včelaříme.jpg", "jak-vcelarime-honeycomb.webp", (1400, 1050), (0.62, 0.60), 0.88),
+    ("včelaření po generace.jpg", "story-rodinna-tradice.webp", (1400, 933), (0.50, 0.50), 1.00),
 )
 
 
@@ -48,7 +48,7 @@ def main() -> None:
         with Image.open(SOURCE / source_name) as source:
             image = ImageOps.exif_transpose(source).convert("RGB")
             prepared = focal_crop(image, size, focal, scale)
-            prepared.save(OUTPUT / output_name, "JPEG", quality=88, optimize=True, progressive=True)
+            prepared.save(OUTPUT / output_name, "WEBP", quality=82, method=4)
             print(f"{output_name}: {prepared.width}x{prepared.height}")
 
 
