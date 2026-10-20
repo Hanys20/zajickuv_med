@@ -67,8 +67,9 @@ export default function CookiesPage() {
 
           <Section title="Služby třetích stran">
             <p>
-              Na stránce Kontakt zobrazujeme mapu přes vloženou (embed) Google mapu. Při jejím načtení může
-              Google do vašeho prohlížeče uložit vlastní cookies podle{' '}
+              Na stránce Kontakt zobrazujeme vloženou Google mapu. U recenzí na úvodní stránce mohou
+              být fotografie autorů načítány přímo od Googlu. Při načtení těchto prvků může Google
+              do vašeho prohlížeče uložit vlastní cookies podle{' '}
               <a
                 className="underline hover:text-honey-700"
                 href="https://policies.google.com/privacy"

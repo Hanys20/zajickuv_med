@@ -47,8 +47,8 @@
     "note": "Klient chce návštěvnost/cookies (analytics) – potřeba cookie lišta/consent."
   },
   "reviews": {
-    "status": "zatím žádná provozovna ani Google recenze",
-    "plan": "Zatím vložit ručně vybrané recenze. Až bude zřízena provozovna na Google Maps (Opava-Podvihov), propojit sekci recenzí s Google recenzemi."
+    "status": "Provozovna na Google Maps je aktivní; živé recenze se zobrazí po nastavení klíče Places API (New).",
+    "googleMapsUrl": "https://www.google.com/maps/place/Zaj%C3%AD%C4%8Dk%C5%AFv+med/@49.8776708,17.9711385,888m/data=!3m1!1e3!4m6!3m5!1s0x4713deb7f8d49a4f:0x568df20736a8427a!8m2!3d49.8776674!4d17.9737188!16s%2Fg%2F11h4djrbxq"
   },
   "domainRegistrar": {
     "contactPerson": "Radim Steuer – GDstudio",

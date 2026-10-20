@@ -2,18 +2,10 @@ import siteJson from '@content/settings/site.json';
 import cenikJson from '@content/pricing/cenik.json';
 import faqJson from '@content/faq/faq.json';
 import salesPointsJson from '@content/sales-points/sales-points.json';
+import type { Cenik } from './pricing';
 
 export type SiteSettings = typeof siteJson;
-export type PricedItem = {
-  name: string;
-  size: string | null;
-  price: number | null;
-  unit: string;
-};
-export type Cenik = Omit<typeof cenikJson, 'waxAndCandles' | 'nucs'> & {
-  waxAndCandles: PricedItem[];
-  nucs: PricedItem[];
-};
+export type { Cenik, PricedItem } from './pricing';
 export type FaqItem = { question: string; answer: string };
 export type SalesPoints = typeof salesPointsJson;
 

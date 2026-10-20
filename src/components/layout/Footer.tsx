@@ -49,6 +49,9 @@ export default function Footer() {
           <Link href="/cookies" className="mb-1.5 block text-honey-50/90 hover:text-honey-300">
             Zásady používání cookies
           </Link>
+          <Link href="/podminky-pouziti" className="mb-1.5 block text-honey-50/90 hover:text-honey-300">
+            Podmínky použití
+          </Link>
           <CookieSettingsButton className="block text-honey-50/90 underline hover:text-honey-300" />
         </div>
 

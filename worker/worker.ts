@@ -1,6 +1,14 @@
+import { handleGoogleReviews } from './googleReviews';
+import { ADDITIONAL_PRODUCTS } from '../src/lib/additionalProducts';
+import currentPricing from '../content/pricing/cenik.json';
+import { mergePricing } from '../src/lib/pricing';
+import type { Cenik } from '../src/lib/pricing';
+
 export interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  GOOGLE_PLACES_API_KEY?: string;
+  GOOGLE_PLACE_ID?: string;
 }
 
 const SESSION_COOKIE = 'session';
@@ -140,14 +148,34 @@ async function handlePublicNews(env: Env): Promise<Response> {
 
 async function handlePublicPricing(env: Env): Promise<Response> {
   const row = await env.DB.prepare('SELECT data FROM pricing WHERE id = 1').first<{ data: string }>();
-  return new Response(row?.data ?? 'null', { headers: { 'content-type': 'application/json; charset=utf-8' } });
+  const saved = row ? JSON.parse(row.data) as Partial<Cenik> : null;
+  return jsonResponse(mergePricing(saved, currentPricing as Cenik));
+}
+
+type AvailabilityRow = { slug: string; name: string; availability: 'available' | 'sold-out' };
+
+async function loadAvailability(env: Env): Promise<AvailabilityRow[]> {
+  const { results } = await env.DB.prepare(
+    'SELECT slug, name, availability FROM honey_availability ORDER BY slug'
+  ).all<AvailabilityRow>();
+  const bySlug = new Map(results.map((row) => [row.slug, row]));
+  const oldSlugs = new Set(['svicky-z-mezisten', 'oddelek-klasicky', 'oddelek-sberny']);
+  const currentSlugs = new Set(ADDITIONAL_PRODUCTS.map((product) => product.slug));
+  const otherProducts = results.filter((row) => !oldSlugs.has(row.slug) && !currentSlugs.has(row.slug));
+  return [
+    ...otherProducts,
+    ...ADDITIONAL_PRODUCTS.map((product) => ({
+      slug: product.slug,
+      name: product.name,
+      availability: bySlug.get(product.slug)?.availability
+        ?? (product.slug === 'motane-svicky' ? bySlug.get('svicky-z-mezisten')?.availability : undefined)
+        ?? product.availability,
+    })),
+  ];
 }
 
 async function handlePublicAvailability(env: Env): Promise<Response> {
-  const { results } = await env.DB.prepare(
-    'SELECT slug, name, availability FROM honey_availability ORDER BY slug'
-  ).all();
-  return jsonResponse(results, { headers: { 'cache-control': 'no-store' } });
+  return jsonResponse(await loadAvailability(env), { headers: { 'cache-control': 'no-store' } });
 }
 
 async function handleAdminNews(request: Request, env: Env, id: string | undefined): Promise<Response> {
@@ -180,18 +208,18 @@ async function handleAdminNews(request: Request, env: Env, id: string | undefine
 
 async function handleAdminAvailability(request: Request, env: Env, slug: string | undefined): Promise<Response> {
   if (request.method === 'GET') {
-    const { results } = await env.DB.prepare(
-      'SELECT slug, name, availability FROM honey_availability ORDER BY slug'
-    ).all();
-    return jsonResponse(results, { headers: { 'cache-control': 'no-store' } });
+    return jsonResponse(await loadAvailability(env), { headers: { 'cache-control': 'no-store' } });
   }
   if (slug && request.method === 'PUT') {
     const body = (await request.json()) as { availability?: string };
     if (body.availability !== 'available' && body.availability !== 'sold-out') {
       return jsonResponse({ error: 'Neplatná hodnota dostupnosti' }, { status: 400 });
     }
-    await env.DB.prepare('UPDATE honey_availability SET availability = ? WHERE slug = ?')
-      .bind(body.availability, slug)
+    const product = ADDITIONAL_PRODUCTS.find((item) => item.slug === slug);
+    await env.DB.prepare(
+      'INSERT INTO honey_availability (slug, name, availability) VALUES (?, ?, ?) ON CONFLICT(slug) DO UPDATE SET availability = excluded.availability'
+    )
+      .bind(slug, product?.name ?? slug, body.availability)
       .run();
     return jsonResponse({ ok: true });
   }
@@ -201,7 +229,8 @@ async function handleAdminAvailability(request: Request, env: Env, slug: string 
 async function handleAdminPricing(request: Request, env: Env): Promise<Response> {
   if (request.method === 'GET') {
     const row = await env.DB.prepare('SELECT data FROM pricing WHERE id = 1').first<{ data: string }>();
-    return new Response(row?.data ?? '{}', { headers: { 'content-type': 'application/json; charset=utf-8' } });
+    const saved = row ? JSON.parse(row.data) as Partial<Cenik> : null;
+    return jsonResponse(mergePricing(saved, currentPricing as Cenik));
   }
   if (request.method === 'PUT') {
     const bodyText = await request.text();
@@ -259,6 +288,9 @@ export default {
       }
       if (url.pathname === '/api/public/availability' && request.method === 'GET') {
         return handlePublicAvailability(env);
+      }
+      if (url.pathname === '/api/public/reviews' && request.method === 'GET') {
+        return handleGoogleReviews(env.GOOGLE_PLACES_API_KEY, env.GOOGLE_PLACE_ID);
       }
 
       if (url.pathname.startsWith('/api/admin/')) {

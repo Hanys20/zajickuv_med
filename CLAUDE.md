@@ -43,14 +43,14 @@ Tina byla původně naplánovaný a reálně zprovozněný CMS (napojený na Tin
 
 ### Stav scaffoldingu (aktualizováno 2026-07-21)
 
-Next.js aplikace odpovídá wireframu (`wireframes/index.html`) — `output: 'export'`, App Router, TypeScript, Tailwind CSS s prozatímní medovou paletou. Ikony pro karty/kontakty jsou zkopírované z `client-materials/Ikony` do `public/images/icons` (ASCII názvy). Fotky jsou zatím schematické placeholdery (`.imgph` bloky) – nahradit až dorazí reálné podklady od klienta. Logo je zatím jen textové + ikona včely, čeká na finální grafiku.
+Next.js aplikace odpovídá wireframu (`wireframes/index.html`) — `output: 'export'`, App Router, TypeScript, Tailwind CSS s prozatímní medovou paletou. Ikony pro karty/kontakty jsou zkopírované z `client-materials/Ikony` do `public/images/icons` (ASCII názvy). Produktové karty používají reálné fotky dodané klientem v `client-materials/Fotky/Vcely/`, zpracované do `public/images/photos/`. Logo je zatím jen textové + ikona včely, čeká na finální grafiku.
 
 Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, otestovaný lokálně (`npx wrangler dev`) i naostro nasazený a ověřený. Homepage sekce Aktuality, Dostupnost produktů a Ceník si po načtení tiše donačtou živá data z D1 přes `/api/public/*`, s fallbackem na build-time obsah z `content/` pro případ výpadku API.
 
 Zbývá:
 1. Získat přístupy k doméně `zajickuv-med.cz` od GDstudio (Radim Steuer) a přesměrovat DNS na nasazený Cloudflare Worker.
 2. Kontaktní formulář zatím jen otevře e-mailového klienta (mailto:) s předvyplněnou zprávou – bez backendu. Zvážit rozšíření Worker API o skutečné odeslání.
-3. Nahradit placeholder fotky a barevnou paletu, jakmile klient dodá design/fotky.
+3. Doladit barevnou paletu, jakmile klient dodá finální design.
 4. Nastavit trvalé přihlašovací údaje do `/admin` pro Pavla (aktuální jsou vygenerované testovací, heslo v plaintextu není nikde v repozitáři).
 
 ## Cílová skupina a UX priority
@@ -63,12 +63,12 @@ Zbývá:
 
 1. **Domů (`/`)** – hero, teaser příběhu s proklikem na O farmě, "Proč si vybrat med od nás" (4 karty + "20+ let zkušeností"), produktový karusel s proklikem na ceník, zkrácený ceník, teaser recenzí, zkrácené FAQ, aktuality (mění se ~2×/rok), kontaktní formulář + mapa.
 2. **O farmě (`/o-farme`)** – historie rodiny (časová osa), "co je pro nás důležité" (5 kartiček), detailní popis metod včelaření, péče o zdraví včel, koloběh vosku. Viz `content/pages/o-farme.md`.
-3. **Nabídka (`/#nabidka`)** – sekce na homepage: med, propolis, vosk a svíčky a dva připravované typy včelích oddělků. Medy a další produkty mají samostatné carousely.
-4. **Ceník (`/#cenik`)** – sekce na homepage. Ceny medu, propolisu a dárkových balení zůstávají zachované; vosk, svíčky a oddělky mají prázdné ceny editovatelné v administraci.
+3. **Nabídka (`/#nabidka`)** – sekce na homepage: med, propolis, vosk a motané svíčky, vyzimované včelstvo, vyzimovaný a letní oddělek. Kategorie mají samostatné carousely s reálnými fotografiemi.
+4. **Ceník (`/#cenik`)** – sekce na homepage. Dárkové balení medu následuje hned po medech. Vosk, svíčky a tři typy včelstev mají uvedené ceny editovatelné v administraci. Nový katalog má `catalogVersion: 2`; Worker při čtení starších dat z D1 zachová dříve editované ceny medu, propolisu a dárkových balení a doplní nové položky.
 5. **Kontakt (`/kontakt`)** – rozšířená verze kontaktní sekce z homepage: kontaktní formulář (vč. výběru produktů), mapa Opava-Podvihov, prodej na Kozí farmě Magdaléna a rozvoz po Opavě a Studénce.
 6. **FAQ (`/faq`)** – plný seznam otázek, viz `content/faq/faq.json`.
 
-Menu: Domů, O farmě, Nabídka (odkazy na sekce homepage: Med, Propolis, Vosk & svíčky, Oddělky), Ceník (sekce homepage), FAQ, Kontakt.
+Menu: Domů, O farmě, Nabídka (odkazy na sekce homepage: Med, Propolis, Vosk & svíčky, Včelí oddělky a včelstva), Ceník (sekce homepage), FAQ, Kontakt.
 
 ## Obsah – zdroje pravdy
 
@@ -81,7 +81,7 @@ Aktuality, dostupnost všech produktů a ceny jsou v Cloudflare D1 a edituje je 
 - `content/sales-points/sales-points.json` – prodejní místa a rozvoz.
 - `content/settings/site.json` – kontakty, sociální sítě, SEO lokality, nastavení cookies/analytics, stav recenzí, kontakt na správce domény.
 - `content/news/` – needitovatelný build-time fallback aktualit. Skutečné aktuality edituje klient v `/admin` (D1 tabulka `news`) – web vždy zobrazí nejnovější podle data.
-- `content/reviews/` – recenze (zatím prázdné – žádná provozovna, žádné Google recenze; naplánováno napojení na Google recenze, až vznikne provozovna na mapách).
+- Recenze na homepage se načítají z Google Places API (New) přes Worker `/api/public/reviews`. Provozovna na Google Maps existuje; k aktivaci živých recenzí chybí Worker secret `GOOGLE_PLACES_API_KEY`. Bez klíče je v sekci přímý odkaz na profil. Postup viz `docs/google-reviews.md`.
 - `client-materials/` – syrové podklady od klienta, TODO seznam otevřených bodů, prostor pro design inspiraci a fotky až dorazí.
 - `worker/schema.sql`, `worker/seed.sql` – schéma a výchozí data D1 databáze pro lokální vývoj. Produkční databázi spravuje klient přes `/admin`, ne přímo SQL.
 
@@ -98,9 +98,9 @@ Aktuality, dostupnost všech produktů a ceny jsou v Cloudflare D1 a edituje je 
 - Hero sekce s jasným sdělením a kvalitní fotkou.
 - Tlačítko "zpět nahoru" při scrollování.
 - Patička: kontakty, rychlé odkazy, sociální ikony (FB/IG/WhatsApp).
-- Google mapa s odkazem na Opava-Podvihov, do budoucna oficiální provozovna na Google Maps.
+- Google mapa a odkaz na existující profil provozovny Zajíčkův med na Google Maps.
 - Lazy loading obrázků na homepage i podstránkách.
-- Recenze zákazníků (zatím ručně vložené, později Google recenze).
+- Recenze zákazníků z Google Places API (New) po nastavení API klíče; do té doby odkaz na profil.
 - Kontaktní formulář s **výběrem produktů vč. zobrazené dostupnosti** (skladem/vyprodáno) – editovatelné klientem v adminu.
 - Cookie/analytics consent (klient chce sledovat návštěvnost).
 
@@ -110,11 +110,11 @@ Ostrava, Opava, Podvihov, Moravskoslezský kraj, Studénka.
 
 ## Otevřené body (blokující nebo čekající na klienta)
 
-Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient.md) – zejména: přístupy k doméně, odkazy na FB/IG, ručně vybrané recenze pro spuštění, aktuální dostupnost jednotlivých medů, fotografie, design inspirace.
+Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient.md) – zejména: přístupy k doméně, odkazy na FB/IG, Google Places API klíč pro živé recenze, aktuální dostupnost jednotlivých medů, fotografie, design inspirace.
 
 ## Doporučený další postup
 
 1. Získat přístupy k doméně a DNS od GDstudio, napojit `zajickuv-med.cz` na nasazený Cloudflare Worker (viz Tech stack a Stav scaffoldingu výše).
-2. Až dorazí design inspirace / reálné fotky od klienta → nahradit placeholdery a doladit barevnou paletu.
+2. Až dorazí finální design inspirace od klienta → doladit barevnou paletu.
 3. Vyřešit skutečné odeslání kontaktního formuláře (zatím jen `mailto:`, bez backendu).
 4. Nastavit klientovi trvalé přihlašovací údaje do `/admin` (aktuální jsou testovací/vygenerované).

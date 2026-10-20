@@ -4,6 +4,12 @@ import Reveal from '@/components/ui/Reveal';
 
 const CARDS = [
   {
+    icon: '/images/icons/leaf.svg',
+    title: 'Šetrná péče o včely',
+    text: 'Při péči o naše včelstva používáme výhradně organické kyseliny, které se přirozeně vyskytují v přírodě. Vyhýbáme se syntetickým akaricidům a díky šetrnému ošetřování nabízíme med bez reziduí po léčení včelstev.',
+    tone: 'bg-leaf-100 border-leaf-300',
+  },
+  {
     icon: '/images/icons/family.svg',
     title: 'Rodinná tradice',
     text: 'Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.',
@@ -20,12 +26,6 @@ const CARDS = [
     title: 'Dřevěné úly',
     text: 'Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a mezistěnami.',
     tone: 'bg-honey-100 border-honey-200',
-  },
-  {
-    icon: '/images/icons/leaf.svg',
-    title: 'Šetrná péče o včely',
-    text: 'Včelstva vedeme co nejpřirozenější cestou a maximálně omezujeme látky, které jsou včelám a přírodě cizí.',
-    tone: 'bg-leaf-100 border-leaf-300',
   },
 ];
 

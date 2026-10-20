@@ -12,14 +12,12 @@ export const PROPOLIS_ICONS: Record<string, string> = {
   'propolis-skrabany': '/images/icons/molecule-alt.svg',
 };
 
-// Interim stock photography (see public/images/photos/CREDITS.md) shown as the
-// front face of each honey card. To be replaced with the client's real farm
-// photography once available.
+// Product photographs supplied and labelled by the client.
 export const HONEY_PHOTOS: Record<string, string> = {
-  'med-kvetovy-jarni': '/images/photos/med-kvetovy-jarni.jpg',
-  'med-kvetovy-jarni-pastovany': '/images/photos/med-kvetovy-jarni-pastovany.jpg',
-  'med-kvetovy-lipovy': '/images/photos/med-kvetovy-lipovy.jpg',
-  'med-kvetovy-pohankovy': '/images/photos/med-kvetovy-pohankovy.jpg',
-  'med-smiseny': '/images/photos/med-smiseny.jpg',
-  'med-medovicovy-lesni': '/images/photos/med-medovicovy-lesni.jpg',
+  'med-kvetovy-jarni': '/images/photos/med-kvetovy-jarni.webp',
+  'med-kvetovy-jarni-pastovany': '/images/photos/med-kvetovy-jarni-pastovany.webp',
+  'med-kvetovy-lipovy': '/images/photos/med-kvetovy-lipovy.webp',
+  'med-kvetovy-pohankovy': '/images/photos/med-kvetovy-pohankovy.webp',
+  'med-smiseny': '/images/photos/med-smiseny.webp',
+  'med-medovicovy-lesni': '/images/photos/med-medovicovy-lesni.webp',
 };

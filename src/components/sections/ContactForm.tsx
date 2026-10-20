@@ -3,13 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Availability, Product } from '@/lib/products';
 import { cenik, site } from '@/lib/content';
-
-const ADDITIONAL_FORM_PRODUCTS = [
-  { slug: 'vceli-vosk', name: 'Včelí vosk', group: 'wax', availability: 'available' },
-  { slug: 'svicky-z-mezisten', name: 'Svíčky z mezistěn', group: 'wax', availability: 'available' },
-  { slug: 'oddelek-klasicky', name: 'Klasický oddělek', group: 'nucs', availability: 'sold-out' },
-  { slug: 'oddelek-sberny', name: 'Sběrný oddělek', group: 'nucs', availability: 'sold-out' },
-] satisfies Array<{ slug: string; name: string; group: 'wax' | 'nucs'; availability: Availability }>;
+import { ADDITIONAL_PRODUCTS } from '@/lib/additionalProducts';
 
 export default function ContactForm({
   honeys,
@@ -27,7 +21,7 @@ export default function ContactForm({
   const [message, setMessage] = useState('');
   const [availabilityBySlug, setAvailabilityBySlug] = useState<Record<string, Availability>>(() =>
     Object.fromEntries(
-      [...honeys, ...propolis, ...ADDITIONAL_FORM_PRODUCTS].map((product) => [
+      [...honeys, ...propolis, ...ADDITIONAL_PRODUCTS].map((product) => [
         product.slug,
         product.availability,
       ])
@@ -54,7 +48,7 @@ export default function ContactForm({
   }, []);
 
   useEffect(() => {
-    const selectedProduct = [...honeys, ...propolis, ...ADDITIONAL_FORM_PRODUCTS].find(
+    const selectedProduct = [...honeys, ...propolis, ...ADDITIONAL_PRODUCTS].find(
       (product) => product.name === productChoice
     );
     if (selectedProduct && availabilityBySlug[selectedProduct.slug] === 'sold-out') {
@@ -68,7 +62,7 @@ export default function ContactForm({
     if (!slug) return;
     const match = honeys.find((h) => h.slug === slug);
     const propolisMatch = propolis.find((p) => p.slug === slug);
-    const additionalProduct = ADDITIONAL_FORM_PRODUCTS.find((product) => product.slug === slug);
+    const additionalProduct = ADDITIONAL_PRODUCTS.find((product) => product.slug === slug);
     setProductChoice(match?.name ?? propolisMatch?.name ?? additionalProduct?.name ?? '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -168,7 +162,7 @@ export default function ContactForm({
             })}
           </optgroup>
           <optgroup label="Vosk a svíčky">
-            {ADDITIONAL_FORM_PRODUCTS.filter((product) => product.group === 'wax').map((product) => {
+            {ADDITIONAL_PRODUCTS.filter((product) => product.group === 'waxAndCandles').map((product) => {
               const isSoldOut = availabilityBySlug[product.slug] === 'sold-out';
               return (
                 <option key={product.slug} value={product.name} disabled={isSoldOut}>
@@ -178,8 +172,8 @@ export default function ContactForm({
               );
             })}
           </optgroup>
-          <optgroup label="Včelí oddělky">
-            {ADDITIONAL_FORM_PRODUCTS.filter((product) => product.group === 'nucs').map((product) => {
+          <optgroup label="Včelí oddělky a včelstva">
+            {ADDITIONAL_PRODUCTS.filter((product) => product.group === 'nucs').map((product) => {
               const isSoldOut = availabilityBySlug[product.slug] === 'sold-out';
               return (
                 <option key={product.slug} value={product.name} disabled={isSoldOut}>
@@ -189,7 +183,7 @@ export default function ContactForm({
               );
             })}
           </optgroup>
-          <optgroup label="Dárkové balení">
+          <optgroup label="Dárkové balení medu">
             {cenik.giftSets.map((g) => (
               <option key={g.name} value={g.name}>
                 {g.name}

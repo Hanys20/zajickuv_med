@@ -15,7 +15,7 @@ info@zajickuv-med.cz
 
 ## Vyzvednutí / prodejní místa
 
-Na hlavní adrese (Opava-Podvihov) je možné si med vyzvednout – zde bude zřízena i oficiální provozovna na Google Maps (zatím není hotovo, viz `content/settings/site.json` → `reviews.status`).
+Na hlavní adrese (Opava-Podvihov) je možné si med vyzvednout. Provozovna Zajíčkův med už je na Google Maps.
 
 Med je také možné zakoupit (vždy na objednávku) u:
 - **Kozí farma Magdaléna** – Renata Vajdová, Hlavní 203, 747 91 Štítina
@@ -30,4 +30,4 @@ Po dohodě lze med dovézt na určené místo v Opavě a okolí a také ve�
 
 ## Mapa
 
-Vložit Google mapu s odkazem na Opava-Podvihov (Raduňská 5/20). Jakmile bude zřízena oficiální provozovna na Google Maps, propojit i s recenzemi (viz `content/settings/site.json`).
+Zobrazit Google mapu s odkazem na provozovnu v Opavě-Podvihově (Raduňská 5/20). Recenze na homepage se načítají přes Places API po nastavení klíče (viz `docs/google-reviews.md`).

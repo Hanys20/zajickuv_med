@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Cenik } from '@/lib/content';
+import { mergePricing } from '@/lib/pricing';
 
 export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) {
   const [cenik, setCenik] = useState(initialCenik);
@@ -13,12 +14,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
       .then((res) => (res.ok ? res.json() : null))
       .then((data: Cenik | null) => {
         if (data) {
-          setCenik({
-            ...initialCenik,
-            ...data,
-            waxAndCandles: data.waxAndCandles ?? initialCenik.waxAndCandles,
-            nucs: data.nucs ?? initialCenik.nucs,
-          });
+          setCenik(mergePricing(data, initialCenik));
         }
       })
       .catch(() => {});
@@ -63,6 +59,17 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                   </td>
                 </tr>
               ))}
+              {cenik.giftSets.map((row) => (
+                <tr key={row.name} className="hover:bg-honey-50/60">
+                  <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">Dárkové balení medu</td>
+                  <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">
+                    {row.name.replace('Karton ', '')}
+                  </td>
+                  <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
+                    {row.price.toLocaleString('cs-CZ')} {row.unit}
+                  </td>
+                </tr>
+              ))}
               {cenik.propolis.map((row) => (
                 <tr key={row.name} className="hover:bg-honey-50/60">
                   <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">{row.name}</td>
@@ -79,7 +86,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                     {row.size ?? 'Doplníme'}
                   </td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price === null ? 'Doplníme' : `${row.price} ${row.unit}`}
+                    {row.price === null ? 'Doplníme' : `${row.price.toLocaleString('cs-CZ')} ${row.unit}`}
                   </td>
                 </tr>
               ))}
@@ -90,27 +97,10 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                     {row.size ?? 'Doplníme'}
                   </td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price === null ? 'Doplníme' : `${row.price} ${row.unit}`}
+                    {row.price === null ? 'Doplníme' : `${row.price.toLocaleString('cs-CZ')} ${row.unit}`}
                   </td>
                 </tr>
               ))}
-              {cenik.giftSets.map((row, i) => {
-                const isLast = i === cenik.giftSets.length - 1;
-                const borderClass = isLast ? '' : 'border-b border-block';
-                return (
-                  <tr key={row.name} className="hover:bg-honey-50/60">
-                    <td className={`px-2 py-2 sm:px-5 sm:py-2.5 ${borderClass}`}>Dárkový karton</td>
-                    <td className={`bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5 ${borderClass}`}>
-                      {row.name.replace('Karton ', '')}
-                    </td>
-                    <td
-                      className={`px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5 ${borderClass}`}
-                    >
-                      {row.price} {row.unit}
-                    </td>
-                  </tr>
-                );
-              })}
             </tbody>
           </table>
         </div>

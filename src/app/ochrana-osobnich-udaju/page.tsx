@@ -87,6 +87,18 @@ export default function PrivacyPage() {
             </p>
           </Section>
 
+          <Section title="Mapy a recenze Google">
+            <p>
+              Na stránce Kontakt se načítá mapa od Googlu. Na úvodní stránce zobrazujeme recenze
+              z Google Maps; jejich texty získává server webu a fotografie autorů se mohou načítat
+              přímo z Googlu. V takovém případě může Google zpracovat technické údaje o návštěvě,
+              například IP adresu. Podrobnosti najdete v{' '}
+              <a href="https://policies.google.com/privacy?hl=cs" target="_blank" rel="noopener noreferrer" className="underline hover:text-honey-700">
+                zásadách ochrany soukromí Google
+              </a>.
+            </p>
+          </Section>
+
           <Section title="Vaše práva">
             <p>Ve vztahu ke svým osobním údajům máte právo:</p>
             <ul className="ml-5 list-disc space-y-1">

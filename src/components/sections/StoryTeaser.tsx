@@ -4,8 +4,8 @@ import Image from 'next/image';
 export default function StoryTeaser() {
   return (
     <section className="section-dark border-b border-honey-900/40 px-4 py-10 sm:px-6 md:py-14">
-      <div className="relative mx-auto grid max-w-content items-center gap-7 md:grid-cols-[1.1fr_1fr]">
-        <div>
+      <div className="relative mx-auto grid max-w-content items-center gap-7 md:grid-cols-[1fr_1.1fr]">
+        <div className="md:order-2">
           <span className="eyebrow-invert">Náš příběh</span>
           <h2 className="mt-1 text-xl font-extrabold text-white md:text-2xl">
             Včelaření, které se v naší rodině předává po generace
@@ -22,7 +22,7 @@ export default function StoryTeaser() {
             </Link>
           </div>
         </div>
-        <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:min-h-[300px]">
+        <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:order-1 md:min-h-[300px]">
           <Image
             src="/images/photos/story-rodinna-tradice.jpg"
             alt="Včelař za soumraku kontroluje rámek s plástem"

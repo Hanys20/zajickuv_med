@@ -15,11 +15,13 @@ slepice, husy, kočky), které zatím nemají na webu využití (web se soustře
 včelaření, ne na zbytek hospodářství). Zůstávají v `client-materials/Fotky/` pro
 případné budoucí použití (např. galerie).
 
-**AI vizualizace produktů** (dodané klientem 2026-07-22, zdroj
-`client-materials/Produktové foto - AI vizualizace/`, přejmenované podle druhu
-medu a komprimované) — karty jednotlivých druhů medu
-(`src/lib/productIcons.ts` → `HONEY_PHOTOS`), nahradily dřívější dočasné stock
-fotky z Unsplash:
+**Reálné produktové fotografie** (zdroj `client-materials/Fotky/Vcely/`, klientem
+pojmenované snímky, zmenšené na 1000 × 1000 px a převedené do WebP bez EXIF).
+Každý snímek má vlastní ohnisko a míru ořezu v `scripts/prepare_product_photos.py`,
+aby hlavní objekt zůstal uprostřed čtvercové produktové karty:
 
-- `med-kvetovy-jarni.jpg`, `med-kvetovy-jarni-pastovany.jpg`, `med-kvetovy-lipovy.jpg`,
-  `med-kvetovy-pohankovy.jpg`, `med-medovicovy-lesni.jpg`, `med-smiseny.jpg`
+- Šest druhů medu: `med-*.webp`.
+- Propolis: `propolisova-tinktura.webp`, `propolis-skrabany.webp`.
+- Vosk a svíčky: `vceli-vosk.webp`, `motane-svicky.webp`.
+- Včelí oddělky a včelstva: `vyzimovane-vcelstvo.webp`, `vyzimovany-oddelek.webp`,
+  `letni-oddelek.webp`.

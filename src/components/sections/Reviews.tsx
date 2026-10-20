@@ -1,53 +1,177 @@
-import Image from 'next/image';
-import Carousel from '@/components/ui/Carousel';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
+import { site } from '@/lib/content';
 
-const TONES = ['bg-honey-200', 'bg-leaf-100', 'bg-honey-100'];
+type Review = {
+  text: string;
+  rating: number | null;
+  relativeTime: string | null;
+  authorName: string;
+  authorUrl: string | null;
+  authorPhotoUrl: string | null;
+  reviewUrl: string;
+  translated: boolean;
+};
 
-const PLACEHOLDER_REVIEWS = [
-  {
-    text: '„Ukázková recenze — text doplní klient / migrace z Google recenzí po zřízení provozovny. Sem přijde delší, autentický text od spokojeného zákazníka popisující zkušenost s nákupem a kvalitou medu.“',
-  },
-  {
-    text: '„Ukázková recenze — placeholder textu pro layout. Tady bude reálná zkušenost zákazníka, klidně o pár vět delší, ať je vidět, jak bude karta s recenzí vypadat v praxi.“',
-  },
-  {
-    text: '„Ukázková recenze — placeholder textu pro layout. I tahle karta počítá s trochu delším textem, aby náhled recenzí na homepage působil věrohodně a ne prázdně.“',
-  },
-  {
-    text: '„Ukázková recenze — placeholder textu pro layout. Po zřízení provozovny na Google Maps se sem propíšou skutečné recenze i s hodnocením hvězdičkami.“',
-  },
-  {
-    text: '„Ukázková recenze — placeholder textu pro layout. Do té doby tu zůstávají ručně vybrané ukázkové texty, které klient postupně nahradí reálnými ohlasy.“',
-  },
-];
+type ReviewsData = {
+  available: boolean;
+  rating: number | null;
+  count: number;
+  reviews: Review[];
+  reviewsUrl: string | null;
+  attributions: { provider?: string; providerUri?: string }[];
+};
+
+function Stars({ rating }: { rating: number }) {
+  const filled = Math.max(0, Math.min(5, Math.round(rating)));
+  return (
+    <span role="img" aria-label={`${rating} z 5 hvězdiček`} className="whitespace-nowrap text-honey-500">
+      {'★'.repeat(filled)}<span className="text-honey-200">{'★'.repeat(5 - filled)}</span>
+    </span>
+  );
+}
+
+function ReviewCard({ review }: { review: Review }) {
+  const author = (
+    <>
+      {review.authorPhotoUrl ? (
+        // Fotka autora je součástí atribuce poskytnuté Googlem.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={review.authorPhotoUrl}
+          alt=""
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          className="h-9 w-9 shrink-0 rounded-full border border-honey-100 object-cover"
+        />
+      ) : (
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-honey-100 text-sm font-bold text-honey-800">
+          {review.authorName.charAt(0)}
+        </span>
+      )}
+      <span className="min-w-0 truncate text-[13px] font-semibold text-ink">{review.authorName}</span>
+    </>
+  );
+
+  return (
+    <article className="flex w-[min(84vw,340px)] shrink-0 snap-start flex-col rounded-xl border border-border/70 bg-paper-raised p-5 shadow-sm md:w-auto">
+      <div className="flex min-w-0 items-center gap-2.5">
+        {review.authorUrl ? (
+          <a href={review.authorUrl} target="_blank" rel="noopener noreferrer" className="flex min-w-0 items-center gap-2.5 hover:underline">
+            {author}
+          </a>
+        ) : (
+          <div className="flex min-w-0 items-center gap-2.5">{author}</div>
+        )}
+      </div>
+      {review.rating !== null && (
+        <div className="mt-3 text-[14px] leading-none">
+          <Stars rating={review.rating} />
+        </div>
+      )}
+      <p className="mt-3 line-clamp-5 text-[13px] leading-relaxed text-ink-dim">{review.text}</p>
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 pt-4 text-[11.5px] text-ink-dim">
+        <span>{review.relativeTime}{review.translated ? ' · Přeloženo Googlem' : ''}</span>
+        <a href={review.reviewUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-honey-700 hover:underline">
+          Celá recenze ↗
+        </a>
+      </div>
+    </article>
+  );
+}
 
 export default function Reviews() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const requested = useRef(false);
+  const [data, setData] = useState<ReviewsData | null>(null);
+  const mapsUrl = site.reviews.googleMapsUrl;
+  const reviews = data?.available ? data.reviews : [];
+  const reviewsUrl = data?.reviewsUrl ?? mapsUrl;
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const load = () => {
+      if (requested.current) return;
+      requested.current = true;
+      fetch('/api/public/reviews', { cache: 'no-store' })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((result: ReviewsData | null) => {
+          if (result?.available) setData(result);
+        })
+        .catch(() => {});
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      load();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          load();
+        }
+      },
+      { rootMargin: '240px' }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
+    <section ref={sectionRef} id="recenze" className="border-b border-border px-4 py-8 sm:px-6 md:py-12">
       <Reveal className="mx-auto max-w-content">
-        <div className="text-center">
-          <span className="eyebrow">Co říkají zákazníci</span>
-          <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Recenze</h2>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <span className="eyebrow">Co říkají zákazníci</span>
+            <h2 className="mt-1 text-xl font-extrabold md:text-2xl">Recenze</h2>
+          </div>
+          {reviews.length > 0 && (
+            <a href={reviewsUrl} target="_blank" rel="noopener noreferrer" className="text-[13px] font-semibold text-honey-700 hover:underline">
+              Všechny recenze na Google Maps ↗
+            </a>
+          )}
         </div>
 
-        <div className="mt-5">
-          <Carousel>
-            {PLACEHOLDER_REVIEWS.map((review, i) => (
-              <div key={i} className="card w-[calc(100%-48px)] shrink-0 snap-start sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`flex h-[42px] w-12 shrink-0 items-center justify-center ${TONES[i % TONES.length]} [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]`}
-                  >
-                    <Image src="/images/icons/person.svg" alt="" width={18} height={18} className="opacity-70" />
-                  </div>
-                  <div className="text-xs font-semibold text-ink-dim">Jméno zákazníka</div>
-                </div>
-                <p className="mt-3 text-[13px] leading-relaxed text-ink-dim">{review.text}</p>
-              </div>
-            ))}
-          </Carousel>
-        </div>
+        {data?.rating != null && (
+          <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[13px]">
+            <strong className="text-lg text-ink">{data.rating.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</strong>
+            <Stars rating={data.rating} />
+            <span className="text-ink-dim">z {data.count} hodnocení na Google Maps</span>
+          </div>
+        )}
+
+        {reviews.length > 0 ? (
+          <>
+            <div className="no-scrollbar mt-5 flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible">
+              {reviews.map((review, index) => (
+                <ReviewCard key={`${review.authorName}-${index}`} review={review} />
+              ))}
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-ink-dim">
+              Zdroj: <span translate="no" className="whitespace-nowrap font-normal text-[#5e5e5e]">Google Maps</span>. Zobrazeny jsou první tři textové recenze, které Google vrací podle relevance.
+              {data?.attributions?.map((attribution) => (
+                <span key={attribution.provider} className="ml-1">
+                  · {attribution.providerUri ? <a href={attribution.providerUri} target="_blank" rel="noopener noreferrer" className="underline">{attribution.provider}</a> : attribution.provider}
+                </span>
+              ))}
+            </p>
+          </>
+        ) : (
+          <div className="mt-5 rounded-xl border border-honey-100 bg-honey-50/50 px-5 py-5 sm:px-6">
+            <p className="text-[14px] text-ink-dim">
+              Zkušenosti našich zákazníků si můžete přečíst přímo na Google Maps.
+            </p>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex text-[13px] font-semibold text-honey-700 hover:underline">
+              Přejít na recenze ↗
+            </a>
+          </div>
+        )}
       </Reveal>
     </section>
   );

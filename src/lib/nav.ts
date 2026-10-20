@@ -15,7 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: 'Med', href: '/#med' },
       { label: 'Propolis', href: '/#propolis' },
       { label: 'Vosk & svíčky', href: '/#vosk-a-svicky' },
-      { label: 'Oddělky', href: '/#oddelky' },
+      { label: 'Včelí oddělky a včelstva', href: '/#oddelky' },
     ],
   },
   { label: 'Ceník', href: '/#cenik' },

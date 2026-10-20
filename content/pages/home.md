@@ -25,10 +25,10 @@ CTA: [Přečíst celý náš příběh] → odkaz na /o-farme
 
 ## Proč si vybrat med právě od nás (4 karty + statistika)
 
-1. **Rodinná tradice** – Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.
-2. **Vlastní koloběh vosku** – Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.
-3. **Dřevěné úly** – Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a plastovými mezistěnami.
-4. **Šetrná péče o včely** – Včelstva vedeme co nejpřirozenější cestou. Při péči o jejich zdraví volíme šetrné postupy a snažíme se maximálně omezovat látky, které jsou včelám a přírodě cizí, nebo dokonce mohou i včelám škodit.
+1. **Šetrná péče o včely** – Při péči o naše včelstva používáme výhradně organické kyseliny, které se přirozeně vyskytují v přírodě. Vyhýbáme se syntetickým akaricidům a díky šetrnému ošetřování nabízíme med bez reziduí po léčení včelstev.
+2. **Rodinná tradice** – Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.
+3. **Vlastní koloběh vosku** – Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.
+4. **Dřevěné úly** – Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a plastovými mezistěnami.
 
 Statistika/tagline: **Přes 20 let osobních zkušeností**
 
@@ -55,6 +55,6 @@ Prostor pro jednu aktualitu, která se bude měnit (cca 2×/rok – např. zah�
 
 - Ceník jako součást homepage (`/#cenik`)
 - Sekce "O farmě" – teaser (viz výše) s proklikem
-- Recenze zákazníků – zatím ručně vložené, později napojit na Google recenze
+- Recenze zákazníků – živě z Google Maps po nastavení Places API klíče, do té doby přímý odkaz na profil
 - FAQ – zkrácený výběr nejdůležitějších otázek, plná verze na /faq
 - Kontaktní formulář + mapa (Opava-Podvihov)

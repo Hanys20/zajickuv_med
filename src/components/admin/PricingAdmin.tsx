@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Cenik } from '@/lib/content';
 import { cenik as fallbackCenik } from '@/lib/content';
+import { mergePricing } from '@/lib/pricing';
 import { buttonStyle, cardStyle, labelStyle, inputStyle } from './styles';
 
 export default function PricingAdmin() {
@@ -12,14 +13,7 @@ export default function PricingAdmin() {
   useEffect(() => {
     fetch('/api/admin/pricing')
       .then((res) => res.json())
-      .then((data: Partial<Cenik>) =>
-        setCenik({
-          ...fallbackCenik,
-          ...data,
-          waxAndCandles: data.waxAndCandles ?? fallbackCenik.waxAndCandles,
-          nucs: data.nucs ?? fallbackCenik.nucs,
-        })
-      );
+      .then((data: Partial<Cenik>) => setCenik(mergePricing(data, fallbackCenik)));
   }, []);
 
   async function save() {
@@ -129,7 +123,7 @@ export default function PricingAdmin() {
       </div>
 
       <div style={{ ...cardStyle, marginBottom: '1rem' }}>
-        <strong>Včelí oddělky</strong>
+        <strong>Včelí oddělky a včelstva</strong>
         {cenik.nucs.map((row, i) => (
           <label key={row.name} style={labelStyle}>
             {row.name}
