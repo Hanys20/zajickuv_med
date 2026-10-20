@@ -22,13 +22,14 @@ export default function StoryTeaser() {
             </Link>
           </div>
         </div>
-        <div className="relative min-h-[220px] overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:order-1 md:min-h-[300px]">
+        <div className="w-full overflow-hidden rounded-xl border border-honey-900/40 shadow-warm md:order-1">
           <Image
             src="/images/photos/story-rodinna-tradice.jpg"
             alt="Včelař kontroluje rámek se včelami u otevřeného úlu"
-            fill
+            width={1800}
+            height={1200}
             sizes="(min-width: 768px) 45vw, 100vw"
-            className="object-cover"
+            className="h-auto w-full"
           />
         </div>
       </div>

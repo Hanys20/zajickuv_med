@@ -17,7 +17,7 @@ OUTPUT = ROOT / "public" / "images" / "photos"
 PHOTOS = (
     ("jak to celé začalo.jpg", "o-farme-apiary-family.jpg", (1800, 1200), (0.50, 0.50), 1.00),
     ("jak včelaříme.jpg", "jak-vcelarime-honeycomb.jpg", (1600, 1200), (0.62, 0.60), 0.88),
-    ("včelaření po generace.jpg", "story-rodinna-tradice.jpg", (1600, 1200), (0.42, 0.56), 0.92),
+    ("včelaření po generace.jpg", "story-rodinna-tradice.jpg", (1800, 1200), (0.50, 0.50), 1.00),
 )
 
 
