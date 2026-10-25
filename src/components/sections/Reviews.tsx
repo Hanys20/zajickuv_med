@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
+import Carousel from '@/components/ui/Carousel';
 import { site } from '@/lib/content';
 
 type Review = {
@@ -56,7 +57,7 @@ function ReviewCard({ review }: { review: Review }) {
   );
 
   return (
-    <article className="flex w-[min(84vw,340px)] shrink-0 snap-start flex-col rounded-xl border border-border/70 bg-paper-raised p-5 shadow-sm md:w-auto">
+    <article className="flex w-[calc(100%-48px)] shrink-0 snap-start flex-col rounded-xl border border-border/70 bg-paper-raised p-5 shadow-sm sm:w-[calc((100%-70px)/2)] lg:w-[calc((100%-92px)/3)]">
       <div className="flex min-w-0 items-center gap-2.5">
         {review.authorUrl ? (
           <a href={review.authorUrl} target="_blank" rel="noopener noreferrer" className="flex min-w-0 items-center gap-2.5 hover:underline">
@@ -143,25 +144,18 @@ export default function Reviews() {
             <strong className="text-lg text-ink">{data.rating.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</strong>
             <Stars rating={data.rating} />
             <span className="text-ink-dim">z {data.count} hodnocení na Google Maps</span>
+            <span className="text-ink-dim">· Nejrelevantnější podle Google</span>
           </div>
         )}
 
         {reviews.length > 0 ? (
-          <>
-            <div className="no-scrollbar mt-5 flex snap-x snap-mandatory gap-3.5 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible">
+          <div className="mt-3 sm:mt-4">
+            <Carousel>
               {reviews.map((review, index) => (
                 <ReviewCard key={`${review.authorName}-${index}`} review={review} />
               ))}
-            </div>
-            <p className="mt-2 text-xs leading-relaxed text-ink-dim">
-              Zdroj: <span translate="no" className="whitespace-nowrap font-normal text-[#5e5e5e]">Google Maps</span>. Zobrazeny jsou první tři textové recenze, které Google vrací podle relevance.
-              {data?.attributions?.map((attribution) => (
-                <span key={attribution.provider} className="ml-1">
-                  · {attribution.providerUri ? <a href={attribution.providerUri} target="_blank" rel="noopener noreferrer" className="underline">{attribution.provider}</a> : attribution.provider}
-                </span>
-              ))}
-            </p>
-          </>
+            </Carousel>
+          </div>
         ) : (
           <div className="mt-5 rounded-xl border border-honey-100 bg-honey-50/50 px-5 py-5 sm:px-6">
             <p className="text-[14px] text-ink-dim">

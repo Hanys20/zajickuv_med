@@ -117,7 +117,7 @@ async function fetchGoogleReviews(apiKey?: string, placeId?: string): Promise<Re
 
   const reviews = (place.reviews ?? [])
     .filter((review) => Boolean(review.text?.text?.trim() && review.googleMapsUri))
-    .slice(0, 3)
+    .slice(0, 5)
     .map((review) => ({
       text: review.text!.text!,
       rating: review.rating ?? null,

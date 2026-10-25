@@ -22,8 +22,8 @@ Pro místní vývoj lze použít ignorovaný soubor `.dev.vars` s řádkem
 globálně ukládá do D1 na 24 hodin. Atomický zámek dovolí nejvýše jeden pokus o
 volání Google Places za klouzavých 24 hodin, bez ohledu na počet návštěv webu;
 na stejnou dobu se uloží i neúspěšná odpověď. Google vrací nejvýše pět recenzí
-podle relevance. Web z nich zobrazuje první tři s textem, jménem autora, jeho
-atribucí a odkazem na originál.
+podle relevance. Web všech pět zobrazuje v carouselu s textem, jménem autora,
+jeho atribucí a odkazem na originál.
 
 Dokumentace: [Places API (New)](https://developers.google.com/maps/documentation/places/web-service/overview),
 [pravidla atribuce](https://developers.google.com/maps/documentation/places/web-service/policies).
