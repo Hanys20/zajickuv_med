@@ -290,7 +290,7 @@ export default {
         return handlePublicAvailability(env);
       }
       if (url.pathname === '/api/public/reviews' && request.method === 'GET') {
-        return handleGoogleReviews(env.GOOGLE_PLACES_API_KEY, env.GOOGLE_PLACE_ID);
+        return handleGoogleReviews(env.DB, env.GOOGLE_PLACES_API_KEY, env.GOOGLE_PLACE_ID);
       }
 
       if (url.pathname.startsWith('/api/admin/')) {

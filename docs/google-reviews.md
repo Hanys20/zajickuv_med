@@ -18,10 +18,12 @@ nebo Google neodpoví, sekce stále odkazuje na správný profil na Google Maps 
 4. Po nastavení klíče nasazení ověřte na `/api/public/reviews` a na úvodní stránce.
 
 Pro místní vývoj lze použít ignorovaný soubor `.dev.vars` s řádkem
-`GOOGLE_PLACES_API_KEY=...`. Volání API může být účtované. Worker odpovědi
-neukládá; požadavek odesílá až při přiblížení sekce recenzí k obrazovce.
-Google vrací nejvýše pět recenzí podle relevance. Web z nich zobrazuje první tři
-s textem, jménem autora, jeho atribucí a odkazem na originál.
+`GOOGLE_PLACES_API_KEY=...`. Volání API může být účtované. Worker výsledek
+globálně ukládá do D1 na 24 hodin. Atomický zámek dovolí nejvýše jeden pokus o
+volání Google Places za klouzavých 24 hodin, bez ohledu na počet návštěv webu;
+na stejnou dobu se uloží i neúspěšná odpověď. Google vrací nejvýše pět recenzí
+podle relevance. Web z nich zobrazuje první tři s textem, jménem autora, jeho
+atribucí a odkazem na originál.
 
 Dokumentace: [Places API (New)](https://developers.google.com/maps/documentation/places/web-service/overview),
 [pravidla atribuce](https://developers.google.com/maps/documentation/places/web-service/policies).
