@@ -47,7 +47,21 @@ přepsat pomocí `FORMSPREE_ENDPOINT=...`. Next.js dev server sám
 Worker API neobsluhuje. Skutečný endpoint při ručním odeslání odešle skutečný e-mail.
 
 Automatické kontroly používají mock Formspree a nic neodesílají:
-`node --test worker/contact.test.mjs` (Node.js 22.18+).
+`node --test worker/contact.test.mjs worker/contact.runtime.test.mjs` (Node.js 22.18+).
+Runtime test spouští skutečný Workers runtime přes Miniflare s mockovaným Formspree;
+ověřuje přijetí zprávy i odmítnutí přesměrování bez následování cílové adresy.
+
+### Oprava kompatibility s Workers
+
+Původní odesílání používalo `redirect: 'error'`. Cloudflare Workers tento režim
+nepodporuje a vyhodí výjimku ještě před odesláním požadavku. Node.js testy s mockovaným
+`fetch` rozdíl runtime nezachytily. Odesílání nyní používá `redirect: 'manual'`;
+případná odpověď 3xx neprojde kontrolou `response.ok` a nepotvrdí falešný úspěch.
+Regresní runtime test před opravou reprodukoval HTTP 502 se stejnou chybou jako na webu.
+Po opravě prošlo všech sedm kontrol. Oprava je nasazená ve verzi
+`8bb54765-e385-42a2-9655-8417fc400c0e`. Doručení do cílové schránky tímto testem
+ověřené není, protože runtime test používá simulované Formspree.
+Viz [dokumentace Request v Cloudflare Workers](https://developers.cloudflare.com/workers/runtime-apis/request/).
 
 Dokumentace: [odesílání bez přesměrování](https://help.formspree.io/articles/building-your-form/submit-forms-with-javascript-ajax),
 [pole pro odpověď a předmět](https://help.formspree.io/articles/building-your-form/special-fields),

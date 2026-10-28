@@ -74,7 +74,8 @@ export async function handleContact(request: Request, env: ContactEnv): Promise<
       },
       body: JSON.stringify({ name, email, phone, product, message, subject: `Poptávka z webu — ${product}` }),
       signal: AbortSignal.timeout(15_000),
-      redirect: 'error',
+      // Workers does not support 'error'; manual leaves redirects as non-OK responses.
+      redirect: 'manual',
     });
     const result = await response.json().catch(() => null) as { ok?: boolean } | null;
     if (!response.ok || result?.ok !== true) {

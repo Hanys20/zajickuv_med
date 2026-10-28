@@ -22,7 +22,7 @@ test('sends all contact fields and confirms only an accepted submission', async 
     assert.equal(init.method, 'POST');
     assert.equal(init.headers.accept, 'application/json');
     assert.equal(init.headers.origin, 'https://zajickuv-med.cz');
-    assert.equal(init.redirect, 'error');
+    assert.equal(init.redirect, 'manual');
     assert.deepEqual(JSON.parse(init.body), {
       name: 'Jana Nová', email: payload.email, phone: payload.phone,
       product: payload.product, message: payload.message,
