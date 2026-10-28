@@ -2,4 +2,4 @@
 import worker from '../../worker/worker';
 import type { Env } from '../../worker/worker';
 
-export const onRequest: PagesFunction<Env> = ({ request, env }) => worker.fetch(request, env);
+export const onRequest: PagesFunction<Env> = (ctx) => worker.fetch(ctx.request, ctx.env, ctx);

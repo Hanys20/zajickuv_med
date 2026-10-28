@@ -235,6 +235,17 @@ Token má nejvýše 2 048 znaků a je jednorázový. Po každém pokusu se widge
 
 ## Průběh a ochrany
 
+**Zrychlení odezvy (lokálně připraveno 28. 10. 2026):** Worker i Pages předávají
+kontext požadavku do `handleContact`. Po ověření a trvalém uložení zprávy i cílových
+příjemců se vrací HTTP 202; odeslání pokračuje přes `ctx.waitUntil` na pozadí.
+Návštěvník tedy nečeká na e-mailového poskytovatele. Příjemci se zpracovávají souběžně,
+každý s vlastním D1 zámkem a 12sekundovým limitem. Cron dohledá i pending zprávy,
+u kterých se proces přerušil ještě před vytvořením záznamů příjemců. Přerušené
+`sending` a nejasné výsledky se nadále automaticky neopakují. Volání bez kontextu
+počká na dokončení odeslání. Změna nevyžaduje migraci ani nové služby; zatím nenasazena.
+
+[Cloudflare: životní cyklus úloh waitUntil](https://developers.cloudflare.com/workers/runtime-apis/context/)
+
 1. Formulář validuje povinná pole; do získání Turnstile tokenu zůstává odeslání vypnuté.
    Během odesílání jsou pole i tlačítko blokované; stav je přístupný přes aria-busy/status/alert.
 2. `POST /api/contact` povoluje pouze JSON ze stejného originu a povoleného hostname,
@@ -249,7 +260,8 @@ Token má nejvýše 2 048 znaků a je jednorázový. Po každém pokusu se widge
 4. Po úspěšném Siteverify se atomicky uloží zpráva. Stejné submissionId nelze použít
    pro jiný obsah a identický normalizovaný obsah se během 15 minut neukládá znovu.
    Deduplikace i limit fungují v databázi napříč serverless instancemi.
-5. Až potom získá e-mailový pokus atomický D1 zámek a použije pevné serverové From/To.
+5. Před potvrzením se uloží i pending záznamy příjemců; e-mailový pokus pak na pozadí
+   získá atomický D1 zámek a použije pevné serverové From/To.
    HTML je escapované, současně se posílá textová verze, Reply-To návštěvníka a X-Contact-ID.
    Worker používá nativní `send_email` binding; potvrzení s messageId ukládá jako `queued`
    (přijato poskytovatelem, doručení je třeba ověřit). Pages/CLI mohou použít REST alternativu.

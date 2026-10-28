@@ -121,6 +121,12 @@ Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient
 
 ## Vzhled kontaktního e-mailu – nasazeno 2026-10-28
 
+Novější lokální úprava 2026-10-28 zrychluje potvrzení formuláře: Worker a Pages
+předávají kontext do handleContact, HTTP 202 následuje po ověření a uložení zprávy
+i pending příjemců. E-maily běží souběžně přes waitUntil; cron obnoví i pending
+zprávy bez záznamů příjemců. D1 zámky a zákaz opakování nejasných výsledků platí
+nadále. Bez nové migrace; zatím nenasazeno a nebyl odeslán skutečný testovací e-mail.
+
 Následně uživatel výslovně požádal o test na vlastní adresu. Jediný pokus přes nativní remote binding Cloudflare skončil `temporary delivery failure` bez messageId, souběžné workerd síťové chyby. Neopakovat tento pokus naslepo; stav `.wrangler/contact-format-one-email-test.json`. Opakované hledání Gmailu zprávu nenašlo. Náhled stejné šablony s jasně označenými fiktivními údaji byl následně odeslán přes autorizovaný Gmail uživateli samotnému; ID `1a1833d62934bedb`, INBOX potvrzen v odpovědi konektoru. Předmět `TEST vzhledu e-mailu – Zajíčkův med (náhled)`. Tento náhled nepotvrzuje aktuální odesílání přes Cloudflare. Produkční secrets, příjemci, routing ani D1 nebyly při testu změněny.
 
 Novější aktivní verze Workeru je `67804ed1-7402-42c9-81ce-65830f204cc3`, deployment `b3807b1d-a433-46b2-9a90-fd418f5902bb`, 100 % provozu. `formatContactEmail` v `worker/contact.ts` sdílí šablonu pro oba transporty: medové barvy, kontakty, produkt, zpráva se zachovanými řádky, odkaz k odpovědi, datum Europe/Prague a malé ID v patičce. Všechny vložené hodnoty jsou escapované; zůstává textová alternativa i Reply-To. Náhled s fiktivními údaji generuje `node scripts/contact-email-preview.mjs` do `docs/nahled-kontaktniho-emailu.html`. Prošlo 43 kontrol a TypeScript; aktivace, HTTP, zachování routingu, cronu a Google secretu ověřeny. Příjemci zůstávají z předání níže. Žádný nový testovací e-mail neodeslán. Vizuální kontrola browseru byla blokována nástrojem kvůli nemožnosti určit aktuální URL; HTML náhled proto není screenshot z poštovního klienta. Výsledek v `.wrangler/contact-format-result.json`.

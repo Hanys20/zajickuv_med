@@ -334,3 +334,60 @@ test('simultaneous retries claim each pending recipient at most once',async(t)=>
   await Promise.all([sendStoredMessage(db,multi,data.submissionId),sendStoredMessage(db,multi,data.submissionId)]);
   assert.deepEqual(sent.sort(),['first@example.com','second@example.com']);
 });
+
+test('acknowledges durable storage while both email providers are still waiting; duplicate never resends', { timeout: 2000 }, async (t) => {
+  const { env, db, sqlite } = setup(t);
+  const pending = [];
+  const ctx = { waitUntil(task) { pending.push(task); } };
+  const addresses = ['first@example.com', 'second@example.com'];
+  const sends = [];
+  let release;
+  const provider = new Promise((resolve) => { release = resolve; });
+  let bothStarted;
+  const started = new Promise((resolve) => { bothStarted = resolve; });
+  t.after(async () => { release(); await Promise.all(pending); });
+  const multi = { ...env, CONTACT_TO_EMAIL: JSON.stringify(addresses), CONTACT_EMAIL: {
+    async send(mail) {
+      sends.push(mail.to);
+      if (sends.length === addresses.length) bothStarted();
+      await provider;
+      return { messageId: `<${mail.to}>` };
+    },
+  } };
+  const data = payload();
+  const response = await handleContact(request(data), multi, ctx);
+  assert.equal(response.status, 202);
+  assert.equal((await response.json()).accepted, true);
+  assert.equal(pending.length, 1);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM contact_messages').get().n, 1);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM contact_deliveries').get().n, 2);
+  await started; // Both sends start even while the first provider response is still blocked.
+  assert.deepEqual(sends.sort(), addresses);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM contact_deliveries WHERE delivery_status=\'sending\'').get().n, 2);
+  const duplicate = await handleContact(request({ ...data, turnstileToken: crypto.randomUUID() }), multi, ctx);
+  assert.equal(duplicate.status, 200);
+  assert.equal((await duplicate.json()).duplicate, true);
+  release();
+  await Promise.all(pending);
+  assert.equal(sqlite.prepare('SELECT delivery_status FROM contact_messages').get().delivery_status, 'queued');
+  await retryPendingMessages(db, multi);
+  assert.equal(sends.length, 2);
+});
+
+test('does not acknowledge before destination storage; cron recovers a message interrupted before queuing', async (t) => {
+  let fail = true;
+  const { env, db, sqlite, calls } = setup(t, {
+    failSql: (sql) => fail && sql.startsWith('INSERT INTO contact_deliveries'),
+  });
+  const pending = [];
+  const response = await handleContact(request(), env, { waitUntil(task) { pending.push(task); } });
+  assert.equal(response.status, 503);
+  assert.equal(pending.length, 0);
+  assert.equal(calls.email, 0);
+  assert.equal(sqlite.prepare('SELECT delivery_status FROM contact_messages').get().delivery_status, 'pending');
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM contact_deliveries').get().n, 0);
+  fail = false;
+  await retryPendingMessages(db, env);
+  assert.equal(calls.email, 1);
+  assert.equal(sqlite.prepare('SELECT delivery_status FROM contact_messages').get().delivery_status, 'sent');
+});

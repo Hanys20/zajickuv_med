@@ -23,6 +23,10 @@ export interface StoredMessage {
   delivery_status: string;
 }
 
+export interface ContactContext {
+  waitUntil(promise: Promise<unknown>): void;
+}
+
 const WINDOW = 15 * 60;
 const RETENTION = 90 * 24 * 60 * 60;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -233,6 +237,13 @@ async function sendToRecipient(db: D1Database, env: ContactEnv, row: StoredMessa
   return status;
 }
 
+async function prepareMessageDeliveries(db: D1Database, recipients: string[], id: string): Promise<void> {
+  const existing = await db.prepare('SELECT message_id FROM contact_deliveries WHERE message_id=? LIMIT 1').bind(id).first();
+  if (!existing) await db.batch(recipients.map((recipient) => db.prepare(`INSERT INTO contact_deliveries(message_id,recipient)
+    SELECT ?,? WHERE EXISTS (SELECT 1 FROM contact_messages WHERE id=? AND delivery_status='pending')
+    ON CONFLICT(message_id,recipient) DO NOTHING`).bind(id,recipient,id)));
+}
+
 export async function sendStoredMessage(db: D1Database, env: ContactEnv, id: string): Promise<string> {
   if (!emailConfigured(env)) throw new Error('Email configuration is incomplete');
   const recipients = contactRecipients(env);
@@ -241,18 +252,14 @@ export async function sendStoredMessage(db: D1Database, env: ContactEnv, id: str
   if (!row) return 'skipped';
   // Legacy accepted/ambiguous messages are not copied to new recipients during upgrades.
   if (row.delivery_status === 'pending') {
-    const existing = await db.prepare('SELECT message_id FROM contact_deliveries WHERE message_id=? LIMIT 1').bind(id).first();
-    if (!existing) await db.batch(recipients.map((recipient) => db.prepare(`INSERT INTO contact_deliveries(message_id,recipient)
-      SELECT ?,? WHERE EXISTS (SELECT 1 FROM contact_messages WHERE id=? AND delivery_status='pending')
-      ON CONFLICT(message_id,recipient) DO NOTHING`).bind(id,recipient,id)));
+    await prepareMessageDeliveries(db, recipients, id);
   }
-  let attempted = false;
-  for (const recipient of recipients) {
-    // Each destination is isolated: a pending/unverified destination cannot block another.
-    try { if (await sendToRecipient(db,env,row,recipient) !== 'skipped') attempted = true; }
-    catch { console.error('contact_recipient_state_unconfirmed', id); }
-  }
-  if (!attempted) return 'skipped';
+  // Independent sends run together, keeping even five 12s timeouts within waitUntil's 30s window.
+  const results = await Promise.all(recipients.map(async (recipient) => {
+    try { return await sendToRecipient(db,env,row,recipient); }
+    catch { console.error('contact_recipient_state_unconfirmed', id); return 'skipped'; }
+  }));
+  if (results.every((result) => result === 'skipped')) return 'skipped';
   return (await db.prepare('SELECT delivery_status FROM contact_messages WHERE id=?').bind(id)
     .first<{delivery_status:string}>())?.delivery_status ?? 'uncertain';
 }
@@ -263,9 +270,10 @@ export async function retryPendingMessages(db: D1Database, env: ContactEnv): Pro
   const recipients = contactRecipients(env);
   // Two messages keep the invocation within Workers Free subrequest limits.
   const rows = await db.prepare(`SELECT m.id FROM contact_messages m WHERE m.created_at>?
-    AND EXISTS (SELECT 1 FROM contact_deliveries d WHERE d.message_id=m.id AND d.delivery_status='pending'
+    AND ((m.delivery_status='pending' AND NOT EXISTS (SELECT 1 FROM contact_deliveries d WHERE d.message_id=m.id))
+    OR EXISTS (SELECT 1 FROM contact_deliveries d WHERE d.message_id=m.id AND d.delivery_status='pending'
       AND d.recipient IN (${recipients.map(() => '?').join(',')})
-      AND (d.attempted_at IS NULL OR d.attempted_at<=?)) ORDER BY m.created_at LIMIT 2`)
+      AND (d.attempted_at IS NULL OR d.attempted_at<=?))) ORDER BY m.created_at LIMIT 2`)
     .bind(now-RETENTION,...recipients,now-WINDOW).all<{id:string}>();
   for (const row of rows.results) await sendStoredMessage(db,env,row.id);
 }
@@ -277,7 +285,7 @@ export async function cleanupContact(db: D1Database, now = Math.floor(Date.now()
   ]);
 }
 
-export async function handleContact(request: Request, env: ContactEnv): Promise<Response> {
+export async function handleContact(request: Request, env: ContactEnv, ctx?: ContactContext): Promise<Response> {
   if (request.method !== 'POST') return json({ error: 'Použijte POST.' }, 405, { Allow: 'POST' });
   const url = new URL(request.url);
   if (!allowedHosts(env).includes(url.hostname) || request.headers.get('origin') !== url.origin ||
@@ -346,9 +354,14 @@ export async function handleContact(request: Request, env: ContactEnv): Promise<
       if (existing.fingerprint !== fingerprint) return json({ error: 'Formulář se změnil. Obnovte stránku a odešlete jej znovu.' }, 409);
       return json({ ok: true, accepted: true, duplicate: true, id: existing.id }, 200);
     }
-    // All checks passed; the message is durable before the first email attempt.
-    try { await sendStoredMessage(db, env, id); }
-    catch { console.error('contact_delivery_state_unconfirmed', id); }
+    // Persist both the message and pending destinations before acknowledging it.
+    // The cron can recover pending work even if background execution is interrupted.
+    await prepareMessageDeliveries(db, contactRecipients(env), id);
+    const delivery = sendStoredMessage(db, env, id).catch(() => {
+      console.error('contact_delivery_state_unconfirmed', id);
+    });
+    if (ctx) ctx.waitUntil(delivery);
+    else await delivery; // Standalone callers without a request lifecycle must await the work.
     return json({ ok: true, accepted: true, id }, 202);
   } catch {
     console.error('contact_storage_or_request_failure');

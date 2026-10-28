@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { stripTypeScriptTypes } from 'node:module';
 import { test } from 'node:test';
+import { setTimeout as delay } from 'node:timers/promises';
 import { createFetchMock, Miniflare } from 'miniflare';
 
 const source = await readFile(new URL('./contact.ts', import.meta.url), 'utf8');
@@ -39,11 +40,21 @@ async function setup(t, emailReply = { success: true, result: { delivered: ['own
   return { runtime, db, data, submit };
 }
 
+async function waitForDelivery(db, expected) {
+  for (let i = 0; i < 200; i++) {
+    const row = await db.prepare('SELECT delivery_status, attempts FROM contact_messages').first();
+    if (row?.delivery_status === expected && row.attempts > 0) return;
+    await delay(10);
+  }
+  assert.fail(`Background delivery did not reach ${expected}`);
+}
+
 test('Workers runtime: concurrent identical messages produce one durable record and one send claim', async (t) => {
   const { db, submit } = await setup(t);
   const responses = await Promise.all(Array.from({ length: 3 }, () => submit()));
   assert.deepEqual(responses.map((r) => r.status).sort(), [200, 200, 202]);
   for (const response of responses) assert.equal((await response.json()).accepted, true);
+  await waitForDelivery(db, 'sent');
   const rows = await db.prepare('SELECT * FROM contact_messages').all();
   assert.equal(rows.results.length, 1);
   assert.equal(rows.results[0].attempts, 1);
@@ -65,6 +76,7 @@ test('Workers runtime: a rejected email remains pending, provider redirects stay
       const { db, submit } = await setup(st, { success: false }, status);
       const response = await submit();
       assert.equal(response.status, 202);
+      await waitForDelivery(db, status === 403 ? 'pending' : 'uncertain');
       assert.equal((await db.prepare('SELECT delivery_status FROM contact_messages').first()).delivery_status, status === 403 ? 'pending' : 'uncertain');
     });
   }

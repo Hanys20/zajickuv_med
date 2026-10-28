@@ -1,6 +1,6 @@
 import { handleGoogleReviews } from './googleReviews';
 import { cleanupContact, handleContact, handleContactConfig, retryPendingMessages } from './contact';
-import type { ContactEnv } from './contact';
+import type { ContactContext, ContactEnv } from './contact';
 import { ADDITIONAL_PRODUCTS } from '../src/lib/additionalProducts';
 import currentPricing from '../content/pricing/cenik.json';
 import { mergePricing } from '../src/lib/pricing';
@@ -262,7 +262,7 @@ export default {
       await retryPendingMessages(env.CONTACT_DB, env);
     }
   },
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx?: ContactContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (!url.pathname.startsWith('/api/')) {
@@ -274,7 +274,7 @@ export default {
         return handleContactConfig(request, env);
       }
       if (url.pathname === '/api/contact') {
-        return handleContact(request, env);
+        return handleContact(request, env, ctx);
       }
       if (url.pathname === '/api/auth/login' && request.method === 'POST') {
         return handleLogin(request, env);
