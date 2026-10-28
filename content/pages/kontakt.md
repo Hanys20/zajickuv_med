@@ -20,7 +20,7 @@ Na hlavní adrese (Opava-Podvihov) je možné si med vyzvednout. Provozovna Zaj
 Med je také možné zakoupit (vždy na objednávku) u:
 - **Kozí farma Magdaléna** – Renata Vajdová, Hlavní 203, 747 91 Štítina
 
-Po dohodě lze med dovézt na určené místo v Opavě a okolí a také ve Studénce.
+Po dohodě lze med dovézt na určené místo v Opavě a okolí, ve Studénce a Bílovci.
 
 ## Kontaktní formulář (požadavky na strukturu)
 

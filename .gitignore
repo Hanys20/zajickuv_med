@@ -2,10 +2,12 @@ node_modules/
 .next/
 out/
 .env
+.env.*
 .env.local
 .env*.local
 .dev.vars
 .dev.vars.*
+!.dev.vars.example
 .vercel/
 .wrangler/
 .DS_Store

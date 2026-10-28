@@ -5,7 +5,7 @@ zpracované – oříznuté na web. rozměry, komprimované, zbavené EXIF metad
 
 - `o-farme-apiary-family.webp` — sekce "Jak to celé začalo" na `/o-farme`
 - `jak-vcelarime-honeycomb.webp` — sekce "Jak včelaříme" na `/o-farme`
-- `story-rodinna-tradice.webp` — sekce "Náš příběh" na homepage
+- `story-rodinna-tradice.webp` — sekce "Náš příběh" na homepage; zdroj `Včelaření po generace nová.jpg` (aktualizováno 2026-10-28)
 - `hero-beekeeper-apiary.jpg` — **momentálně nepoužitá** (hero od 2026-07-22 používá
   watercolor ilustraci místo fotky, viz `../watercolor/CREDITS.md`), soubor
   zůstává pro případné budoucí využití.

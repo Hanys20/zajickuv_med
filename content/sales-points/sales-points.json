@@ -10,8 +10,9 @@
   "delivery": {
     "areas": [
       "Opava",
-      "Studénka"
+      "Studénka",
+      "Bílovec"
     ],
-    "note": "Po dohodě je možné domluvit rozvoz po Opavě a Studénce."
+    "note": "Po dohodě je možné domluvit rozvoz po Opavě, Studénce a Bílovci."
   }
 }

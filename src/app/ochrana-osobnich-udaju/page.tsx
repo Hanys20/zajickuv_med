@@ -58,10 +58,12 @@ export default function PrivacyPage() {
               <li>obsah zprávy a vybraný produkt.</li>
             </ul>
             <p>
-              Po stisknutí tlačítka Odeslat poptávku jsou údaje předány přes server webu službě
-              Formspree, která zajišťuje jejich přijetí a doručení do naší e-mailové schránky.
-              Server webu obsah poptávky neukládá do databáze. Zpráva může být uložena ve službě
-              Formspree a v našich e-mailových schránkách pro vyřízení poptávky.
+              Po stisknutí tlačítka Odeslat poptávku server zprávu ověří, uloží do chráněné databáze
+              Cloudflare D1 a předá službě Cloudflare Email Service k doručení do naší schránky.
+              Záložní záznamy mají retenční dobu 90 dnů; starší záznamy odstraňuje pravidelná denní úloha.
+              Pro ochranu před spamem používáme Cloudflare Turnstile a krátkodobý identifikátor
+              odvozený z IP adresy pomocí tajného klíče. Čitelnou IP adresu do databáze formuláře neukládáme;
+              identifikátory pokusů jsou odstraňovány při pravidelném úklidu po skončení 15minutového omezení.
             </p>
           </Section>
 
@@ -76,11 +78,11 @@ export default function PrivacyPage() {
 
           <Section title="Komu údaje předáváme">
             <p>
-              Při odeslání formuláře údaje zpracovávají poskytovatel hostingu a přesměrování pošty
-              Cloudflare, služba Formspree, Inc. a poskytovatelé našich e-mailových schránek.
-              Formspree může údaje zpracovávat také v USA. Podrobnosti uvádí{' '}
-              <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" className="underline hover:text-honey-700">
-                zásady ochrany soukromí Formspree
+              Při odeslání formuláře údaje zpracovává Cloudflare (hosting, databáze, ochrana před
+              spamem a doručování pošty) a poskytovatel naší e-mailové schránky.
+              Podrobnosti o zpracování technických údajů při bezpečnostním ověření uvádí{' '}
+              <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="underline hover:text-honey-700">
+                zásady ochrany soukromí Cloudflare
               </a>. Více o cookies a technických datech spojených s provozem webu najdete v{' '}
               <a className="underline hover:text-honey-700" href="/cookies">
                 zásadách používání cookies

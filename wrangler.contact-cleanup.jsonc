@@ -1,0 +1,16 @@
+{
+  "name": "zajickuv-med-contact-cleanup",
+  "account_id": "8313a099897f0a59a1e2248e3584daf3",
+  "main": "worker/contact-cleanup.ts",
+  "compatibility_date": "2026-07-21",
+  "workers_dev": false,
+  "triggers": { "crons": ["17 2 * * *"] },
+  "d1_databases": [
+    {
+      "binding": "CONTACT_DB",
+      "database_name": "zajickuv-med-contact",
+      "database_id": "9d3b249d-a2f3-427c-b822-587d7a6eacb4",
+      "migrations_dir": "migrations/contact"
+    }
+  ]
+}

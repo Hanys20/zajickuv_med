@@ -32,7 +32,7 @@ Podrobné Q&A a otevřené úkoly směrem ke klientovi: [client-materials/qa-kli
   - **Editovatelné jen:** aktuality (web vždy zobrazí nejnovější podle data), dostupnost medů i ostatních produktů (skladem/vyprodáno), ceny v ceníku (jen částky – velikosti/názvy needitovatelné). Nic jiného klient přes admin needituje.
   - **Zabezpečení je záměrně odlehčené** – klientovo rozhodnutí, na webu nejsou citlivá data: žádné 2FA, rate limiting ani reset hesla e-mailem. Hash hesla + httpOnly cookie je bráno jako nutné minimum (aby šel web triviálně "zdefacovat"), ne jako "extra" bezpečnost navíc.
   - Ostatní obsah (texty stránek, popisy produktů, FAQ, prodejní místa, nastavení) zůstává v `content/` a edituje se přímo v repozitáři – viz sekce Obsah níže.
-- **Databáze:** Cloudflare D1 (`zajickuv-med-admin`, `database_id` v `wrangler.jsonc`). Schéma v `worker/schema.sql`, výchozí data pro lokální vývoj v `worker/seed.sql` (`npx wrangler d1 execute zajickuv-med-admin --local --file=worker/schema.sql` a stejně pro seed.sql).
+- **Databáze:** Cloudflare D1 (`zajickuv-med-admin`, `database_id` v `wrangler.worker.jsonc`). Schéma v `worker/schema.sql`, výchozí data pro lokální vývoj v `worker/seed.sql` (`npx wrangler d1 execute zajickuv-med-admin --local --file=worker/schema.sql` a stejně pro seed.sql).
 - **Hosting:** Cloudflare Workers (statické assety z `out/` + Worker skript), nasazeno přes `npx wrangler deploy` (vyžaduje `wrangler login`). Aktuálně běží na testovací `zajickuv-med.jan-kielkovsky.workers.dev` – napojení na `zajickuv-med.cz` čeká na přístupy od GDstudio (viz Kontakty výše). **Nepoužívat Cloudflare Pages** – existoval k tomu automaticky napojený (Git integrace) Pages projekt `zajickuv-med.pages.dev`, který se přebuildovával při každém pushi, ale servíroval jen statický web bez Worker API/D1 (přihlášení do `/admin` tam nefungovalo). 2026-07-21 jsme ho smazali, ať nevzniká matoucí druhá "poloviční" URL – jediná živá adresa je ta workers.dev výše.
 - **Repozitář:** GitHub (`Hanys20/zajickuv_med`), `main` branch.
 - **Styling:** Tailwind CSS, prozatímní medová paleta.
@@ -49,7 +49,7 @@ Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, ote
 
 Zbývá:
 1. Získat přístupy k doméně `zajickuv-med.cz` od GDstudio (Radim Steuer) a přesměrovat DNS na nasazený Cloudflare Worker.
-2. Kontaktní formulář odesílá přes `POST /api/contact` do Formspree bez přesměrování. Worker binding `FORMSPREE_ENDPOINT` je nastavený v `wrangler.jsonc` na majitelem dodanou adresu `https://formspree.io/f/xzeegrzk` (2026-10-28). Zbývá ověřit doručení do cílové schránky; postup viz `docs/contact-form.md`.
+2. Kontaktní formulář je aktivní přes `POST /api/contact`, nativní Cloudflare send_email binding, Turnstile a CONTACT_DB. Po požadovaném předání dvěma klientským příjemcům běží verze `676a0c9b-2c87-4c84-b161-7a2f52df319d`, každý příjemce má vlastní stav v D1. info@ vede přes samostatný email Worker. Renata je ověřená, Pavel čekal na potvrzení. Vývojář již není příjemcem. Cron úklidu/retry je každých 15 minut; detaily viz `docs/predani-emailu-klientovi.md`.
 3. Doladit barevnou paletu, jakmile klient dodá finální design.
 4. Nastavit trvalé přihlašovací údaje do `/admin` pro Pavla (aktuální jsou vygenerované testovací, heslo v plaintextu není nikde v repozitáři).
 
@@ -116,5 +116,41 @@ Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient
 
 1. Získat přístupy k doméně a DNS od GDstudio, napojit `zajickuv-med.cz` na nasazený Cloudflare Worker (viz Tech stack a Stav scaffoldingu výše).
 2. Až dorazí finální design inspirace od klienta → doladit barevnou paletu.
-3. Ověřit doručení kontaktního formuláře přes Formspree a Cloudflare Email Routing do cílové schránky (viz `docs/contact-form.md`); endpoint je nastavený v `wrangler.jsonc`.
+3. Nakonfigurovat nový Cloudflare kontaktní formulář podle `docs/contact-form.md`, ověřit skutečný hosting a po schválení nasazení/testovacího e-mailu ověřit doručení. Stávající Email Routing ani DNS se nemění.
 4. Nastavit klientovi trvalé přihlašovací údaje do `/admin` (aktuální jsou testovací/vygenerované).
+
+## Vzhled kontaktního e-mailu – nasazeno 2026-10-28
+
+Následně uživatel výslovně požádal o test na vlastní adresu. Jediný pokus přes nativní remote binding Cloudflare skončil `temporary delivery failure` bez messageId, souběžné workerd síťové chyby. Neopakovat tento pokus naslepo; stav `.wrangler/contact-format-one-email-test.json`. Opakované hledání Gmailu zprávu nenašlo. Náhled stejné šablony s jasně označenými fiktivními údaji byl následně odeslán přes autorizovaný Gmail uživateli samotnému; ID `1a1833d62934bedb`, INBOX potvrzen v odpovědi konektoru. Předmět `TEST vzhledu e-mailu – Zajíčkův med (náhled)`. Tento náhled nepotvrzuje aktuální odesílání přes Cloudflare. Produkční secrets, příjemci, routing ani D1 nebyly při testu změněny.
+
+Novější aktivní verze Workeru je `67804ed1-7402-42c9-81ce-65830f204cc3`, deployment `b3807b1d-a433-46b2-9a90-fd418f5902bb`, 100 % provozu. `formatContactEmail` v `worker/contact.ts` sdílí šablonu pro oba transporty: medové barvy, kontakty, produkt, zpráva se zachovanými řádky, odkaz k odpovědi, datum Europe/Prague a malé ID v patičce. Všechny vložené hodnoty jsou escapované; zůstává textová alternativa i Reply-To. Náhled s fiktivními údaji generuje `node scripts/contact-email-preview.mjs` do `docs/nahled-kontaktniho-emailu.html`. Prošlo 43 kontrol a TypeScript; aktivace, HTTP, zachování routingu, cronu a Google secretu ověřeny. Příjemci zůstávají z předání níže. Žádný nový testovací e-mail neodeslán. Vizuální kontrola browseru byla blokována nástrojem kvůli nemožnosti určit aktuální URL; HTML náhled proto není screenshot z poštovního klienta. Výsledek v `.wrangler/contact-format-result.json`.
+
+## Kontaktní formulář – lokální implementace 2026-10-28
+
+Na výslovnou žádost uživatele je připravena také varianta Pages Functions. Standardní `wrangler.jsonc` je nyní pro Pages (CLI nepodporuje vlastní cestu konfigurace Pages); původní konfigurace Workeru je v `wrangler.worker.jsonc`. Skripty `npm run deploy` a `worker:dev` nadále používají původní Worker výslovným --config. Historické rozhodnutí výše nepoužívat Pages popisuje předchozí stav; nová varianta je autorizovaná aktuálním zadáním. Skutečný hosting domény je nutné ověřit v účtu. Žádný deploy, produkční migrace, změny DNS/routingu ani skutečný testovací e-mail v této implementaci neproběhly. Samostatné příkazy wrangler dev/deploy/secret pro původní Worker nyní vyžadují `--config wrangler.worker.jsonc`.
+
+Kontakt je na homepage i /kontakt ve stejné komponentě. Secrets/cílová schránka zůstávají serverové; veřejný endpoint vrací jen Turnstile Site Key. CLI `scripts/contact-manage.mjs` nabízí list/show/retry/resolve/cleanup bez veřejného adminu. Zprávy s nejasným výsledkem (timeout/pád po odeslání) se slepě znovu neposílají. Pages vyžaduje samostatný retenční cron Worker nebo plánované CLI cleanup; hlavní Worker má vlastní daily cron. Backend má automatické kontroly; browser UI kontrola nebyla dostupná kvůli blokaci URL kontroly nástroje.
+
+### Příprava účtu po autorizovaném přihlášení (2026-10-28)
+
+Skutečný hosting byl ověřen přes API: domény zajickuv-med.cz a www.zajickuv-med.cz obsluhuje Worker zajickuv-med. Stávající info@ routing je aktivní a cíl je ověřený. Nová kontaktní D1 zajickuv-med-contact má ID 9d3b249d-a2f3-427c-b822-587d7a6eacb4; první migrace byla aplikována pouze na tuto novou databázi. Je vytvořen Managed Turnstile widget pro oba hostname. Veřejné hodnoty a D1 bindingy jsou v konfiguraci; tři soukromé runtime hodnoty jsou pouze v ignorovaném .wrangler/contact-runtime-secrets.json. Nikdy nevypisovat ani commitovat.
+
+Pro skutečný Worker je přidán nativní CONTACT_EMAIL send_email binding, který odesílá strukturovaný e-mail na ověřenou cílovou adresu bez API tokenu. REST varianta zůstává pro Pages a lokální správcovský retry (ten samostatný token vyžaduje). Nové odpovědi bindingu mají stav queued a provider messageId; timeout a nejasné výsledky se nikdy slepě neopakují. Prošlo 35 backend kontrol s mocky. Produkční aktivace ani skutečný testovací e-mail nejsou autorizované; DNS a Email Routing se nemění.
+
+Do Cloudflare je nahrána neaktivní verze `6f53627c-5657-4934-bad0-1db6a5731b5b` (contact-ready) včetně tří secrets. Produkce byla po uploadu ověřena beze změny (deployment `0de95443-bcb7-44f5-9bab-e78e367ecb94`), stejně jako email routing a zachování původního Google API secretu v kandidátu. Kontaktní DB je prázdná. Celkem 35 backend kontrol + 1 integrační Pages test prošlo. Retenční cron musí být po schválení aktivován samostatně, ideálně jen přes Worker schedules API, aby se neměnily domény/routing. Stav v `.wrangler/contact-release.json`.
+
+### Produkční aktivace a ověření po souhlasu uživatele (2026-10-28)
+
+Aktuální nastavení příjemců a postup předání jsou v `docs/predani-emailu-klientovi.md`. Routing a formulář jsou nezávislé; nyní oba podporují dva klientské příjemce přes secrets. Viz novější záznam předání níže; starší popis jediného příjemce již neplatí.
+
+Uživatel schválil aktivaci i jeden testovací e-mail zprávou „Ok zkus to“. Verze `6f53627c-5657-4934-bad0-1db6a5731b5b` byla aktivována na 100 % (deployment `e6923f08-ce6e-45df-8998-24657114b856`). Cron `17 2 * * *` byl zapnut pouze přes Worker schedules API. HTTP kontroly webu/API prošly včetně odmítnutí neplatného Turnstile tokenu (403) a GET kontaktu (405).
+
+Jeden označený test e-mailu byl uložen do D1 a odeslán stejnou sendStoredMessage funkcí přes oficiální getPlatformProxy s remote bindingy, bez veřejného test endpointu a bez oslabení antispamu. Záznam `4bb9dda3-40ba-4806-b61b-c3760c80594a`, jeden pokus. Připojený Gmail potvrdil zprávu v INBOX dle konkrétního Message-ID a X-Contact-ID; SPF i DKIM pass, multipart/alternative a Reply-To ověřené v metadatech. Po potvrzení je D1 stav sent. Nešlo o pozitivní browser průchod Turnstile; ten zůstává samostatnou UI kontrolou. DNS a routing rules byly po dokončení ověřeny beze změn. Žádný další testovací e-mail neodesílat bez další autorizace. Stav v `.wrangler/contact-live-state.json` a `.wrangler/contact-one-email-test.json`.
+
+### Předání dvěma klientským příjemcům (2026-10-28)
+
+Uživatel výslovně požádal o nasazení doručování pro Renatu a Pavla a odebrání své adresy. Oba seznamy jsou jako JSON secrets: CONTACT_TO_EMAIL u hlavního Workeru a FORWARD_TO_EMAILS u zajickuv-med-email-forward. Přesné adresy jsou pouze v Cloudflare a ignorovaných lokálních secrets souborech. Renata byla ověřená, Pavel v době předání pending; musí sám potvrdit ověřovací e-mail. Po potvrzení se nové zprávy automaticky doručují i jemu. Není potřeba další změna konfigurace.
+
+Webová verze 676a0c9b-2c87-4c84-b161-7a2f52df319d běží na 100 procent (deployment 182c0545-5a13-41c8-9944-ea35b8d49807). Nová migrace 0002_recipient_deliveries.sql sleduje doručení samostatně, zabraňuje duplicitám úspěšného příjemce a izoluje nejasné výsledky. Cron */15 * * * * provádí úklid a retry jen pending kopií aktuálních příjemců, nejvýše dvě zprávy za běh. info@ pravidlo d883e1fa82e84dac8fc7c527e44c3c43 nyní směřuje na zajickuv-med-email-forward; source worker/email-forward.ts, config wrangler.email-forward.jsonc, verze ab24335b-d53b-4fe9-b741-0aa936a24e18. Jeho forwardy jsou nezávislé, neověřený cíl neblokuje ověřený. Starší běžná pošta se zpětně nedoposílá.
+
+Vývojářova adresa již není v aktivních cílech tohoto webu; jeho account-wide Destination Address nebyla odstraněna. Catch-all, ostatní pravidla a DNS nebyly změněny. Google secret zachován. Prošlo 43 backend/forwarding kontrol a 1 Pages integrační test; produkční HTTP kontroly prošly. Nebyly odeslány žádné nové skutečné testovací e-maily klientům. Výsledek v .wrangler/contact-handover-result.json, aktuální návod docs/predani-emailu-klientovi.md.

@@ -1,0 +1,33 @@
+{
+  "name": "zajickuv-med",
+  "account_id": "8313a099897f0a59a1e2248e3584daf3",
+  "compatibility_date": "2026-07-21",
+  "main": "worker/worker.ts",
+  "vars": {
+    "CONTACT_ALLOWED_HOSTNAMES": "zajickuv-med.cz,www.zajickuv-med.cz",
+    "CONTACT_FROM_EMAIL": "info@zajickuv-med.cz",
+    "CF_ACCOUNT_ID": "8313a099897f0a59a1e2248e3584daf3",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFpobHTQDqmVw-NJ"
+  },
+  "triggers": { "crons": ["*/15 * * * *"] },
+  "send_email": [{ "name": "CONTACT_EMAIL" }],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "zajickuv-med-admin",
+      "database_id": "7bed0fbd-063f-4202-be5b-1d4d7af43c40"
+    },
+    {
+      "binding": "CONTACT_DB",
+      "database_name": "zajickuv-med-contact",
+      "database_id": "9d3b249d-a2f3-427c-b822-587d7a6eacb4",
+      "migrations_dir": "migrations/contact"
+    }
+  ]
+}

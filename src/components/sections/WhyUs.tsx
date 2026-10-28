@@ -18,7 +18,7 @@ const CARDS = [
   {
     icon: '/images/icons/honeycomb-alt.svg',
     title: 'Vlastní koloběh vosku',
-    text: 'Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.',
+    text: 'Používáme vosk výhradně z našich včelstev a mezistěny si vyrábíme sami. Známe tak jeho původ i složení. Vosk neředíme parafínem ani oleji a při ošetřování včelstev nepoužíváme syntetické akaricidy, které mohou ve vosku zanechávat rezidua.',
     tone: 'bg-leaf-100 border-leaf-300',
   },
   {

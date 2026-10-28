@@ -1,0 +1,9 @@
+# Copy to ignored .dev.vars; use ONLY local/test credentials here.
+CONTACT_ALLOWED_HOSTNAMES="localhost,127.0.0.1"
+TURNSTILE_SITE_KEY=""
+TURNSTILE_SECRET_KEY=""
+CONTACT_HASH_SECRET=""
+CF_ACCOUNT_ID=""
+CF_EMAIL_API_TOKEN=""
+CONTACT_TO_EMAIL=""
+CONTACT_FROM_EMAIL="info@zajickuv-med.cz"

@@ -7,8 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "worker:dev": "wrangler dev",
-    "deploy": "next build && wrangler deploy"
+    "worker:dev": "wrangler dev --config wrangler.worker.jsonc",
+    "test:contact": "node --test worker/contact.test.mjs worker/contact.runtime.test.mjs worker/email-forward.test.mjs",
+    "test:pages": "wrangler pages functions build --outdir .wrangler/contact-pages-build && node --test worker/pages.runtime.test.mjs",
+    "check:worker": "tsc -p worker/tsconfig.json",
+    "contact:manage": "node scripts/contact-manage.mjs",
+    "pages:dev": "wrangler pages dev out",
+    "deploy": "next build && wrangler deploy --config wrangler.worker.jsonc"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

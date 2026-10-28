@@ -58,7 +58,7 @@ export default function Footer() {
         <div>
           <h4 className="mb-2.5 text-[11px] font-bold uppercase tracking-wide text-honey-300">Kde nás najdete</h4>
           <p className="mb-3 text-honey-50/75">
-            Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy a Studénky.
+            Vyzvednutí v Opavě-Podvihově, prodej u Kozí farmy Magdaléna (Štítina), rozvoz do Opavy, Studénky a Bílovce.
           </p>
           <Link href="/kontakt" className="btn btn-invert !hidden !px-4 !py-2 !text-[12.5px] md:!inline-flex">
             Mám zájem

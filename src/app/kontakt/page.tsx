@@ -7,7 +7,7 @@ import { salesPoints } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'Kontakt',
   description:
-    'Kontaktujte Zajíčkův med v Opavě-Podvihově — objednávka medu, telefon, WhatsApp, prodejní místa a rozvoz do Opavy a Studénky.',
+    'Kontaktujte Zajíčkův med v Opavě-Podvihově — objednávka medu, telefon, WhatsApp, prodejní místa a rozvoz do Opavy, Studénky a Bílovce.',
 };
 
 export default function KontaktPage() {
@@ -53,7 +53,7 @@ export default function KontaktPage() {
                   <Image src="/images/icons/car.svg" alt="" width={17} height={17} />
                 </span>
                 <div>
-                  <strong className="text-[13.5px] text-white">Možnost rozvozu po Opavě a Studénce</strong>
+                  <strong className="text-[13.5px] text-white">Možnost rozvozu po Opavě, Studénce a Bílovci</strong>
                   <p className="mt-1 text-[12.5px] text-honey-50/70">{salesPoints.delivery.note}</p>
                 </div>
               </div>

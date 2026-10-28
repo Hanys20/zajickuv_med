@@ -1,0 +1,7 @@
+{
+  "name": "zajickuv-med-email-forward",
+  "account_id": "8313a099897f0a59a1e2248e3584daf3",
+  "main": "worker/email-forward.ts",
+  "compatibility_date": "2026-07-21",
+  "workers_dev": false
+}

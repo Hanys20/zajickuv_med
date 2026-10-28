@@ -10,7 +10,7 @@ nebo Google neodpoví, sekce stále odkazuje na správný profil na Google Maps 
 1. V Google Cloud zapněte účtování a **Places API (New)**. Vytvořte samostatný API klíč
    omezený na tuto API. Nastavte kvótu a upozornění na útratu.
 2. Přihlaste se do správného Cloudflare účtu a uložte klíč jako Worker secret:
-   `npx wrangler secret put GOOGLE_PLACES_API_KEY`. Alternativně jej nastavte v nastavení
+   `npx wrangler secret put GOOGLE_PLACES_API_KEY --config wrangler.worker.jsonc`. Alternativně jej nastavte v nastavení
    Workeru v Cloudflare dashboardu. Klíč neukládejte do Gitu ani do `wrangler.jsonc`.
 3. Volitelně nastavte `GOOGLE_PLACE_ID` na textové ID provozovny z Places API.
    Odkaz na Google Maps ani hexadecimální identifikátor z jeho URL nejsou Place ID.

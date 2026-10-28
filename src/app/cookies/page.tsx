@@ -67,6 +67,14 @@ export default function CookiesPage() {
 
           <Section title="Služby třetích stran">
             <p>
+              Kontaktní formulář chrání Cloudflare Turnstile. Při bezpečnostním ověření se službě
+              předávají technické údaje o prohlížeči a připojení za účelem rozpoznání automatizovaného
+              zneužití. Více uvádějí{' '}
+              <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="underline hover:text-honey-700">
+                zásady ochrany soukromí Cloudflare
+              </a>.
+            </p>
+            <p>
               Na stránce Kontakt zobrazujeme vloženou Google mapu. U recenzí na úvodní stránce mohou
               být fotografie autorů načítány přímo od Googlu. Při načtení těchto prvků může Google
               do vašeho prohlížeče uložit vlastní cookies podle{' '}

@@ -1,16 +1,16 @@
 import { handleGoogleReviews } from './googleReviews';
-import { handleContact } from './contact';
+import { cleanupContact, handleContact, handleContactConfig, retryPendingMessages } from './contact';
+import type { ContactEnv } from './contact';
 import { ADDITIONAL_PRODUCTS } from '../src/lib/additionalProducts';
 import currentPricing from '../content/pricing/cenik.json';
 import { mergePricing } from '../src/lib/pricing';
 import type { Cenik } from '../src/lib/pricing';
 
-export interface Env {
+export interface Env extends ContactEnv {
   ASSETS: Fetcher;
   DB: D1Database;
   GOOGLE_PLACES_API_KEY?: string;
   GOOGLE_PLACE_ID?: string;
-  FORMSPREE_ENDPOINT?: string;
 }
 
 const SESSION_COOKIE = 'session';
@@ -256,6 +256,12 @@ async function handleAdmin(request: Request, env: Env, url: URL): Promise<Respon
 }
 
 export default {
+  async scheduled(_event: ScheduledController, env: Env): Promise<void> {
+    if (env.CONTACT_DB) {
+      await cleanupContact(env.CONTACT_DB);
+      await retryPendingMessages(env.CONTACT_DB, env);
+    }
+  },
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
@@ -264,7 +270,10 @@ export default {
     }
 
     try {
-      if (url.pathname === '/api/contact' && request.method === 'POST') {
+      if (url.pathname === '/api/contact-config') {
+        return handleContactConfig(request, env);
+      }
+      if (url.pathname === '/api/contact') {
         return handleContact(request, env);
       }
       if (url.pathname === '/api/auth/login' && request.method === 'POST') {

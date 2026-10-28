@@ -33,14 +33,15 @@
     }
   ],
   "delivery": {
-    "note": "Po dohodě je možné med dovézt na určené místo v Opavě a okolí a také ve Studénce."
+    "note": "Po dohodě je možné med dovézt na určené místo v Opavě a okolí, ve Studénce a Bílovci."
   },
   "seoLocations": [
     "Ostrava",
     "Opava",
     "Podvihov",
     "Moravskoslezský kraj",
-    "Studénka"
+    "Studénka",
+    "Bílovec"
   ],
   "analytics": {
     "cookieConsentRequired": true,

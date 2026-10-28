@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Availability, Product } from '@/lib/products';
 import { cenik } from '@/lib/content';
 import { ADDITIONAL_PRODUCTS } from '@/lib/additionalProducts';
+import ContactTurnstile from './ContactTurnstile';
 
 export default function ContactForm({
   honeys,
@@ -20,6 +21,9 @@ export default function ContactForm({
   const [productChoice, setProductChoice] = useState('');
   const [message, setMessage] = useState('');
   const [website, setWebsite] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [challengeReset, setChallengeReset] = useState(0);
+  const submission = useRef<{ payload: string; id: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitting = useRef(false);
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
@@ -74,6 +78,15 @@ export default function ContactForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting.current) return;
+    if (!turnstileToken) {
+      setResult({ ok: false, message: 'Dokončete prosím bezpečnostní ověření.' });
+      return;
+    }
+    const fields = { name, email, phone, product: productChoice, message, website };
+    const payload = JSON.stringify(fields);
+    if (submission.current?.payload !== payload) {
+      submission.current = { payload, id: crypto.randomUUID() };
+    }
     submitting.current = true;
     setIsSubmitting(true);
     setResult(null);
@@ -81,15 +94,17 @@ export default function ContactForm({
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name, email, phone, product: productChoice, message, website }),
-        signal: AbortSignal.timeout(20_000),
+        body: JSON.stringify({ ...fields, turnstileToken, submissionId: submission.current.id }),
+        signal: AbortSignal.timeout(30_000),
       });
       const data = await response.json();
-      if (!response.ok || data?.ok !== true) {
+      if (!response.ok || data?.ok !== true || data?.accepted !== true || typeof data?.id !== 'string') {
+        if (response.status === 409) submission.current = null;
         setResult({ ok: false, message: typeof data?.error === 'string' ? data.error : 'Zprávu se nepodařilo odeslat. Zkuste to prosím později nebo nám zavolejte.' });
         return;
       }
-      setResult({ ok: true, message: 'Děkujeme, vaše poptávka byla odeslána. Brzy se vám ozveme.' });
+      setResult({ ok: true, message: 'Děkujeme, vaši poptávku jsme bezpečně přijali. Brzy se vám ozveme.' });
+      submission.current = null;
       setName('');
       setEmail('');
       setPhone('');
@@ -99,6 +114,8 @@ export default function ContactForm({
     } catch {
       setResult({ ok: false, message: 'Odeslání se nepodařilo potvrdit. Zkontrolujte připojení a zkuste to prosím později nebo nám zavolejte.' });
     } finally {
+      setTurnstileToken('');
+      setChallengeReset((value) => value + 1);
       submitting.current = false;
       setIsSubmitting(false);
     }
@@ -237,6 +254,7 @@ export default function ContactForm({
             id="message"
             name="message"
             maxLength={5000}
+            required
             rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -244,10 +262,12 @@ export default function ContactForm({
             className={fieldClass}
           />
         </div>
-        <button type="submit" disabled={isSubmitting} className="btn btn-primary btn-block disabled:cursor-wait disabled:opacity-70">
+        <ContactTurnstile onToken={setTurnstileToken} resetKey={challengeReset} theme={theme} />
+        <button type="submit" disabled={isSubmitting || !turnstileToken} className="btn btn-primary btn-block disabled:cursor-wait disabled:opacity-70">
           {isSubmitting ? 'Odesílání…' : 'Odeslat poptávku'}
         </button>
       </fieldset>
+      <noscript><p>Pro odeslání formuláře zapněte JavaScript, nebo nás kontaktujte e-mailem či telefonicky.</p></noscript>
       {result && (
         <p role={result.ok ? 'status' : 'alert'} className={`rounded-sm border p-3 text-sm ${result.ok ? 'border-green-700/30 bg-green-50 text-green-900' : 'border-red-700/30 bg-red-50 text-red-900'}`}>
           {result.message}

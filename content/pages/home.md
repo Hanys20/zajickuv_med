@@ -27,7 +27,7 @@ CTA: [Přečíst celý náš příběh] → odkaz na /o-farme
 
 1. **Šetrná péče o včely** – Při péči o naše včelstva používáme výhradně organické kyseliny, které se přirozeně vyskytují v přírodě. Vyhýbáme se syntetickým akaricidům a díky šetrnému ošetřování nabízíme med bez reziduí po léčení včelstev.
 2. **Rodinná tradice** – Včelaření se v naší rodině předává po generace. Navazujeme na zkušenosti našich předků a zároveň se stále učíme lépe rozumět včelám a jejich potřebám.
-3. **Vlastní koloběh vosku** – Používáme vosk z našich vlastních včelstev, u kterého známe jeho původ. Mezistěny si vyrábíme sami.
+3. **Vlastní koloběh vosku** – Používáme vosk výhradně z našich včelstev a mezistěny si vyrábíme sami. Známe tak jeho původ i složení. Vosk neředíme parafínem ani oleji a při ošetřování včelstev nepoužíváme syntetické akaricidy, které mohou ve vosku zanechávat rezidua.
 4. **Dřevěné úly** – Včelaříme v dřevěných úlech a dáváme přednost přírodním materiálům před plastovými rámky a plastovými mezistěnami.
 
 Statistika/tagline: **Přes 20 let osobních zkušeností**
