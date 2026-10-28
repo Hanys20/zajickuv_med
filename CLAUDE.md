@@ -49,7 +49,7 @@ Vlastní admin systém (D1 + Cloudflare Worker, popsáno výše) je hotový, ote
 
 Zbývá:
 1. Získat přístupy k doméně `zajickuv-med.cz` od GDstudio (Radim Steuer) a přesměrovat DNS na nasazený Cloudflare Worker.
-2. Kontaktní formulář zatím jen otevře e-mailového klienta (mailto:) s předvyplněnou zprávou – bez backendu. Zvážit rozšíření Worker API o skutečné odeslání.
+2. Kontaktní formulář odesílá přes `POST /api/contact` do Formspree bez přesměrování. Worker binding `FORMSPREE_ENDPOINT` je nastavený v `wrangler.jsonc` na majitelem dodanou adresu `https://formspree.io/f/xzeegrzk` (2026-10-28). Zbývá ověřit doručení do cílové schránky; postup viz `docs/contact-form.md`.
 3. Doladit barevnou paletu, jakmile klient dodá finální design.
 4. Nastavit trvalé přihlašovací údaje do `/admin` pro Pavla (aktuální jsou vygenerované testovací, heslo v plaintextu není nikde v repozitáři).
 
@@ -116,5 +116,5 @@ Viz živý seznam v [client-materials/qa-klient.md](./client-materials/qa-klient
 
 1. Získat přístupy k doméně a DNS od GDstudio, napojit `zajickuv-med.cz` na nasazený Cloudflare Worker (viz Tech stack a Stav scaffoldingu výše).
 2. Až dorazí finální design inspirace od klienta → doladit barevnou paletu.
-3. Vyřešit skutečné odeslání kontaktního formuláře (zatím jen `mailto:`, bez backendu).
+3. Ověřit doručení kontaktního formuláře přes Formspree a Cloudflare Email Routing do cílové schránky (viz `docs/contact-form.md`); endpoint je nastavený v `wrangler.jsonc`.
 4. Nastavit klientovi trvalé přihlašovací údaje do `/admin` (aktuální jsou testovací/vygenerované).

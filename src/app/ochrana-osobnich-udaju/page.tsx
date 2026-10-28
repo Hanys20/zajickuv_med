@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <div className="mx-auto max-w-content">
         <span className="eyebrow">Právní informace</span>
         <h1 className="mt-1.5 text-2xl font-extrabold md:text-[28px]">Zásady ochrany osobních údajů</h1>
-        <p className="mt-2 text-[12.5px] text-ink-dim">Platné od 15. 7. 2025</p>
+        <p className="mt-2 text-[12.5px] text-ink-dim">Aktualizováno 28. 10. 2026</p>
 
         <div className="mt-6 max-w-[70ch]">
           <Section title="Kdo je správcem osobních údajů">
@@ -58,11 +58,10 @@ export default function PrivacyPage() {
               <li>obsah zprávy a vybraný produkt.</li>
             </ul>
             <p>
-              Kontaktní formulář na webu aktuálně jen otevře e-mailového klienta ve vašem zařízení s
-              předvyplněnou zprávou — údaje z formuláře se tedy neodesílají ani neukládají na serveru webu,
-              jdou přímo z vašeho zařízení do vaší e-mailové schránky a následně nám je doručí až vy sami
-              odesláním e-mailu. Tyto údaje pak zpracováváme v naší e-mailové schránce stejně jako běžnou
-              e-mailovou komunikaci.
+              Po stisknutí tlačítka Odeslat poptávku jsou údaje předány přes server webu službě
+              Formspree, která zajišťuje jejich přijetí a doručení do naší e-mailové schránky.
+              Server webu obsah poptávky neukládá do databáze. Zpráva může být uložena ve službě
+              Formspree a v našich e-mailových schránkách pro vyřízení poptávky.
             </p>
           </Section>
 
@@ -77,9 +76,12 @@ export default function PrivacyPage() {
 
           <Section title="Komu údaje předáváme">
             <p>
-              Osobní údaje z poptávek nepředáváme žádným třetím stranám. Web běží na infrastruktuře
-              Cloudflare (hosting), která k obsahu e-mailové komunikace nemá přístup. Více o cookies a
-              technických datech spojených s provozem webu najdete v{' '}
+              Při odeslání formuláře údaje zpracovávají poskytovatel hostingu a přesměrování pošty
+              Cloudflare, služba Formspree, Inc. a poskytovatelé našich e-mailových schránek.
+              Formspree může údaje zpracovávat také v USA. Podrobnosti uvádí{' '}
+              <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" className="underline hover:text-honey-700">
+                zásady ochrany soukromí Formspree
+              </a>. Více o cookies a technických datech spojených s provozem webu najdete v{' '}
               <a className="underline hover:text-honey-700" href="/cookies">
                 zásadách používání cookies
               </a>
@@ -124,7 +126,7 @@ export default function PrivacyPage() {
           <Section title="Změny těchto zásad">
             <p>
               Tyto zásady můžeme čas od času aktualizovat, například při zavedení nových funkcí webu (např.
-              skutečné odeslání formuláře přes server, nebo zapojení analytiky návštěvnosti). Aktuální verze
+              zapojení analytiky návštěvnosti). Aktuální verze
               je vždy dostupná na této stránce.
             </p>
           </Section>

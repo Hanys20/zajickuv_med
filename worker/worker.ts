@@ -1,4 +1,5 @@
 import { handleGoogleReviews } from './googleReviews';
+import { handleContact } from './contact';
 import { ADDITIONAL_PRODUCTS } from '../src/lib/additionalProducts';
 import currentPricing from '../content/pricing/cenik.json';
 import { mergePricing } from '../src/lib/pricing';
@@ -9,6 +10,7 @@ export interface Env {
   DB: D1Database;
   GOOGLE_PLACES_API_KEY?: string;
   GOOGLE_PLACE_ID?: string;
+  FORMSPREE_ENDPOINT?: string;
 }
 
 const SESSION_COOKIE = 'session';
@@ -262,6 +264,9 @@ export default {
     }
 
     try {
+      if (url.pathname === '/api/contact' && request.method === 'POST') {
+        return handleContact(request, env);
+      }
       if (url.pathname === '/api/auth/login' && request.method === 'POST') {
         return handleLogin(request, env);
       }
