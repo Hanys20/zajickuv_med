@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:ui": "node --test scripts/ui-regressions.test.cjs",
     "worker:dev": "wrangler dev --config wrangler.worker.jsonc",
     "test:contact": "node --test worker/contact.test.mjs worker/contact.runtime.test.mjs worker/email-forward.test.mjs",
     "test:pages": "wrangler pages functions build --outdir .wrangler/contact-pages-build && node --test worker/pages.runtime.test.mjs",

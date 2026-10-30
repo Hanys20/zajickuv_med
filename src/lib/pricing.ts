@@ -14,6 +14,10 @@ export type Cenik = Omit<typeof pricingJson, 'waxAndCandles' | 'nucs'> & {
 
 type StoredPricing = Partial<Cenik> & { catalogVersion?: number };
 
+export function formatPrice(price: number | null, unit: string): string {
+  return price === null ? 'Doplníme' : `${price.toLocaleString('cs-CZ')} ${unit}`;
+}
+
 // D1 may still contain the previous catalog. Keep prices edited by the client,
 // while the names, sizes and new product rows come from the current build.
 export function mergePricing(stored: StoredPricing | null | undefined, current: Cenik): Cenik {

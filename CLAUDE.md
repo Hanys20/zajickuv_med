@@ -1,5 +1,23 @@
 # Zajíčkův med – web na míru
 
+## Lokální úpravy intra a cen – 2026-10-30
+
+Vstupní logo zachovává původní kresbu i pořadí animace, ale používá malé statické
+SVG vrstvy jako HTML obrázky; CSS animuje pouze transform/opacity. Podklady jsou
+v `src/lib/introLogo.ts`, regenerace z původního SVG: `node scripts/generate-intro-logo.mjs`.
+Intro se spouští po dekódování obrázků a přípravě vrstev; pomalý start přes 800 ms,
+chyba dekódování, skrytá karta a omezený pohyb jej přeskočí. CSS řídí i odchod,
+časovač je pouze pojistka. Zachováno jedno přehrání za session a Strict Mode cleanup.
+
+Karty všech medů (obě velikosti), propolisu, vosku, svíček a včelstev i ceník nyní
+sdílejí jeden `PricingProvider` a jeden necachovaný požadavek `/api/public/pricing`.
+Částky nadále pocházejí z D1 s fallbackem na `cenik.json`; nezavádět ceny z Markdownu
+do karet. Medovina zůstává bez ceny. Regresní kontroly: `npm run test:ui`.
+
+Úpravy jsou lokální, bez nasazení. Produkční sestavení a automatické kontroly prošly;
+vizuální kontrolu nástroj Computer Use zastavil, protože neurčil aktuální URL Chrome.
+Plynulost na fyzickém telefonu proto zatím nebyla změřena.
+
 Paměťový soubor pro práci na projektu. Čti před zahájením jakékoli práce, aktualizuj při zásadních rozhodnutích.
 
 ## Přehled projektu

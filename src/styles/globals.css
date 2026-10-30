@@ -2,6 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Small, decoded images animate on compositor layers; SVG paths stay static. */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: theme('colors.paper');
+  pointer-events: none;
+  contain: strict;
+  will-change: opacity;
+  animation: intro-exit 300ms ease 1450ms both paused;
+}
+.intro-logo {
+  position: relative;
+  height: min(300px, 60vh);
+  aspect-ratio: 103.6 / 152.34;
+}
+.intro-part {
+  position: absolute;
+  display: block;
+  will-change: transform, opacity;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.intro-jar { will-change: auto; }
+.intro-honey { animation: intro-fill 620ms cubic-bezier(.33, 1, .68, 1) 140ms both paused; }
+.intro-sides { animation: intro-hide 90ms ease 830ms both paused; }
+.intro-nose { animation: intro-nose 160ms cubic-bezier(.22, 1, .36, 1) 670ms both paused; }
+.intro-whiskers-left { animation: intro-whiskers 220ms cubic-bezier(.22, 1, .36, 1) 790ms both paused; }
+.intro-whiskers-right { animation: intro-whiskers 220ms cubic-bezier(.22, 1, .36, 1) 830ms both paused; }
+.intro-ear-left { animation: intro-ear 300ms cubic-bezier(.22, 1, .36, 1) 1010ms both paused; }
+.intro-ear-right { animation: intro-ear 300ms cubic-bezier(.22, 1, .36, 1) 1070ms both paused; }
+.intro-playing,
+.intro-playing .intro-part { animation-play-state: running; }
+
+@keyframes intro-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes intro-hide { from { opacity: 1; } to { opacity: 0; } }
+@keyframes intro-nose {
+  from { transform: scale(.72); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes intro-whiskers {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+@keyframes intro-ear {
+  from { transform: translateY(4px) scaleY(0); opacity: 0; }
+  to { transform: translateY(0) scaleY(1); opacity: 1; }
+}
+@keyframes intro-exit { from { opacity: 1; } to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay { display: none; }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

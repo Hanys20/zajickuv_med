@@ -6,12 +6,13 @@ import HoneyCards from './HoneyCards';
 import PricingTable from './PricingTable';
 import OfferCards, { type OfferProduct } from './OfferCards';
 import Reveal from '@/components/ui/Reveal';
+import PricingProvider from './PricingProvider';
 
 export default function ProductsPricing() {
   const honeys = getHoneys();
   const propolis = getPropolis();
   const offerProducts: OfferProduct[] = [
-    ...propolis.map((product) => ({
+    ...propolis.map<OfferProduct>((product) => ({
       slug: product.slug,
       name: product.name,
       category: 'Propolis',
@@ -22,6 +23,7 @@ export default function ProductsPricing() {
           : '/images/photos/propolis-skrabany.webp',
       href: `/kontakt?produkt=${product.slug}#kontakt`,
       availability: product.availability,
+      pricingGroup: 'propolis',
     })),
     ...ADDITIONAL_PRODUCTS.map((product) => ({
       ...product,
@@ -29,13 +31,12 @@ export default function ProductsPricing() {
       href: `/kontakt?produkt=${product.slug}#kontakt`,
       cta: product.group === 'nucs' ? 'Poptat' : 'Mám zájem',
       pricingGroup: product.group,
-      price: cenik[product.group].find((row) => row.name === product.name)?.price ?? null,
-      unit: cenik[product.group].find((row) => row.name === product.name)?.unit,
     })),
   ];
 
   return (
     <section id="nabidka" className="scroll-mt-24 border-b border-border px-4 py-8 sm:px-6 md:py-12">
+      <PricingProvider initialPricing={cenik}>
       <Reveal className="mx-auto max-w-content">
         <div className="text-center">
           <span className="eyebrow">Naše nabídka</span>
@@ -78,9 +79,10 @@ export default function ProductsPricing() {
         </div>
 
         <div id="cenik" className="scroll-mt-28 pt-4">
-          <PricingTable initialCenik={cenik} />
+          <PricingTable />
         </div>
       </Reveal>
+      </PricingProvider>
     </section>
   );
 }

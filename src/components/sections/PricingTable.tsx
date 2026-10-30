@@ -1,24 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Cenik } from '@/lib/content';
-import { mergePricing } from '@/lib/pricing';
+import { formatPrice } from '@/lib/pricing';
+import { usePricing } from './PricingProvider';
 
-export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) {
-  const [cenik, setCenik] = useState(initialCenik);
-
-  useEffect(() => {
-    fetch('/api/public/pricing')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: Cenik | null) => {
-        if (data) {
-          setCenik(mergePricing(data, initialCenik));
-        }
-      })
-      .catch(() => {});
-  }, []);
+export default function PricingTable() {
+  const cenik = usePricing();
 
   return (
     <div className="mt-6">
@@ -55,7 +43,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                   <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">Med (všechny druhy)</td>
                   <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">{row.size}</td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price} {row.unit.split('/')[0].trim()}
+                    {formatPrice(row.price, row.unit.split('/')[0].trim())}
                   </td>
                 </tr>
               ))}
@@ -66,7 +54,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                     {row.name.replace('Karton ', '')}
                   </td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price.toLocaleString('cs-CZ')} {row.unit}
+                    {formatPrice(row.price, row.unit)}
                   </td>
                 </tr>
               ))}
@@ -75,7 +63,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                   <td className="border-b border-block px-2 py-2 sm:px-5 sm:py-2.5">{row.name}</td>
                   <td className="border-b border-block bg-honey-50/70 px-2 py-2 sm:px-5 sm:py-2.5">{row.size}</td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price} {row.unit}
+                    {formatPrice(row.price, row.unit)}
                   </td>
                 </tr>
               ))}
@@ -86,7 +74,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                     {row.size ?? 'Doplníme'}
                   </td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price === null ? 'Doplníme' : `${row.price.toLocaleString('cs-CZ')} ${row.unit}`}
+                    {formatPrice(row.price, row.unit)}
                   </td>
                 </tr>
               ))}
@@ -97,7 +85,7 @@ export default function PricingTable({ initialCenik }: { initialCenik: Cenik }) 
                     {row.size ?? 'Doplníme'}
                   </td>
                   <td className="border-b border-block px-2 py-2 text-right font-bold tabular-nums text-honey-700 sm:px-5 sm:py-2.5">
-                    {row.price === null ? 'Doplníme' : `${row.price.toLocaleString('cs-CZ')} ${row.unit}`}
+                    {formatPrice(row.price, row.unit)}
                   </td>
                 </tr>
               ))}

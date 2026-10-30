@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Badge from '@/components/ui/Badge';
 import type { Availability } from '@/lib/products';
+import { formatPrice } from '@/lib/pricing';
 
 export type OfferCardProps = {
   name: string;
@@ -14,6 +15,7 @@ export type OfferCardProps = {
   note?: string;
   price?: number | null;
   unit?: string;
+  size?: string | null;
 };
 
 export default function OfferCard({
@@ -27,6 +29,7 @@ export default function OfferCard({
   note,
   price,
   unit,
+  size,
 }: OfferCardProps) {
   return (
     <article className="flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-md border border-border bg-paper-raised sm:w-[calc((100%-64px)/2)] lg:w-[calc((100%-96px)/4)]">
@@ -46,9 +49,10 @@ export default function OfferCard({
         <span className="text-[10px] font-bold uppercase tracking-wider text-honey-700">{category}</span>
         <h3 className="mt-1 text-[14px] font-bold leading-snug">{name}</h3>
         <p className="mt-1.5 flex-1 text-xs leading-relaxed text-ink-dim">{description}</p>
-        {price !== undefined && price !== null && (
+        {price !== undefined && (
           <p className="mt-2 text-sm font-extrabold text-honey-700">
-            {price.toLocaleString('cs-CZ')} {unit}
+            {formatPrice(price, unit ?? 'Kč')}
+            {size && <span className="text-xs font-semibold text-ink-dim"> / {size}</span>}
           </p>
         )}
         {note && <p className="mt-1.5 text-[11px] font-semibold text-honey-700">{note}</p>}
